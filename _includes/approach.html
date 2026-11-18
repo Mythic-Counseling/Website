@@ -8,14 +8,13 @@
 {%- assign paragraphs = a.body | strip | split: "
 
 " -%}
-{%- assign numerals = "I,II,III,IV,V,VI" | split: "," -%}
 <section class="section section--parchment section--tight approach-band" aria-labelledby="approach-heading">
   <div class="container">
     <h2 id="approach-heading" class="section-title">{{ a.heading }}</h2>
     <div class="approach-band__cols">
       {%- for para in paragraphs %}
       <div class="approach-band__col">
-        <span class="approach-band__numeral" aria-hidden="true">{{ numerals[forloop.index0] }}</span>
+        <span class="approach-band__numeral" aria-hidden="true">{% include numeral.html n=forloop.index %}</span>
         {{ para | markdownify }}
       </div>
       {%- endfor %}

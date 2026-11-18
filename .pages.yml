@@ -123,6 +123,10 @@ content:
           - { name: heading, type: string }
           - { name: body, label: Body (markdown), type: text }
           - { name: submit, label: Button, type: string }
+      - name: numerals
+        label: Card numbering
+        type: select
+        options: { values: [roman, greek, runes] }
       - name: booking
         label: Booking dialog
         type: object

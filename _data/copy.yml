@@ -83,6 +83,9 @@ contact:
   submit: "SEND"
   email_label: "Email"   # NEW
 
+# Numbering style for the specialty and approach cards: roman, greek or runes.
+numerals: greek
+
 # The booking dialog opened by every "Book now" button.
 booking:
   heading: "Reserve Your Appointment"

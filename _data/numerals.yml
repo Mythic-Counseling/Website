@@ -1,0 +1,7 @@
+# Numeral sets for numbered cards (specialties, approach). Choose one with
+# `numerals:` in _data/copy.yml.
+roman: [I, II, III, IV, V, VI, VII, VIII, IX, X]
+# Ionic Greek numerals, each followed by the keraia mark (ʹ).
+greek: [Αʹ, Βʹ, Γʹ, Δʹ, Εʹ, Ϛʹ, Ζʹ, Ηʹ, Θʹ, Ιʹ]
+# Elder Futhark, in alphabet order.
+runes: [ᚠ, ᚢ, ᚦ, ᚨ, ᚱ, ᚲ, ᚷ, ᚹ, ᚺ, ᚾ]

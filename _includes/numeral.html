@@ -1,0 +1,4 @@
+{%- comment -%} The nth numeral (1-based) in the style set by `numerals` in _data/copy.yml. Param: n. {%- endcomment -%}
+{%- assign style = site.data.copy.numerals | default: "roman" -%}
+{%- assign i = include.n | minus: 1 -%}
+{{- site.data.numerals[style][i] -}}

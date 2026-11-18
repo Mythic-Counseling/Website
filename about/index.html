@@ -38,7 +38,7 @@ schema_type: AboutPage
       {%- assign intro = parts | first %}
       {%- assign rest = "" %}{% if parts.size > 1 %}{% assign rest = parts | last | strip %}{% endif %}
       <article class="specialty{% if body == '' %} specialty--empty{% endif %}" id="{{ sp.slug }}">
-        <span class="specialty__number" aria-hidden="true">{{ forloop.index | prepend: "0" }}</span>
+        <span class="specialty__number" aria-hidden="true">{% include numeral.html n=forloop.index %}</span>
         <h3>{{ sp.title }}</h3>
         {%- if body != "" %}
         <div class="specialty__intro">{{ intro | markdownify }}</div>
