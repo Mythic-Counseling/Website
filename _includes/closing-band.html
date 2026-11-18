@@ -1,0 +1,14 @@
+{%- assign copy = site.data.copy.closing -%}
+<section class="closing" aria-labelledby="closing-heading">
+  <div class="closing__bg" aria-hidden="true">
+    {% include picture.html name="reserve-consultation-background" decorative="true" class="closing__bg-img" %}
+  </div>
+  <div class="container closing__inner">
+    <img class="closing__art" src="{{ '/assets/images/sisyphus-boulder-mountain-640.webp' | relative_url }}" alt="" width="640" height="265" loading="lazy">
+    <h2 id="closing-heading">{{ copy.heading }}</h2>
+    <div class="closing__actions">
+      {% include book-button.html class="button--light" %}
+      <a class="button button--ghost-light" href="{{ '/contact/' | relative_url }}">{{ copy.contact_button }}</a>
+    </div>
+  </div>
+</section>

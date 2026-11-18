@@ -2,28 +2,32 @@
 layout: null
 sitemap: false
 ---
-# Mythic Counseling of Florida
+{%- assign copy = site.data.copy -%}
+{%- assign services = site.services | sort: "order" -%}
+{%- assign specialties = site.specialties | sort: "order" -%}
+# {{ site.title }}
 
-> Holistic, Humanistic Wellness, Tailored to Fit Your Needs. A Person-Centered, Non-Pathologizing Alternative to Mental Health, serving clients in Florida.
+> {{ site.tagline }}. {{ copy.approach.heading }} Serving clients in {{ site.region }}.
 
-My approach to counseling brings together evidence-based therapeutic practices with a humanistic and existential understanding of personal growth and well-being. I believe that people are more than the diagnoses they carry or the experiences they have endured.
+{{ copy.approach.body | split: "
+
+" | first | strip }}
 
 - Contact email: {{ site.email }}
-- Online booking: {{ '/appointments/' | absolute_url }}
+- Book online: {{ '/#book' | absolute_url }}
 - Service area: {{ site.region }}
+- Full text of every service and specialty: {{ '/llms-full.txt' | absolute_url }}
 
 ## Services
-
-- [Free Initial 30 Minute Consultation]({{ '/services/free-consultation/' | absolute_url }}): An introductory one-on-one session to get to know one another. If you decide to work with me, we will develop a personalized wellness roadmap. Free.
-- [60 Minute Individual Counseling Sessions]({{ '/services/individual-counseling/' | absolute_url }}): Standard 60-minute individual counseling. Longer sessions are available by request. $130 per hour.
-- [90 Minute Group Counseling Sessions]({{ '/services/group-counseling/' | absolute_url }}): $150 per participant per group. Topics include Celebrating Neurodiversity, Men’s Mental Health, Surviving and Thriving with ADHD and Autism, and Surviving and Thriving with Complex/Chronic Illness.
-- [Intentional Peer Support Training (Individual and Organizational)]({{ '/services/intentional-peer-support-training/' | absolute_url }}): Trainings and certification in Intentional Peer Support are available by request, for individuals and for Respite Programs or other mental health organizations.
+{% for s in services %}
+- [{{ s.heading }}]({{ s.url | absolute_url }}): {{ s.content | split: "<!--more-->" | first | markdownify | strip_html | strip }} ({{ s.duration }}{% if s.price_label %}; {{ s.price_label | remove: "." }}{% endif %}){% if s.topics %} Topics: {{ s.topics | map: "name" | join: "; " }}.{% endif %}
+{%- endfor %}
 
 ## About
 
-- [My Personal and Professional Journey]({{ '/about/' | absolute_url }}): Lived experience with mental health challenges, evidence based traditional mental health modalities, and humanistic alternatives to the mainstream system. Specialties: Suicidology; Chronic Depression/Treatment Resistant Depression; Neurodiversity; Complex/Chronic Illness.
+- [{{ copy.about.heading }}]({{ '/about/' | absolute_url }}): {{ copy.about.body | markdownify | strip_html | split: "
+" | first | strip }} {{ copy.about.specialties_heading }}: {{ specialties | map: "title" | join: "; " }}.
 
 ## Get in touch
 
-- [Appointments]({{ '/appointments/' | absolute_url }}): Reserve Your Appointment. Secure a time that suits your schedule.
-- [Contact]({{ '/contact/' | absolute_url }}): Share your name, email address, and a little about what brings you to counseling.
+- [Contact]({{ '/contact/' | absolute_url }}): {{ copy.contact.heading }}.

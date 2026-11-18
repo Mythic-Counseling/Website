@@ -1,14 +1,23 @@
-{%- comment -%} Shared "approach" section used on every service page. {%- endcomment -%}
-<section class="section section--split section--parchment" aria-labelledby="approach-heading">
-  <div class="container split">
-    <figure class="split__media split__media--round">
-      {% include picture.html name="tree-of-life-medallion" sizes="(min-width: 960px) 420px, 80vw" %}
+{%- comment -%}
+  "A Person-Centered…" approach copy from _data/copy.yml.
+  Param: collapsed ("true" renders it as an expandable panel).
+{%- endcomment -%}
+{%- assign a = site.data.copy.approach -%}
+{%- if include.collapsed == "true" -%}
+<details class="disclosure disclosure--approach">
+  <summary><span>{{ site.data.copy.service_page.approach_toggle }}</span></summary>
+  <div class="disclosure__body prose">{{ a.body | markdownify }}</div>
+</details>
+{%- else -%}
+<section class="section section--parchment" id="approach" aria-labelledby="approach-heading">
+  <div class="container approach">
+    <figure class="approach__media">
+      {% include picture.html name="tree-of-life-medallion" sizes="(min-width: 900px) 340px, 60vw" %}
     </figure>
-    <div class="split__body prose">
-      <h2 id="approach-heading" class="accent">A Person-Centered, Non-Pathologizing Alternative to Mental Health.</h2>
-      <p class="lead">My approach to counseling brings together evidence-based therapeutic practices with a humanistic and existential understanding of personal growth and well-being. I believe therapy should be about more than simply alleviating distress or finding relief from life's difficulties; it should also create space for discovering who you are, understanding what matters to you, and building a life that feels meaningful and fulfilling.</p>
-      <p class="lead">Our work together is guided by your individual experiences, values, and aspirations. Rather than relying on a one-size-fits-all approach, I strive to create a therapeutic experience that honors your unique perspective, supports your personal growth, and helps you move toward the life you genuinely want to live.</p>
-      <p class="lead">My goal is to create a welcoming, comfortable, and confidential space where you feel heard, respected, and supported. From our first conversation through every step of the counseling process, I strive to provide a thoughtful, intentional experience centered around your individual needs, your personal growth, and the goals that matter most to you.</p>
+    <div class="approach__body">
+      <h2 id="approach-heading">{{ a.heading }}</h2>
+      <div class="approach__text">{{ a.body | markdownify }}</div>
     </div>
   </div>
 </section>
+{%- endif -%}

@@ -18,12 +18,13 @@ email: "evan@mythic-counseling.com"
 region: "Florida"
 default_image: /assets/images/og-mythic-counseling.jpg
 
-# Online scheduling. Every "Book" button links to /appointments/.
+# Online scheduling. Every "Book now" button opens the booking dialog
+# (_includes/booking-dialog.html).
 # Google Calendar appointment schedules: paste the URL from each schedule's
 # Share → Website embed → Inline booking page code (the src="…" value, which
 # looks like https://calendar.google.com/calendar/appointments/schedules/…?gv=true).
-# See docs/2-booking-and-forms.md. While both are empty, the Appointments
-# page falls back to the Acuity scheduler below.
+# See docs/google-workspace-setup.md. While both are empty, the dialog falls
+# back to the Acuity scheduler below.
 booking:
   google:
     consultation: ""   # Free Initial 30 Minute Consultation
@@ -32,26 +33,43 @@ booking:
   acuity_embed_url: "https://app.acuityscheduling.com/schedule.php?owner=40782217&calendarID=14740761"
 
 # Google Forms. Paste each form's "viewform" link (Send → link icon).
-# `contact` replaces the Contact page form and `journey` the "Begin Your Mythic
-# Journey" form on the service pages (they can be the same form). While a link
-# is empty, that form falls back to opening the visitor's email app addressed
-# to `email`.
+# `contact` replaces the Contact page form. While it is empty, the form falls
+# back to opening the visitor's email app addressed to `email`.
 forms:
   contact: ""
-  journey: ""
-  ips_training: "https://docs.google.com/forms/d/e/1FAIpQLSfJbXN4H5pAM3Z-CP7NRwNLcC3HfK3nKOdQ9SN5D31nme1ANg/viewform?usp=dialog"
-  group_counseling: "https://docs.google.com/forms/d/e/1FAIpQLSfuu8bHm49I2RhLA8yUZkRlmjL3u26UOo9Fa6mnnK7b1KzI_A/viewform?usp=dialog"
 
 permalink: pretty
 markdown: kramdown
+
+# Page copy lives in Markdown/YAML so it can be edited without touching HTML:
+#   _services/*.md     one file per service (becomes /services/<file-name>/)
+#   _specialties/*.md  one file per specialty on the About page
+#   _data/copy.yml     everything else (home, services hub, about, contact…)
+# In _services and _specialties, text above a <!--more--> line is the short summary
+# shown on cards; the rest is revealed with "Read more".
+excerpt_separator: "<!--more-->"
+collections:
+  services:
+    output: true
+    permalink: /services/:name/
+  specialties:
+    output: false
 
 defaults:
   - scope:
       path: ""
     values:
       layout: default
+  - scope:
+      path: ""
+      type: services
+    values:
+      layout: service
+      body_class: service
+      hero_image: misty-mountain-river
 
 exclude:
+  - .pages.yml
   - README.md
   - docs/
   - Gemfile

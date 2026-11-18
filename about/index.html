@@ -6,48 +6,56 @@ body_class: about
 hero_image: laurel-framed-mountain-lake
 schema_type: AboutPage
 ---
-<section class="hero hero--about">
-  <div class="hero__bg" aria-hidden="true">
-    {% include picture.html name="laurel-framed-mountain-lake" priority="true" decorative="true" class="hero__bg-img" %}
+{%- assign copy = site.data.copy.about -%}
+{%- assign specialties = site.specialties | sort: "order" -%}
+<section class="page-head page-head--about">
+  <div class="page-head__bg" aria-hidden="true">
+    {% include picture.html name="laurel-framed-mountain-lake" priority="true" decorative="true" class="page-head__bg-img" %}
   </div>
-  <div class="container hero__inner">
-    <div class="hero__card prose">
-      <h1>My Personal and Professional Journey</h1>
-      <p><strong>My Personal and Professional Journey</strong></p>
-      <p>I bring a unique blend of deep lived experience with mental health challenges, evidence based traditional mental health modalities, and humanistic alternatives to the mainstream system.</p>
-      <p>My own mental health journey began much earlier than I</p>
+  <div class="container page-head__inner page-head__inner--single">
+    <div class="page-head__card prose">
+      <h1>{{ copy.heading }}</h1>
+      {{ copy.body | markdownify }}
     </div>
   </div>
 </section>
 
 <section class="section section--parchment" aria-labelledby="specialties-heading">
   <div class="container">
-    <div class="section__intro">
-      <figure class="section__banner">
-        {% include picture.html name="olive-vine-column-emblem" sizes="(min-width: 960px) 420px, 80vw" %}
+    <header class="section-head section-head--with-art">
+      <figure class="section-head__art">
+        {% include picture.html name="olive-vine-column-emblem" sizes="200px" %}
       </figure>
-      <h2 id="specialties-heading">My Specialties</h2>
-    </div>
+      <div>
+        <h2 id="specialties-heading">{{ copy.specialties_heading }}</h2>
+        <ul class="jump-links">
+          {%- for sp in specialties %}
+          <li><a href="#{{ sp.slug }}">{{ sp.title }}</a></li>
+          {%- endfor %}
+        </ul>
+      </div>
+    </header>
 
-    <div class="specialties prose">
-      <article class="specialty" id="suicidology">
-        <h3>Suicidology</h3>
-        <p>I am experienced in supporting people through both acute suicidal crisis, as well as chronic, longer-term suicidality. I have been on both sides of the “clipboard” so to speak, both as a giver and as a receiver of professional help during a mental health crisis. I remember what interactions with doctors and therapists were helpful, and what things made me feel worse. I hold those experiences close to my heart when I meet others in that same space, and my therapeutic style is informed not only by my direct lived experiences with aspects of the mainstream mental health system that I found to be harmful while I was navigating it. As a result, I have cultivated a very nuanced and revolutionary framework for understanding the real psychological meaning and significance behind suicidal ideation, and for redefining what the language of self-harm is really trying to communicate, and for how to have a more helpful and healing dialogue with those parts of the self.</p>
+    <div class="specialties">
+      {%- for sp in specialties %}
+      {%- assign body = sp.content | strip %}
+      {%- assign parts = body | split: "<!--more-->" %}
+      {%- assign intro = parts | first %}
+      {%- assign rest = "" %}{% if parts.size > 1 %}{% assign rest = parts | last | strip %}{% endif %}
+      <article class="specialty{% if body == '' %} specialty--empty{% endif %}" id="{{ sp.slug }}">
+        <span class="specialty__number" aria-hidden="true">{{ forloop.index | prepend: "0" }}</span>
+        <h3>{{ sp.title }}</h3>
+        {%- if body != "" %}
+        <div class="specialty__intro">{{ intro | markdownify }}</div>
+        {%- if rest != "" %}
+        <details class="specialty__more">
+          <summary><span class="when-closed">{{ copy.read_more }}</span><span class="when-open">{{ copy.read_less }}</span></summary>
+          <div class="specialty__rest">{{ rest | markdownify }}</div>
+        </details>
+        {%- endif %}
+        {%- endif %}
       </article>
-
-      <article class="specialty" id="treatment-resistant-depression">
-        <h3>Chronic Depression/Treatment Resistant Depression</h3>
-        <p>As someone who struggled for more than a decade with treatment resistant depression, I am intimately aware of the existential implications of surviving in a place like that for long periods of time. After a while, it can become difficult to remember the person you were before, or to imagine a world in which you could become someone else or find your way back. When you spend enough time in a depressed state, eventually those depressive feelings start to become stable personality structures, and the depression becomes enmeshed and entangled with your sense of self. My therapeutic style focuses on helping clients to find meaning within the story they are living, to deconstruct the ways in which depression has begun to influence their self-concept, to explore other ways of defining themselves and the role that they are playing within their story, and to make meaningful changes towards the life that they want for themselves.</p>
-      </article>
-
-      <article class="specialty" id="neurodiversity">
-        <h3>Neurodiversity</h3>
-        <p>I was diagnosed with ADHD when I was seven years old, and spent the majority of my major developmental milestones from the ages of 7-25 on some form of stimulant based psycho-pharmaceutical in order to survive the public school system as a neuro-diverse student with unmet support needs. I deeply understand the distress and trauma that comes from being a neuro-diverse individual trying to survive in a neurotypical world, and my therapeutic style when working with neuro-diverse clients reflects this. I work with clients to help deconstruct the shame, guilt, and self-blame that comes from a lifetime of being told that there’s something wrong with the way you think, process and behave because it doesn’t fit the neurotypical mold. Whether you are a student who is really struggling against burnout in order to be successful academically while leveraging your talents without the support you need, or an adult who is struggling to navigate the complexities of modern living as a result of thinking and processing differently than the population that our system was designed for, I am confident that I can meet you where you are at in your journey of defining a sustainable and satisfying life for yourself within a world that often times feel very hostile to people who think and experience the world differently.</p>
-      </article>
-
-      <article class="specialty" id="complex-chronic-illness">
-        <h3>Complex/Chronic Illness</h3>
-      </article>
+      {%- endfor %}
     </div>
   </div>
 </section>

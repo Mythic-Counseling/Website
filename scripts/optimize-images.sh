@@ -2,6 +2,7 @@
 # Regenerates the responsive images in assets/images/ from the master PNGs in
 # assets/images/original/. Requires cwebp (brew install webp) and macOS sips.
 # Output per image: WebP at 640/1024/1536 px wide (capped at the source width)
+# (the boulder cut-out gets 96/192 px icon sizes instead)
 # plus one 1024 px PNG fallback for browsers without WebP support.
 set -euo pipefail
 
@@ -12,6 +13,12 @@ WIDTHS=(640 1024 1536)
 
 for png in "$SRC"/*.png; do
   name="$(basename "$png" .png)"
+  # The boulder cut-out is only used as a small icon.
+  if [[ "$name" == boulder ]]; then
+    for w in 96 192; do cwebp -quiet -q 82 -alpha_q 90 -resize "$w" 0 "$png" -o "$OUT/$name-$w.webp"; done
+    sips --resampleWidth 192 "$png" --out "$OUT/$name-192.png" >/dev/null
+    continue
+  fi
   src_w="$(sips -g pixelWidth "$png" | awk '/pixelWidth/ {print $2}')"
   for w in "${WIDTHS[@]}"; do
     (( w > src_w )) && w="$src_w"

@@ -1,0 +1,52 @@
+---
+layout: null
+sitemap: false
+---
+{%- assign copy = site.data.copy -%}
+{%- assign services = site.services | sort: "order" -%}
+{%- assign specialties = site.specialties | sort: "order" -%}
+# {{ site.title }}
+
+> {{ site.tagline }}
+
+Website: {{ '/' | absolute_url }}
+Email: {{ site.email }}
+Service area: {{ site.region }}
+
+## {{ copy.approach.heading }}
+
+{{ copy.approach.body | strip }}
+
+## {{ copy.home.philosophy.heading }}
+
+{{ copy.home.philosophy.body | strip }}
+
+## {{ copy.services_page.heading }}
+{% for s in services %}
+### {{ s.heading }}
+
+URL: {{ s.url | absolute_url }}
+{{ copy.services_page.table.length }}: {{ s.duration }}
+{%- if s.price_label %}
+{{ copy.services_page.table.investment }}: {{ s.price_label }}{% endif %}
+
+{{ s.content | replace: "<!--more-->", "" | markdownify | strip_html | strip }}
+{%- for t in s.topics %}
+
+- {{ t.name }}: {{ t.text }}
+{%- endfor %}
+{%- if s.note %}
+
+{{ s.note | markdownify | strip_html | strip }}
+{%- endif %}
+{% endfor %}
+## {{ copy.about.heading }}
+
+{{ copy.about.body | strip }}
+
+## {{ copy.about.specialties_heading }}
+{% for sp in specialties %}
+### {{ sp.title }}
+
+{{ sp.content | replace: "<!--more-->", "" | strip }}
+{% endfor %}

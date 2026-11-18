@@ -72,3 +72,18 @@ olive-vine-column-emblem:
   widths: [640, 1024, 1536]
   fallback: 1024
   alt: "Classical Ionic column entwined with an olive vine"
+
+# Transparent cut-outs from the logo (scripts/extract-logo-art.py).
+sisyphus-boulder-mountain:
+  width: 1120
+  height: 464
+  widths: [640, 1024, 1120]
+  fallback: 1024
+  alt: "Sisyphus pushing a boulder up a mountain"
+
+boulder:
+  width: 192
+  height: 192
+  widths: [96, 192]
+  fallback: 192
+  alt: "The boulder from the Mythic Counseling emblem"

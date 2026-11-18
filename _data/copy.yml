@@ -1,0 +1,91 @@
+# Page copy for Mythic Counseling of Florida.
+#
+# Edit the text between the quotes (or under a `|` block). Markdown works in
+# any field marked (markdown): **bold**, *italic*, [link text](https://…),
+# and a blank line starts a new paragraph.
+#
+# Service and specialty text lives in _services/ and _specialties/.
+# Lines marked NEW are copy that was not on the original Squarespace site —
+# keep, rewrite or delete them.
+
+home:
+  hero:
+    # Each line of the main heading (indented in a cascade on desktop).
+    title_lines:
+      - "Holistic,"
+      - "Humanistic Wellness,"
+      - "Tailored to Fit Your Needs"
+    secondary_button: "Services Offered"
+  services:
+    heading: "Services Offered"
+  philosophy:
+    heading: "My Philosophy"
+    body: |  # (markdown)
+      I believe that people are more than the diagnoses they carry or the experiences they have endured. I believe that what we often understand as “symptoms” are often an understandable human response to stressful and sometimes traumatic circumstances. I believe in the inherent worth and dignity of every person who walks through my door. I approach each individual with the understanding that they are doing the best they can with the experiences they have had and the tools available to them.
+
+      I believe that well-being is an art—one cultivated through knowledge, intentional self-reflection, a deeper understanding of our lived experiences, and the transformative potential of genuine human connection. It is not simply the absence of suffering, but the ongoing process of discovering who we are, recognizing who we wish to become, and developing the capacity to live a life that feels meaningful, authentic, and wholly our own.
+    # NEW — a short quotation (fair use) from Camus' essay, Justin O'Brien translation.
+    # Delete both lines to hide the quote.
+    quote: "The struggle itself toward the heights is enough to fill a man’s heart. One must imagine Sisyphus happy."
+    quote_source: "Albert Camus, The Myth of Sisyphus"
+  journey:
+    heading: "My Journey"
+    body: "If you would like to learn more about the path that led me into the mental health field and the experiences that shape the way I approach counseling, you can read more about them here."
+    button: "Explore"
+  reserve:
+    heading: "Reserve Your Consultation"
+    body: "Secure a time that suits your schedule; a refined approach begins with a conversation."
+    button: "Book Now"
+
+# Shown on the Services page and, collapsed, on every service page.
+approach:
+  heading: "A Person-Centered, Non-Pathologizing Alternative to Mental Health."
+  body: |  # (markdown)
+    My approach to counseling brings together evidence-based therapeutic practices with a humanistic and existential understanding of personal growth and well-being. I believe therapy should be about more than simply alleviating distress or finding relief from life's difficulties; it should also create space for discovering who you are, understanding what matters to you, and building a life that feels meaningful and fulfilling.
+
+    Our work together is guided by your individual experiences, values, and aspirations. Rather than relying on a one-size-fits-all approach, I strive to create a therapeutic experience that honors your unique perspective, supports your personal growth, and helps you move toward the life you genuinely want to live.
+
+    My goal is to create a welcoming, comfortable, and confidential space where you feel heard, respected, and supported. From our first conversation through every step of the counseling process, I strive to provide a thoughtful, intentional experience centered around your individual needs, your personal growth, and the goals that matter most to you.
+
+services_page:
+  heading: "Services Offered"
+  # NEW — column headings for the at-a-glance table.
+  table:
+    service: "Service"
+    length: "Length"
+    investment: "Investment"
+    begin: "How to begin"
+  details_link: "Details"   # NEW
+
+about:
+  heading: "My Personal and Professional Journey"
+  body: |  # (markdown)
+    I bring a unique blend of deep lived experience with mental health challenges, evidence based traditional mental health modalities, and humanistic alternatives to the mainstream system.
+
+    My own mental health journey began much earlier than I
+  specialties_heading: "My Specialties"
+  read_more: "Read more"    # NEW
+  read_less: "Show less"    # NEW
+
+contact:
+  heading: "Begin Your Path to A More Actualized Self"
+  body: |  # (markdown)
+    Whether you are new to counseling or looking to continue on a journey you’ve already started, making a meaningful connection with a new counselor can feel like a big undertaking. Share your name, email address, and a little about what brings you to counseling or what you'd like to explore, and I'll reach out soon to schedule a brief introductory phone call so we can connect, get to know one another, and talk about how I may be able to support you on whatever step of this journey you find yourself on.
+  submit: "SEND"
+  email_label: "Email"   # NEW
+
+# The booking dialog opened by every "Book now" button.
+booking:
+  heading: "Reserve Your Appointment"
+  body: "Secure a time that suits your schedule."
+  button: "Book now"
+  close: "Close"
+
+# Band shown above the footer on inner pages.
+closing:
+  heading: "Begin Your Mythic Journey"
+  contact_button: "Contact"
+
+service_page:
+  approach_toggle: "A Person-Centered, Non-Pathologizing Alternative to Mental Health."
+  others_heading: "Services Offered"

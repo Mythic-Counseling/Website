@@ -1,0 +1,144 @@
+# Pages CMS (https://pagescms.org) — optional browser-based editor for the copy.
+# Sign in at app.pagescms.org with GitHub, open this repository, and edit
+# Services, Specialties and Page copy in a form; saving commits to the branch.
+
+media:
+  input: assets/images/original
+  output: /assets/images/original
+
+content:
+  - name: services
+    label: Services
+    type: collection
+    path: _services
+    view:
+      fields: [heading, order]
+      primary: heading
+      sort: [order]
+    fields:
+      - { name: title, label: Menu title, type: string, required: true }
+      - { name: heading, label: Page heading, type: string, required: true }
+      - { name: order, label: Order, type: number }
+      - { name: description, label: Search description (≤160 characters), type: text }
+      - { name: duration, label: Length, type: string }
+      - { name: price_label, label: Price as shown, type: string }
+      - { name: price, label: Price number for search engines, type: string }
+      - name: action
+        label: How to begin
+        type: select
+        options: { values: [book, form] }
+      - { name: booking_tab, label: Booking calendar (consultation / individual), type: string }
+      - { name: form_label, label: Interest form button, type: string }
+      - { name: form_url, label: Interest form link, type: string }
+      - { name: emblem, label: Emblem image key (see _data/images.yml), type: string }
+      - { name: note, label: Note under the button (markdown), type: text }
+      - name: topics
+        label: Topics
+        type: object
+        list: true
+        fields:
+          - { name: name, label: Topic, type: string }
+          - { name: text, label: Description, type: text }
+      - { name: body, label: "Body (markdown; text above a <!--more--> line is the card summary)", type: text }
+
+  - name: specialties
+    label: Specialties (About page)
+    type: collection
+    path: _specialties
+    view:
+      fields: [title, order]
+      sort: [order]
+    fields:
+      - { name: title, label: Title, type: string, required: true }
+      - { name: order, label: Order, type: number }
+      - { name: body, label: "Text (markdown; text above a <!--more--> line shows before “Read more”)", type: text }
+
+  - name: copy
+    label: Page copy
+    type: file
+    path: _data/copy.yml
+    fields:
+      - name: home
+        label: Home page
+        type: object
+        fields:
+          - name: hero
+            type: object
+            fields:
+              - { name: title_lines, label: Heading lines, type: string, list: true }
+              - { name: secondary_button, label: Second button, type: string }
+          - { name: services, type: object, fields: [{ name: heading, type: string }] }
+          - name: philosophy
+            type: object
+            fields:
+              - { name: heading, type: string }
+              - { name: body, label: Body (markdown), type: text }
+              - { name: quote, type: text }
+              - { name: quote_source, type: string }
+          - name: journey
+            type: object
+            fields:
+              - { name: heading, type: string }
+              - { name: body, type: text }
+              - { name: button, type: string }
+          - name: reserve
+            type: object
+            fields:
+              - { name: heading, type: string }
+              - { name: body, type: text }
+              - { name: button, type: string }
+      - name: approach
+        label: Approach (Services page and service pages)
+        type: object
+        fields:
+          - { name: heading, type: string }
+          - { name: body, label: Body (markdown), type: text }
+      - name: services_page
+        label: Services page
+        type: object
+        fields:
+          - { name: heading, type: string }
+          - name: table
+            type: object
+            fields:
+              - { name: service, type: string }
+              - { name: length, type: string }
+              - { name: investment, type: string }
+              - { name: begin, type: string }
+          - { name: details_link, type: string }
+      - name: about
+        label: About page
+        type: object
+        fields:
+          - { name: heading, type: string }
+          - { name: body, label: Body (markdown), type: text }
+          - { name: specialties_heading, type: string }
+          - { name: read_more, type: string }
+          - { name: read_less, type: string }
+      - name: contact
+        label: Contact page
+        type: object
+        fields:
+          - { name: heading, type: string }
+          - { name: body, label: Body (markdown), type: text }
+          - { name: submit, label: Button, type: string }
+      - name: booking
+        label: Booking dialog
+        type: object
+        fields:
+          - { name: heading, type: string }
+          - { name: body, type: text }
+          - { name: button, label: Button text used site-wide, type: string }
+          - { name: close, type: string }
+      - name: closing
+        label: Closing band (inner pages)
+        type: object
+        fields:
+          - { name: heading, type: string }
+          - { name: contact_button, type: string }
+      - name: service_page
+        label: Service pages
+        type: object
+        fields:
+          - { name: approach_toggle, type: string }
+          - { name: others_heading, type: string }

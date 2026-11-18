@@ -5,102 +5,85 @@ description: "Holistic, humanistic counseling in Florida. Free 30 minute consult
 body_class: home
 hero_image: misty-mountain-river
 schema_type: WebPage
+closing: false
 ---
-<section class="hero hero--home">
+{%- assign copy = site.data.copy.home -%}
+{%- assign services = site.services | sort: "order" -%}
+<section class="hero">
   <div class="hero__bg" aria-hidden="true">
     {% include picture.html name="misty-mountain-river" priority="true" decorative="true" class="hero__bg-img" %}
   </div>
   <div class="container hero__inner">
-    <figure class="hero__emblem hero__emblem--large">
-      {% include picture.html name="mythic-sisyphus-emblem" sizes="(min-width: 960px) 520px, 88vw" priority="true" %}
+    <div class="hero__text">
+      <h1 class="hero__title">
+        {%- for line in copy.hero.title_lines %}
+        <span class="hero__line hero__line--{{ forloop.index }}">{{ line }}</span>
+        {%- endfor %}
+      </h1>
+      <p class="hero__actions">
+        {% include book-button.html %}
+        <a class="button button--ghost" href="#services">{{ copy.hero.secondary_button }}</a>
+      </p>
+    </div>
+    <figure class="hero__art">
+      {% include picture.html name="sisyphus-boulder-mountain" sizes="(min-width: 900px) 600px, 92vw" priority="true" alt="Sisyphus pushing a boulder up a mountain, from the Mythic Counseling emblem" %}
     </figure>
-    <h1 class="hero__title">
-      <span class="hero__line">Holistic,</span>
-      <span class="hero__line hero__line--indent-1">Humanistic Wellness,</span>
-      <span class="hero__line hero__line--indent-2">Tailored to Fit Your Needs</span>
-    </h1>
   </div>
 </section>
 
-<section class="section section--parchment" id="services" aria-labelledby="services-heading">
+<section class="section" id="services" aria-labelledby="services-heading">
   <div class="container">
-    <div class="section__intro">
-      <figure class="section__medallion">
-        {% include picture.html name="tree-of-life-medallion" sizes="(min-width: 960px) 220px, 180px" %}
+    <header class="section-head">
+      <h2 id="services-heading">{{ copy.services.heading }}</h2>
+      {% include divider.html %}
+    </header>
+    <div class="service-grid">
+      {%- for s in services %}
+      {% include service-card.html service=s %}
+      {%- endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section section--parchment" aria-labelledby="philosophy-heading">
+  <div class="container philosophy">
+    <figure class="philosophy__media">
+      {% include picture.html name="tree-of-life-profile-emblem" sizes="(min-width: 900px) 420px, 90vw" %}
+    </figure>
+    <div class="philosophy__body">
+      <h2 id="philosophy-heading">{{ copy.philosophy.heading }}</h2>
+      <div class="philosophy__text">{{ copy.philosophy.body | markdownify }}</div>
+      {%- if copy.philosophy.quote %}
+      <figure class="pull-quote">
+        <blockquote><p>{{ copy.philosophy.quote }}</p></blockquote>
+        <figcaption>{{ copy.philosophy.quote_source }}</figcaption>
       </figure>
-      <h2 id="services-heading">Services Offered</h2>
-    </div>
-
-    <div class="cards">
-      <article class="card">
-        <h3 class="card__title"><a href="{{ '/services/free-consultation/' | relative_url }}">Free Initial 30 Minute Consultation</a></h3>
-        <p>An introductory one-on-one session to get to know one another. If you decide to work with me, we will develop a personalized wellness roadmap.</p>
-        <p class="card__actions"><a class="button" href="{{ '/appointments/#consultation' | relative_url }}" aria-label="Book a Free Initial 30 Minute Consultation">Book</a></p>
-      </article>
-
-      <article class="card">
-        <h3 class="card__title"><a href="{{ '/services/individual-counseling/' | relative_url }}">60 Minute Individual Counseling Sessions</a></h3>
-        <p>Standard 60-minute individual counseling. Longer sessions are available by request.</p>
-        <p class="card__price">$130 per hour.</p>
-        <p class="card__actions"><a class="button" href="{{ '/appointments/#individual' | relative_url }}" aria-label="Book 60 Minute Individual Counseling Sessions">Book</a></p>
-      </article>
-
-      <article class="card card--wide">
-        <h3 class="card__title"><a href="{{ '/services/group-counseling/' | relative_url }}">90 Minute Group Counseling Sessions</a></h3>
-        <p class="card__price">$150 per participant per group</p>
-        <p>Group topics include but are not limited to:</p>
-        <ul class="topic-list">
-          <li><strong>Celebrating Neurodiversity</strong> - A group devoted to exploring alternative, non-pathologizing and strengths-based frameworks for understanding what the mainstream medical system labels as “disorders” including but not limited to ADHD, Autism Spectrum Disorder, Bipolar Disorder, and Schizophrenia Spectrum Disorders. This group focuses heavily on deconstructing the language of the DSM-5, and offering more humanistic ways to understand and make meaning from participants’ lived experiences.</li>
-          <li><strong>Men’s Mental Health</strong> - A closed container for individuals who identify as men, by individuals who identify as men. In this group we will explore the mental health challenges and societal stressors that are unique to the male experience, as well as deconstructing and holding space for the less visible ways that men are also oppressed and harmed within the patriarchal gender paradigm.</li>
-          <li><strong>Surviving and Thriving with ADHD and Autism</strong> - This group will provide a solution focused think tank for members with similar lived experiences and support needs to share what areas of life they struggle with, and to explore what has worked for them or what they might like to try in order to thrive within a neurotypical world.</li>
-          <li><strong>Surviving and Thriving with Complex/Chronic Illness</strong> - This group explores the existential impact of chronic illness and/or chronic pain. Participants will gain new insights and perspectives from discussions of how living with chronic pain and chronic illness impacts quality of life, and explore frameworks for finding meaning within these challenging and overwhelming experiences.</li>
-        </ul>
-        <p class="card__actions"><a class="button" href="{{ site.forms.group_counseling }}" target="_blank" rel="noopener">Group Counseling Interest Form<span class="visually-hidden"> (opens in a new tab)</span></a></p>
-      </article>
-
-      <article class="card card--wide">
-        <h3 class="card__title"><a href="{{ '/services/intentional-peer-support-training/' | relative_url }}">Intentional Peer Support Training (Individual and Organizational)</a></h3>
-        <p>Trainings and certification in Intentional Peer Support are available by request. Submit an interest form for the training by selecting the form that reflects your involvement in Peer Support work, either as an individual looking to be certified or as an administrator of a Respite Program or other mental health organization looking to schedule an organizational training for your team to become IPS certified.</p>
-        <p class="card__actions"><a class="button" href="{{ site.forms.ips_training }}" target="_blank" rel="noopener">IPS Core Training Interest Form<span class="visually-hidden"> (opens in a new tab)</span></a></p>
-        <p class="card__note">When sufficient interest for organizing a training cohort is established, official listings and information will become available at: <a href="https://intentionalpeersupport.org/" target="_blank" rel="noopener">https://intentionalpeersupport.org/</a></p>
-      </article>
+      {%- endif %}
     </div>
   </div>
 </section>
 
-<section class="section section--split section--light" aria-labelledby="journey-heading">
-  <div class="container split">
-    <figure class="split__media">
-      {% include picture.html name="moon-laurel-crest" sizes="(min-width: 960px) 460px, 90vw" %}
+<section class="section section--tight" aria-labelledby="journey-heading">
+  <div class="container journey">
+    <figure class="journey__media">
+      {% include picture.html name="moon-laurel-crest" sizes="(min-width: 900px) 320px, 70vw" %}
     </figure>
-    <div class="split__body split__body--center">
-      <h2 id="journey-heading">My Journey</h2>
-      <p class="lead">If you would like to learn more about the path that led me into the mental health field and the experiences that shape the way I approach counseling, you can read more about them here.</p>
-      <p><a class="button" href="{{ '/about/' | relative_url }}">Explore</a></p>
+    <div class="journey__body">
+      <h2 id="journey-heading">{{ copy.journey.heading }}</h2>
+      <p class="lead">{{ copy.journey.body }}</p>
+      <p><a class="button button--ghost" href="{{ '/about/' | relative_url }}">{{ copy.journey.button }}</a></p>
     </div>
   </div>
 </section>
 
-<section class="section section--split section--parchment" aria-labelledby="philosophy-heading">
-  <div class="container split split--reverse">
-    <figure class="split__media">
-      {% include picture.html name="tree-of-life-profile-emblem" sizes="(min-width: 960px) 460px, 90vw" %}
-    </figure>
-    <div class="split__body prose">
-      <h2 id="philosophy-heading" class="display">My Philosophy</h2>
-      <p class="lead">I believe that people are more than the diagnoses they carry or the experiences they have endured. I believe that what we often understand as “symptoms” are often an understandable human response to stressful and sometimes traumatic circumstances. I believe in the inherent worth and dignity of every person who walks through my door. I approach each individual with the understanding that they are doing the best they can with the experiences they have had and the tools available to them.</p>
-      <p class="lead">I believe that well-being is an art—one cultivated through knowledge, intentional self-reflection, a deeper understanding of our lived experiences, and the transformative potential of genuine human connection. It is not simply the absence of suffering, but the ongoing process of discovering who we are, recognizing who we wish to become, and developing the capacity to live a life that feels meaningful, authentic, and wholly our own.</p>
-    </div>
+<section class="closing" aria-labelledby="reserve-heading">
+  <div class="closing__bg" aria-hidden="true">
+    {% include picture.html name="reserve-consultation-background" decorative="true" class="closing__bg-img" %}
   </div>
-</section>
-
-<section class="section cta" aria-labelledby="reserve-heading">
-  <div class="cta__bg" aria-hidden="true">
-    {% include picture.html name="reserve-consultation-background" decorative="true" class="cta__bg-img" %}
-  </div>
-  <div class="container cta__inner">
-    <h2 id="reserve-heading" class="display">Reserve Your Consultation</h2>
-    <p class="lead">Secure a time that suits your schedule; a refined approach begins with a conversation.</p>
-    <p><a class="button button--light" href="{{ '/appointments/' | relative_url }}">Book Now</a></p>
+  <div class="container closing__inner">
+    <img class="closing__art" src="{{ '/assets/images/sisyphus-boulder-mountain-640.webp' | relative_url }}" alt="" width="640" height="265" loading="lazy">
+    <h2 id="reserve-heading">{{ copy.reserve.heading }}</h2>
+    <p class="lead">{{ copy.reserve.body }}</p>
+    <div class="closing__actions">{% include book-button.html class="button--light" label=copy.reserve.button %}</div>
   </div>
 </section>

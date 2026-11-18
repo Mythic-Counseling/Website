@@ -5,7 +5,8 @@
 {%- assign practice_id = '/#practice' | absolute_url -%}
 {%- assign website_id = '/#website' | absolute_url -%}
 {%- assign page_url = page.url | absolute_url -%}
-{%- assign service = site.data.services | where: "id", page.service_id | first -%}
+{%- assign services = site.services | sort: "order" -%}
+{%- if page.collection == "services" %}{% assign service = page %}{% else %}{% assign service = nil %}{% endif -%}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -36,14 +37,14 @@
       ],
       "potentialAction": {
         "@type": "ReserveAction",
-        "target": {{ '/appointments/' | absolute_url | jsonify }},
+        "target": {{ '/#book' | absolute_url | jsonify }},
         "name": "Book an appointment"
       },
       "hasOfferCatalog": {
         "@type": "OfferCatalog",
         "name": "Services Offered",
         "itemListElement": [
-          {%- for s in site.data.services %}
+          {%- for s in services %}
           {
             "@type": "Offer",
             {%- if s.price %}
@@ -53,7 +54,7 @@
             "itemOffered": {
               "@type": "Service",
               "@id": {{ s.url | append: '#service' | absolute_url | jsonify }},
-              "name": {{ s.name | jsonify }},
+              "name": {{ s.heading | jsonify }},
               "url": {{ s.url | absolute_url | jsonify }}
             }
           }{% unless forloop.last %},{% endunless %}
@@ -86,7 +87,10 @@
         "@type": "BreadcrumbList",
         "itemListElement": [
           { "@type": "ListItem", "position": 1, "name": "Home", "item": {{ '/' | absolute_url | jsonify }} }
-          {%- if page.url != "/" %},
+          {%- if service %},
+          { "@type": "ListItem", "position": 2, "name": {{ site.data.copy.services_page.heading | jsonify }}, "item": {{ '/services/' | absolute_url | jsonify }} },
+          { "@type": "ListItem", "position": 3, "name": {{ page.title | jsonify }}, "item": {{ page_url | jsonify }} }
+          {%- elsif page.url != "/" %},
           { "@type": "ListItem", "position": 2, "name": {{ page.title | jsonify }}, "item": {{ page_url | jsonify }} }
           {%- endif %}
         ]
@@ -96,10 +100,10 @@
     {
       "@type": "Service",
       "@id": {{ service.url | append: '#service' | absolute_url | jsonify }},
-      "name": {{ service.name | jsonify }},
+      "name": {{ service.heading | jsonify }},
       "description": {{ service.description | jsonify }},
       "url": {{ service.url | absolute_url | jsonify }},
-      "serviceType": {{ page.service_type | default: "Counseling" | jsonify }},
+      "serviceType": {{ service.service_type | default: "Counseling" | jsonify }},
       "provider": { "@id": {{ practice_id | jsonify }} },
       "areaServed": { "@type": "State", "name": {{ site.region | jsonify }} }
       {%- if service.price %},
@@ -107,7 +111,7 @@
         "@type": "Offer",
         "price": {{ service.price | jsonify }},
         "priceCurrency": "USD",
-        "description": {{ service.unit | prepend: "Per " | jsonify }},
+        "description": {{ service.price_label | jsonify }},
         "url": {{ service.url | absolute_url | jsonify }}
       }
       {%- endif %}
