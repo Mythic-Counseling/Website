@@ -22,7 +22,7 @@ default_image: /assets/images/og-mythic-counseling.jpg
 # Google Calendar appointment schedules: paste the URL from each schedule's
 # Share → Website embed → Inline booking page code (the src="…" value, which
 # looks like https://calendar.google.com/calendar/appointments/schedules/…?gv=true).
-# See docs/google-workspace-setup.md. While both are empty, the Appointments
+# See docs/2-booking-and-forms.md. While both are empty, the Appointments
 # page falls back to the Acuity scheduler below.
 booking:
   google:
