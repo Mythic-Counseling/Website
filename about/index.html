@@ -28,11 +28,6 @@ schema_type: AboutPage
       </figure>
       <div>
         <h2 id="specialties-heading">{{ copy.specialties_heading }}</h2>
-        <ul class="jump-links">
-          {%- for sp in specialties %}
-          <li><a href="#{{ sp.slug }}">{{ sp.title }}</a></li>
-          {%- endfor %}
-        </ul>
       </div>
     </header>
 

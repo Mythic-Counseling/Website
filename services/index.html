@@ -32,10 +32,10 @@ primary_image: tree-of-life-medallion
           <tr>
             <th scope="row">
               <a class="glance__name" href="{{ s.url | relative_url }}">{{ s.heading }}</a>
-              <div class="glance__summary">{{ s.content | split: "<!--more-->" | first | markdownify | strip_html | strip }}</div>
+              <div class="glance__summary">{{ s.content | split: "<!--more-->" | first | markdownify | strip_html | strip }}{% if s.topics %} {{ s.topics | map: "name" | join: ", " }}{% endif %}</div>
             </th>
-            <td data-label="{{ copy.table.length }}">{{ s.duration }}</td>
-            <td data-label="{{ copy.table.investment }}">{{ s.price_label | default: "—" }}</td>
+            <td{% if s.duration %} data-label="{{ copy.table.length }}"{% else %} class="is-empty"{% endif %}>{{ s.duration | default: "—" }}</td>
+            <td{% if s.price_label %} data-label="{{ copy.table.investment }}"{% else %} class="is-empty"{% endif %}>{{ s.price_label | default: "—" }}</td>
             <td>
               {%- if s.action == "form" %}
               <a class="button button--small button--ghost" href="{{ s.form_url }}" target="_blank" rel="noopener">{{ s.form_label }}<span class="visually-hidden"> (opens in a new tab)</span></a>

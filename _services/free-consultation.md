@@ -10,6 +10,7 @@ price_label: Free
 price: "0"
 price_unit: consultation
 emblem: olive-cairn-emblem
+# Length and price appear as chips; leave either out to hide it.
 # How to begin: "book" opens the booking dialog; "form" links to forms_url
 action: book
 booking_tab: consultation

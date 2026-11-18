@@ -10,16 +10,16 @@
   </a>
   <div class="service-card__body">
     <h3 class="service-card__title"><a href="{{ s.url | relative_url }}">{{ s.heading }}</a></h3>
+    {%- if s.duration or s.price_label %}
     <p class="meta">
-      <span>{{ s.duration }}</span>
+      {%- if s.duration %}<span>{{ s.duration }}</span>{% endif %}
       {%- if s.price_label %}<span>{{ s.price_label }}</span>{% endif %}
     </p>
+    {%- endif %}
     {%- if include.compact == "true" %}
     {%- elsif s.topics %}
     <div class="service-card__text">{{ summary }}</div>
-    <ul class="tags">
-      {%- for t in s.topics %}<li>{{ t.name }}</li>{% endfor %}
-    </ul>
+    <p class="service-card__topics">{{ s.topics | map: "name" | join: ", " }}</p>
     {%- else %}
     <div class="service-card__text">{{ summary }}</div>
     {%- endif %}

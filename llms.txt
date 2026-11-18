@@ -20,7 +20,7 @@ sitemap: false
 
 ## Services
 {% for s in services %}
-- [{{ s.heading }}]({{ s.url | absolute_url }}): {{ s.content | split: "<!--more-->" | first | markdownify | strip_html | strip }} ({{ s.duration }}{% if s.price_label %}; {{ s.price_label | remove: "." }}{% endif %}){% if s.topics %} Topics: {{ s.topics | map: "name" | join: "; " }}.{% endif %}
+- [{{ s.heading }}]({{ s.url | absolute_url }}): {{ s.content | split: "<!--more-->" | first | markdownify | strip_html | strip }} {% if s.duration or s.price_label %}({{ s.duration }}{% if s.duration and s.price_label %}; {% endif %}{{ s.price_label | remove: "." }}){% endif %}{% if s.topics %} Topics: {{ s.topics | map: "name" | join: "; " }}.{% endif %}
 {%- endfor %}
 
 ## About

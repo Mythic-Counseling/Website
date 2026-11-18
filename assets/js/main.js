@@ -109,6 +109,17 @@
     });
   });
 
+  // Group topics: one panel open at a time. Browsers that support
+  // <details name> already do this; this covers the rest.
+  document.querySelectorAll("details[name]").forEach(function (details) {
+    details.addEventListener("toggle", function () {
+      if (!details.open) return;
+      document.querySelectorAll('details[name="' + details.getAttribute("name") + '"]').forEach(function (other) {
+        if (other !== details) other.open = false;
+      });
+    });
+  });
+
   // Booking dialog tabs (one per Google appointment schedule).
   var selectTab = function () {};
   document.querySelectorAll("[data-tabs]").forEach(function (root) {

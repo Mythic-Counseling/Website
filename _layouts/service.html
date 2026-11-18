@@ -17,10 +17,13 @@ layout: default
         <a href="{{ '/services/' | relative_url }}">{{ site.data.copy.services_page.heading }}</a>
       </nav>
       <h1>{{ s.heading }}</h1>
+      {%- if s.duration or s.price_label %}
       <p class="meta meta--large">
-        <span>{{ s.duration }}</span>
+        {%- if s.duration %}<span>{{ s.duration }}</span>{% endif %}
         {%- if s.price_label %}<span>{{ s.price_label }}</span>{% endif %}
       </p>
+      {%- endif %}
+      <div class="page-head__body">{{ content }}</div>
       <p class="page-head__actions">
         {%- if s.action == "form" %}
         <a class="button" href="{{ s.form_url }}" target="_blank" rel="noopener">{{ s.form_label }}<span class="visually-hidden"> (opens in a new tab)</span></a>
@@ -28,52 +31,34 @@ layout: default
         {% include book-button.html tab=s.booking_tab %}
         {%- endif %}
       </p>
+      {%- if s.note %}<div class="note">{{ s.note | markdownify }}</div>{% endif %}
     </div>
     <figure class="page-head__emblem">
-      {% include picture.html name=s.emblem sizes="(min-width: 900px) 420px, 80vw" priority="true" %}
+      {% include picture.html name=s.emblem sizes="(min-width: 900px) 420px, 40vw" priority="true" %}
     </figure>
   </div>
 </section>
 
-{%- assign labels = site.data.copy.services_page.table -%}
-{%- assign sp = site.data.copy.service_page -%}
-<section class="section section--tight">
-  <div class="container service-body">
-    <div class="prose service-body__main">
-      {{ content }}
-      {%- if s.topics %}
-      <div class="accordion">
-        {%- for t in s.topics %}
-        <details class="disclosure"{% if forloop.first %} open{% endif %}>
-          <summary><span>{{ t.name }}</span></summary>
-          <div class="disclosure__body"><p>{{ t.text }}</p></div>
-        </details>
-        {%- endfor %}
-      </div>
-      {%- endif %}
-      {%- if s.note %}<div class="note">{{ s.note | markdownify }}</div>{% endif %}
+{%- if s.topics %}
+<section class="section section--tight section--follows-head" aria-label="{{ s.heading }}">
+  <div class="container">
+    <div class="topics">
+    {%- for t in s.topics %}
+    <details class="disclosure" name="topics"{% if forloop.first %} open{% endif %}>
+      <summary><span>{{ t.name }}</span></summary>
+      <div class="disclosure__body"><p>{{ t.text }}</p></div>
+    </details>
+    {%- endfor %}
     </div>
-    <aside class="glance-card" aria-labelledby="glance-heading">
-      <h2 id="glance-heading" class="eyebrow">{{ sp.glance_heading }}</h2>
-      <dl class="glance-card__facts">
-        <div><dt>{{ labels.length }}</dt><dd>{{ s.duration }}</dd></div>
-        {%- if s.price_label %}<div><dt>{{ labels.investment }}</dt><dd>{{ s.price_label }}</dd></div>{% endif %}
-      </dl>
-      {%- if s.action == "form" %}
-      <a class="button glance-card__cta" href="{{ s.form_url }}" target="_blank" rel="noopener">{{ s.form_label }}<span class="visually-hidden"> (opens in a new tab)</span></a>
-      {%- else %}
-      {% include book-button.html class="glance-card__cta" tab=s.booking_tab %}
-      {%- endif %}
-      <p class="glance-card__contact">{{ sp.questions }} <a href="{{ '/contact/' | relative_url }}">{{ site.data.copy.closing.contact_button }}</a></p>
-    </aside>
   </div>
 </section>
+{%- endif %}
 
 {% include approach.html variant="band" %}
 
 <section class="section section--tight" aria-labelledby="others-heading">
   <div class="container">
-    <h2 id="others-heading" class="section-title">{{ sp.others_heading }}</h2>
+    <h2 id="others-heading" class="section-title">{{ site.data.copy.service_page.others_heading }}</h2>
     <div class="service-grid service-grid--others">
       {%- for o in services %}{% unless o.url == page.url %}
       {% include service-card.html service=o compact="true" %}

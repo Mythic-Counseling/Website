@@ -141,6 +141,4 @@ content:
         label: Service pages
         type: object
         fields:
-          - { name: glance_heading, type: string }
-          - { name: questions, type: string }
           - { name: others_heading, type: string }

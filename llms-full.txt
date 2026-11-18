@@ -26,7 +26,8 @@ Service area: {{ site.region }}
 ### {{ s.heading }}
 
 URL: {{ s.url | absolute_url }}
-{{ copy.services_page.table.length }}: {{ s.duration }}
+{%- if s.duration %}
+{{ copy.services_page.table.length }}: {{ s.duration }}{% endif %}
 {%- if s.price_label %}
 {{ copy.services_page.table.investment }}: {{ s.price_label }}{% endif %}
 

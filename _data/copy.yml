@@ -96,7 +96,4 @@ closing:
   contact_button: "Contact"
 
 service_page:
-  # NEW — labels for the "at a glance" box beside each service's description.
-  glance_heading: "At a glance"
-  questions: "Questions first?"
   others_heading: "Other Services Offered"

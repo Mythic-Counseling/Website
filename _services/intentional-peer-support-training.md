@@ -3,7 +3,6 @@ title: Intentional Peer Support Training
 heading: Intentional Peer Support Training (Individual and Organizational)
 order: 4
 description: "Intentional Peer Support (IPS) training and certification for individuals and organizations. Submit an IPS Core Training interest form."
-duration: Individual and Organizational
 action: form
 form_label: IPS Core Training Interest Form
 form_url: "https://docs.google.com/forms/d/e/1FAIpQLSfJbXN4H5pAM3Z-CP7NRwNLcC3HfK3nKOdQ9SN5D31nme1ANg/viewform?usp=dialog"
