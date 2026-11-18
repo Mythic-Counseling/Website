@@ -19,7 +19,7 @@ In service and specialty files, the text **above a `<!--more-->` line** is the s
 
 **Editing in the browser (optional):** `.pages.yml` configures [Pages CMS](https://pagescms.org). Sign in at app.pagescms.org with GitHub, open this repository, and edit Services, Specialties and Page copy in forms. Each save is a commit.
 
-Content ideas and gaps to fill: [`docs/content-recommendations.md`](docs/content-recommendations.md).
+Content ideas and gaps to fill: [`docs/content-recommendations.md`](docs/content-recommendations.md). New artwork prompts and where each image goes: [`docs/image-prompts.md`](docs/image-prompts.md).
 
 ## Structure
 

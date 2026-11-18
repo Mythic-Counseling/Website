@@ -1,9 +1,9 @@
-# Primary navigation. The Services menu lists "All Services" followed by every
-# file in _services/ (sorted by `order`), so new services appear automatically.
+# Primary navigation. "Services" links to the Services page; its menu (hover
+# on desktop, arrow button on mobile) lists every file in _services/ (sorted by
+# `order`), so new services appear automatically.
 - title: Services
   url: /services/
   menu: services
-  all_label: All Services
 - title: About
   url: /about/
 - title: Contact

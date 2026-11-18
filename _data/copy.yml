@@ -7,6 +7,10 @@
 # Service and specialty text lives in _services/ and _specialties/.
 # Lines marked NEW are copy that was not on the original Squarespace site —
 # keep, rewrite or delete them.
+#
+# `image:` fields name an entry in _data/images.yml. To use new artwork, add
+# the PNG to assets/images/original/, run scripts/optimize-images.sh, add it to
+# _data/images.yml and put its key here (see docs/image-prompts.md).
 
 home:
   hero:
@@ -20,6 +24,7 @@ home:
     heading: "Services Offered"
   philosophy:
     heading: "My Philosophy"
+    image: tree-of-life-profile-emblem
     body: |  # (markdown)
       I believe that people are more than the diagnoses they carry or the experiences they have endured. I believe that what we often understand as “symptoms” are often an understandable human response to stressful and sometimes traumatic circumstances. I believe in the inherent worth and dignity of every person who walks through my door. I approach each individual with the understanding that they are doing the best they can with the experiences they have had and the tools available to them.
 
@@ -30,6 +35,7 @@ home:
     quote_source: "Albert Camus, The Myth of Sisyphus"
   journey:
     heading: "My Journey"
+    image: moon-laurel-crest
     body: "If you would like to learn more about the path that led me into the mental health field and the experiences that shape the way I approach counseling, you can read more about them here."
     button: "Explore"
   reserve:
@@ -40,6 +46,7 @@ home:
 # Shown on the Services page and, collapsed, on every service page.
 approach:
   heading: "A Person-Centered, Non-Pathologizing Alternative to Mental Health."
+  image: tree-of-life-medallion
   body: |  # (markdown)
     My approach to counseling brings together evidence-based therapeutic practices with a humanistic and existential understanding of personal growth and well-being. I believe therapy should be about more than simply alleviating distress or finding relief from life's difficulties; it should also create space for discovering who you are, understanding what matters to you, and building a life that feels meaningful and fulfilling.
 
@@ -64,11 +71,13 @@ about:
 
     My own mental health journey began much earlier than I
   specialties_heading: "My Specialties"
+  specialties_image: olive-vine-column-emblem
   read_more: "Read more"    # NEW
   read_less: "Show less"    # NEW
 
 contact:
   heading: "Begin Your Path to A More Actualized Self"
+  image: contact-illustration
   body: |  # (markdown)
     Whether you are new to counseling or looking to continue on a journey you’ve already started, making a meaningful connection with a new counselor can feel like a big undertaking. Share your name, email address, and a little about what brings you to counseling or what you'd like to explore, and I'll reach out soon to schedule a brief introductory phone call so we can connect, get to know one another, and talk about how I may be able to support you on whatever step of this journey you find yourself on.
   submit: "SEND"
@@ -87,5 +96,7 @@ closing:
   contact_button: "Contact"
 
 service_page:
-  approach_toggle: "A Person-Centered, Non-Pathologizing Alternative to Mental Health."
-  others_heading: "Services Offered"
+  # NEW — labels for the "at a glance" box beside each service's description.
+  glance_heading: "At a glance"
+  questions: "Questions first?"
+  others_heading: "Other Services Offered"

@@ -72,6 +72,43 @@
     });
   });
 
+  // Specialties: animate "Read more". With the View Transitions API the card
+  // glides to its new size and position (and its neighbours move with it);
+  // otherwise the revealed text grows open. Either way the new text is
+  // briefly highlighted so the reader can see what was added.
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  var cards = document.querySelectorAll(".specialty");
+  cards.forEach(function (card, i) { card.style.viewTransitionName = "specialty-" + i; });
+
+  document.querySelectorAll(".specialty__more > summary").forEach(function (summary) {
+    var details = summary.parentElement;
+    var rest = details.querySelector(".specialty__rest");
+
+    summary.addEventListener("click", function (e) {
+      e.preventDefault();
+      var opening = !details.open;
+      var toggle = function () {
+        details.open = opening;
+        rest.classList.toggle("is-revealed", opening);
+      };
+
+      if (reduceMotion.matches) {
+        toggle();
+      } else if (document.startViewTransition) {
+        document.startViewTransition(toggle).finished.then(function () {
+          if (!opening) details.closest(".specialty").scrollIntoView({ block: "nearest" });
+        });
+      } else if (opening) {
+        toggle();
+        rest.animate([{ height: "0px", opacity: 0 }, { height: rest.offsetHeight + "px", opacity: 1 }],
+          { duration: 380, easing: "cubic-bezier(.2,.7,.2,1)" });
+      } else {
+        rest.animate([{ height: rest.offsetHeight + "px", opacity: 1 }, { height: "0px", opacity: 0 }],
+          { duration: 260, easing: "ease-in" }).onfinish = toggle;
+      }
+    });
+  });
+
   // Booking dialog tabs (one per Google appointment schedule).
   var selectTab = function () {};
   document.querySelectorAll("[data-tabs]").forEach(function (root) {

@@ -72,6 +72,7 @@ content:
             type: object
             fields:
               - { name: heading, type: string }
+              - { name: image, label: Image key, type: string }
               - { name: body, label: Body (markdown), type: text }
               - { name: quote, type: text }
               - { name: quote_source, type: string }
@@ -140,5 +141,6 @@ content:
         label: Service pages
         type: object
         fields:
-          - { name: approach_toggle, type: string }
+          - { name: glance_heading, type: string }
+          - { name: questions, type: string }
           - { name: others_heading, type: string }

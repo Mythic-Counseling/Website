@@ -19,12 +19,13 @@
         {%- assign in_section = false %}
         {%- if page.collection == "services" or page.url == item.url %}{% assign in_section = true %}{% endif %}
         <li class="site-nav__item site-nav__item--has-menu">
-          <button class="site-nav__link site-nav__menu-toggle{% if in_section %} is-active{% endif %}" type="button"
-                  aria-expanded="false" aria-controls="menu-services">
-            {{ item.title }}<span class="site-nav__caret" aria-hidden="true"></span>
-          </button>
+          <div class="site-nav__split">
+            <a class="site-nav__link{% if in_section %} is-active{% endif %}" href="{{ item.url | relative_url }}"{% if page.url == item.url %} aria-current="page"{% endif %}>{{ item.title }}</a>
+            <button class="site-nav__menu-toggle" type="button" aria-expanded="false" aria-controls="menu-services">
+              <span class="site-nav__caret" aria-hidden="true"></span><span class="visually-hidden">Show {{ item.title | downcase }}</span>
+            </button>
+          </div>
           <ul class="site-nav__submenu" id="menu-services">
-            <li><a class="site-nav__sublink" href="{{ item.url | relative_url }}"{% if page.url == item.url %} aria-current="page"{% endif %}>{{ item.all_label }}</a></li>
             {%- for s in services %}
             <li><a class="site-nav__sublink" href="{{ s.url | relative_url }}"{% if page.url == s.url %} aria-current="page"{% endif %}>{{ s.title }}</a></li>
             {%- endfor %}

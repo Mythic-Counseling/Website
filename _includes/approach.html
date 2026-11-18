@@ -1,18 +1,32 @@
 {%- comment -%}
   "A Person-Centered…" approach copy from _data/copy.yml.
-  Param: collapsed ("true" renders it as an expandable panel).
+  Param: variant ("band" renders a compact three-column strip for service
+  pages; otherwise a full section with its image, used on the Services page).
 {%- endcomment -%}
 {%- assign a = site.data.copy.approach -%}
-{%- if include.collapsed == "true" -%}
-<details class="disclosure disclosure--approach">
-  <summary><span>{{ site.data.copy.service_page.approach_toggle }}</span></summary>
-  <div class="disclosure__body prose">{{ a.body | markdownify }}</div>
-</details>
+{%- if include.variant == "band" -%}
+{%- assign paragraphs = a.body | strip | split: "
+
+" -%}
+{%- assign numerals = "I,II,III,IV,V,VI" | split: "," -%}
+<section class="section section--parchment section--tight approach-band" aria-labelledby="approach-heading">
+  <div class="container">
+    <h2 id="approach-heading" class="section-title">{{ a.heading }}</h2>
+    <div class="approach-band__cols">
+      {%- for para in paragraphs %}
+      <div class="approach-band__col">
+        <span class="approach-band__numeral" aria-hidden="true">{{ numerals[forloop.index0] }}</span>
+        {{ para | markdownify }}
+      </div>
+      {%- endfor %}
+    </div>
+  </div>
+</section>
 {%- else -%}
 <section class="section section--parchment" id="approach" aria-labelledby="approach-heading">
   <div class="container approach">
     <figure class="approach__media">
-      {% include picture.html name="tree-of-life-medallion" sizes="(min-width: 900px) 340px, 60vw" %}
+      {% include picture.html name=a.image sizes="(min-width: 900px) 340px, 60vw" %}
     </figure>
     <div class="approach__body">
       <h2 id="approach-heading">{{ a.heading }}</h2>
