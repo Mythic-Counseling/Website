@@ -2,6 +2,8 @@
 
 The site for mythic-counseling.com. Every word on it lives in the **`content/`** folder; everything else is the design and machinery that turns those words into pages.
 
+> **Two designs.** This is the `redesign` branch, built on top of `main`, which holds the original design and is what gets published. Switch with `git switch main` / `git switch redesign` (restart a running local preview afterwards). To publish this design, merge it into `main`: see [guide 1](docs/1-put-the-site-on-github.md#1-choose-which-design-to-publish).
+
 ## What to edit (and what to leave alone)
 
 ```
