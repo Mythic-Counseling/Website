@@ -6,3 +6,9 @@ _site/
 vendor/
 Gemfile.lock
 .DS_Store
+# Obsidian: share the vault settings, not each person's open tabs.
+.obsidian/workspace*.json
+.obsidian/cache
+.obsidian/plugins/
+.obsidian/community-plugins.json
+.trash/

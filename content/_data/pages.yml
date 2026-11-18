@@ -1,0 +1,31 @@
+# Titles and search descriptions for the main pages.
+#
+# title        short page name (breadcrumbs, link previews)
+# seo_title    optional full browser-tab / search-result title
+# description  the summary search engines and link previews show
+#              (about 150–160 characters)
+#
+# Services, specialties and blog posts set these in their own files.
+
+home:
+  title: "Mythic Counseling of Florida"
+  seo_title: "Mythic Counseling of Florida — Holistic, Humanistic Wellness"
+  description: "Holistic, humanistic counseling in Florida. Free 30 minute consultation, $130 individual sessions, group counseling and Intentional Peer Support training."
+
+services:
+  title: "Services Offered"
+  seo_title: "Services"
+  description: "Counseling services in Florida: free 30 minute consultation, 60 minute individual counseling ($130), 90 minute group counseling ($150) and Intentional Peer Support training."
+
+about:
+  title: "About"
+  seo_title: "About — Personal and Professional Journey"
+  description: "Lived experience meets evidence-based and humanistic care. Specialties: suicidology, treatment resistant depression, neurodiversity and complex/chronic illness."
+
+blog:
+  title: "Blog"
+  description: "Writing from Mythic Counseling of Florida on humanistic counseling, meaning, neurodiversity, depression and the work of being human."
+
+contact:
+  title: "Contact"
+  description: "Share your name, email, and what brings you to counseling, and I'll reach out to schedule a brief introductory phone call."

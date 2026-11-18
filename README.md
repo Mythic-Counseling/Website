@@ -1,68 +1,68 @@
-# Mythic Counseling of Florida
+# Mythic Counseling of Florida — website
 
-Static website for Mythic Counseling of Florida: a Jekyll site that GitHub Pages builds natively (no plugins, no build step to run).
+The site for mythic-counseling.com. Every word on it lives in the **`content/`** folder; everything else is the design and machinery that turns those words into pages.
 
-## Editing the copy
+## What to edit (and what to leave alone)
 
-All wording lives in Markdown/YAML files, so you never need to touch the HTML templates.
+```
+content/                  ← EDIT: everything you write
+  _posts/                   blog posts, one file each
+  _drafts/                  unpublished posts (never appear on the site)
+  _services/                one file per service (page, card, menu, prices)
+  _specialties/             one file per specialty on the About page
+  _data/copy.yml            all other page wording (home, about, contact…)
+  _data/settings.yml        email, booking calendars, form links
+  _data/pages.yml           page titles and search descriptions
+  _data/navigation.yml      the menu
+  _data/images.yml          image descriptions (alt text)
+assets/images/uploads/    ← your uploaded photos (compressed automatically)
 
-| What | Where |
-| --- | --- |
-| A blog post | `_posts/YYYY-MM-DD-title.md` (see below) |
-| A service (title, length, price, how to begin, body text, group topics) | `_services/<name>.md` — one file per service; a new file becomes a new page at `/services/<name>/` and appears in the menu, cards, table, footer and structured data automatically |
-| A specialty on the About page | `_specialties/<name>.md` |
-| Everything else: home page, Services page, About intro, Contact, booking dialog, closing band | `_data/copy.yml` |
-| Email, booking calendars, contact form link, site description | `_config.yml` |
-| Menu | `_data/navigation.yml` |
-| Image alt text | `_data/images.yml` |
+docs/                     guides (start with the numbered ones)
+theme/                    ✕ page templates, header, footer, SEO files
+assets/css, assets/js     ✕ styles and scripts
+_config.yml               ✕ technical settings
+.github/, .pages.yml      ✕ publishing and editor setup
+```
 
-In service and specialty files, the text **above a `<!--more-->` line** is the short summary shown on cards (and before "Read more"); the rest appears on the full page or when expanded.
+Anything marked ✕ only needs changing to alter the design or how the site works. Changing words never requires touching it.
 
-**Editing in the browser (recommended):** `.pages.yml` configures [Pages CMS](https://pagescms.org), a free editor that works on top of this GitHub repository. Sign in at app.pagescms.org with GitHub, open this repository, and edit Blog posts, Services, Specialties and Page copy in forms. Each save is a commit, and GitHub Pages republishes the site about a minute later. For quick fixes you can also press `.` on the repository page on github.com to open a web editor.
+Two conventions inside `content/`:
+
+- Text between the `---` lines at the top of a file is **settings** (title, price, summary…); everything below is the **body**, written in Markdown (`**bold**`, `*italic*`, `[link](https://…)`, `## Heading`, a blank line for a new paragraph).
+- In services and specialties, the text **above a `<!--more-->` line** is the short summary shown on cards and before "Read more".
+
+## How to edit
+
+| Tool | Best for | Needs |
+| --- | --- | --- |
+| **Pages CMS** (recommended) | Everyday edits and blog posts, in forms, from any browser or phone | A browser |
+| **Obsidian** | Writing longer posts in a calm, distraction-free editor | The Obsidian app and git |
+| **VS Code** | Bigger changes, previewing locally before publishing, design changes | VS Code, git and Jekyll |
+
+You don't need VS Code to run the site. Details and setup for each: [docs/3-editing-tools.md](docs/3-editing-tools.md).
+
+## Publishing changes
+
+Every change that reaches the `main` branch on GitHub is published automatically, usually within two minutes:
+
+- **Pages CMS:** each **Save** is published. Nothing else to do.
+- **Obsidian / VS Code:** commit your change and **push** it. Always **pull** first if you also edit in Pages CMS, so the two never conflict.
+
+To check progress, open the repository on GitHub → **Actions** tab. A green tick means the change is live. A red cross means the site was **not** updated (the previous version stays up); open the run to see which file has a problem, usually a missing quote or `---` in the settings at the top of a file.
 
 ## Writing a blog post
 
-**In Pages CMS:** Blog posts → Add an entry. Fill in the title, summary and post (the editor has buttons for headings, bold, lists, quotes, links and images), then save. Turn **Published** off to save a draft.
+- **Pages CMS:** Blog posts → **Add an entry** → title, summary, post → **Save**. Turn **Published** off to keep it as a draft.
+- **By hand:** copy `content/_drafts/example-post.md` (it shows every formatting option) into `content/_posts/` as `YYYY-MM-DD-short-title.md`, lowercase with hyphens. The date is the publish date; the rest becomes the address, `/blog/short-title/`.
 
-**By hand:** copy `_drafts/example-post.md` (it shows every formatting option) into `_posts/` as `YYYY-MM-DD-short-title.md`. The date is the publish date; the rest of the name becomes the address, `/blog/short-title/`.
+Each post automatically gets its own page, a card on `/blog/`, a place in the RSS feed and sitemap, and search-engine markup. The **Blog** menu link appears once the first post is published.
 
-Each post gets a page with reading time and newer/older links, a card on `/blog/`, an entry in the RSS feed (`/feed.xml`), the sitemap and `llms.txt`, and `BlogPosting` structured data. The **Blog** menu link and the `/blog/` page appear in search only once the first post is published. Blog labels ("Read", "min read"…) are under `blog:` in `_data/copy.yml`.
+**Images** go in `assets/images/uploads/` (Pages CMS and Obsidian put them there for you). They are resized to 1600 px and compressed when the site is published, and phone location data is removed. Use JPG or PNG; iPhone HEIC photos must be exported as JPG first. For a post's top image you can also name one of the site's emblems, such as `image: olive-cairn-emblem` (see `content/_data/images.yml`).
 
-Images: uploads go to `assets/images/uploads/` and are published as-is, so keep photos around 1600 px wide and under ~300 KB. For a post's top image you can also use one of the site's emblems by typing its key from `_data/images.yml` (for example `image: olive-cairn-emblem`).
+## Guides
 
-Content ideas and gaps to fill: [`docs/content-recommendations.md`](docs/content-recommendations.md). New artwork prompts and where each image goes: [`docs/image-prompts.md`](docs/image-prompts.md).
+1. [Put the site on GitHub and your domain](docs/1-put-the-site-on-github.md) — one-time setup
+2. [Booking and forms with Google Workspace](docs/2-booking-and-forms.md) — replacing Acuity
+3. [Editing tools: Pages CMS, Obsidian, VS Code](docs/3-editing-tools.md)
 
-## Structure
-
-| Path | Purpose |
-| --- | --- |
-| `index.html`, `services/index.html`, `about/`, `contact/`, `404.html` | Page templates (copy comes from the files above) |
-| `_layouts/service.html`, `_layouts/post.html` | Templates for every service page and blog post |
-| `blog/index.html`, `feed.xml` | Blog list and RSS/Atom feed |
-| `_includes/` | Header (with reading-progress boulder), footer, booking dialog, cards, forms, SEO head and JSON-LD |
-| `assets/css/main.css` | All styles; colours and fonts are tokens at the top |
-| `assets/js/main.js` | Menu, booking dialog, tabs, contact-form fallback, reading progress |
-| `assets/images/original/` | Master PNGs (not deployed), including the transparent Sisyphus and boulder cut-outs |
-| `assets/images/*.webp\|png` | Responsive images generated by `scripts/optimize-images.sh` |
-| `sitemap.xml`, `robots.txt`, `llms.txt`, `llms-full.txt` | Search engine and AI assistant discovery (generated from the content files) |
-| `redirects/` | Redirects from the old Squarespace URLs and the retired `/appointments/` page |
-| `reference/squarespace-export/` | Original saved pages (not deployed) |
-
-## Local preview
-
-```sh
-JEKYLL_NO_BUNDLER_REQUIRE=true jekyll serve --livereload
-# or, with the GitHub Pages gem set:  bundle install && bundle exec jekyll serve
-```
-
-## Publishing
-
-Every push to `main` is built and published by `.github/workflows/deploy.yml` (GitHub Actions), usually within two minutes. One-time setup, including the custom domain: [guide 1](docs/1-put-the-site-on-github.md).
-
-## Booking and forms (Google Workspace)
-
-Every "Book now" button opens one booking dialog. Booking uses Google Calendar appointment schedules and the contact form uses Google Forms, both on the practice's Google Workspace account. Paste the links into `booking.google` and `forms.contact` in `_config.yml`. Until they are set, the dialog shows the original Acuity scheduler and the contact form opens the visitor's email app. Setup steps, including the HIPAA BAA: [`docs/google-workspace-setup.md`](docs/google-workspace-setup.md).
-
-## Images
-
-Add or replace a PNG in `assets/images/original/`, run `scripts/optimize-images.sh` (needs `brew install webp`), and add/update its entry in `_data/images.yml`. `scripts/extract-logo-art.py` regenerates the transparent Sisyphus/boulder cut-outs from the logo.
+Also: [content ideas and gaps](docs/content-recommendations.md), [prompts for new artwork](docs/image-prompts.md), and [developer notes](docs/developer-notes.md) for changing the design.

@@ -1,4 +1,6 @@
-# Site settings for Mythic Counseling of Florida.
+# Technical settings for Mythic Counseling of Florida. You should rarely need
+# to change this file: the practice's details are in content/_data/settings.yml.
+# Changes here only take effect after restarting a local preview.
 #
 # Deployment: `url` is the public origin used for canonical links, the sitemap,
 # Open Graph tags and structured data. `baseurl` is the sub-path the site is
@@ -9,46 +11,26 @@ url: "https://mythic-counseling.com"
 baseurl: ""
 
 title: "Mythic Counseling of Florida"
-tagline: "Holistic, Humanistic Wellness, Tailored to Fit Your Needs"
-description: "Holistic, humanistic counseling in Florida: a person-centered, non-pathologizing alternative to mental health care. Free 30 minute consultation, individual counseling, group counseling and Intentional Peer Support training."
 lang: en-US
+timezone: America/New_York
 locale: en_US
-
-email: "evan@mythic-counseling.com"
-region: "Florida"
 default_image: /assets/images/og-mythic-counseling.jpg
 
-# Online scheduling. Every "Book now" button opens the booking dialog
-# (_includes/booking-dialog.html).
-# Google Calendar appointment schedules: paste the URL from each schedule's
-# Share → Website embed → Inline booking page code (the src="…" value, which
-# looks like https://calendar.google.com/calendar/appointments/schedules/…?gv=true).
-# See docs/google-workspace-setup.md. While both are empty, the dialog falls
-# back to the Acuity scheduler below.
-booking:
-  google:
-    consultation: ""   # Free Initial 30 Minute Consultation
-    individual: ""     # 60 Minute Individual Counseling Sessions
-  acuity_url: "https://mythiccounselingofflorida.as.me/?calendarID=14740761"
-  acuity_embed_url: "https://app.acuityscheduling.com/schedule.php?owner=40782217&calendarID=14740761"
-
-# Google Forms. Paste each form's "viewform" link (Send → link icon).
-# `contact` replaces the Contact page form. While it is empty, the form falls
-# back to opening the visitor's email app addressed to `email`.
-forms:
-  contact: ""
+# Email, booking calendars, forms, tagline and search description are in
+# content/_data/settings.yml.
 
 permalink: pretty
 markdown: kramdown
 
-# Page copy lives in Markdown/YAML so it can be edited without touching HTML:
-#   _posts/*.md        one file per blog post, named YYYY-MM-DD-title.md
-#                      (becomes /blog/<title>/); drafts go in _drafts/
-#   _services/*.md     one file per service (becomes /services/<file-name>/)
-#   _specialties/*.md  one file per specialty on the About page
-#   _data/copy.yml     everything else (home, services hub, about, contact…)
-# In _services and _specialties, text above a <!--more--> line is the short summary
-# shown on cards; the rest is revealed with "Read more".
+# Folders. Everything you write is in content/ (see README.md); the design and
+# page templates are in theme/.
+collections_dir: content
+data_dir: content/_data
+layouts_dir: theme/_layouts
+includes_dir: theme/_includes
+
+# In services and specialties, text above a <!--more--> line is the short
+# summary shown on cards; the rest is revealed with "Read more".
 excerpt_separator: "<!--more-->"
 collections:
   services:
@@ -83,8 +65,7 @@ exclude:
   - docs/
   - Gemfile
   - Gemfile.lock
-  - scripts/
-  - reference/
+  - theme/scripts/
   - assets/images/original/
   - vendor/
   - .bundle/

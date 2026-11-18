@@ -1,0 +1,144 @@
+{%- comment -%}
+  schema.org JSON-LD graph: the practice, the website, the current page with
+  its breadcrumb, and (on service pages) the service being described.
+{%- endcomment -%}
+{%- assign practice_id = '/#practice' | absolute_url -%}
+{%- assign website_id = '/#website' | absolute_url -%}
+{%- assign page_url = page.url | absolute_url -%}
+{%- assign services = site.services | sort: "order" -%}
+{%- if page.collection == "services" %}{% assign service = page %}{% else %}{% assign service = nil %}{% endif -%}
+{%- if page.collection == "posts" %}{% assign post = page %}{% else %}{% assign post = nil %}{% endif -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ProfessionalService",
+      "@id": {{ practice_id | jsonify }},
+      "name": {{ site.title | jsonify }},
+      "url": {{ '/' | absolute_url | jsonify }},
+      "email": {{ site.data.settings.email | jsonify }},
+      "description": {{ site.data.settings.description | jsonify }},
+      "slogan": {{ site.data.settings.tagline | jsonify }},
+      "logo": {{ '/assets/icons/icon-512.png' | absolute_url | jsonify }},
+      "image": {{ site.default_image | absolute_url | jsonify }},
+      "areaServed": { "@type": "State", "name": {{ site.data.settings.region | jsonify }} },
+      "priceRange": "$0–$150",
+      "knowsAbout": [
+        "Humanistic counseling",
+        "Existential therapy",
+        "Suicidology",
+        "Chronic Depression/Treatment Resistant Depression",
+        "Neurodiversity",
+        "ADHD",
+        "Autism",
+        "Complex/Chronic Illness",
+        "Men’s Mental Health",
+        "Intentional Peer Support"
+      ],
+      "potentialAction": {
+        "@type": "ReserveAction",
+        "target": {{ '/#book' | absolute_url | jsonify }},
+        "name": "Book an appointment"
+      },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Services Offered",
+        "itemListElement": [
+          {%- for s in services %}
+          {
+            "@type": "Offer",
+            {%- if s.price %}
+            "price": {{ s.price | jsonify }},
+            "priceCurrency": "USD",
+            {%- endif %}
+            "itemOffered": {
+              "@type": "Service",
+              "@id": {{ s.url | append: '#service' | absolute_url | jsonify }},
+              "name": {{ s.heading | jsonify }},
+              "url": {{ s.url | absolute_url | jsonify }}
+            }
+          }{% unless forloop.last %},{% endunless %}
+          {%- endfor %}
+        ]
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": {{ website_id | jsonify }},
+      "url": {{ '/' | absolute_url | jsonify }},
+      "name": {{ site.title | jsonify }},
+      "inLanguage": {{ site.lang | jsonify }},
+      "publisher": { "@id": {{ practice_id | jsonify }} }
+    },
+    {
+      "@type": {{ page.schema_type | default: "WebPage" | jsonify }},
+      "@id": {{ page_url | append: '#webpage' | jsonify }},
+      "url": {{ page_url | jsonify }},
+      "name": {{ page_title | default: site.title | jsonify }},
+      "description": {{ page_description | default: site.data.settings.description | jsonify }},
+      "inLanguage": {{ site.lang | jsonify }},
+      "isPartOf": { "@id": {{ website_id | jsonify }} },
+      "about": { "@id": {{ practice_id | jsonify }} },
+      {%- assign primary_image = page.primary_image | default: page.hero_image %}
+      {%- if primary_image %}
+      "primaryImageOfPage": {{ '/assets/images/' | append: primary_image | append: '-1024.webp' | absolute_url | jsonify }},
+      {%- endif %}
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": {{ '/' | absolute_url | jsonify }} }
+          {%- if service %},
+          { "@type": "ListItem", "position": 2, "name": {{ site.data.copy.services_page.heading | jsonify }}, "item": {{ '/services/' | absolute_url | jsonify }} },
+          { "@type": "ListItem", "position": 3, "name": {{ page.title | jsonify }}, "item": {{ page_url | jsonify }} }
+          {%- elsif post %},
+          { "@type": "ListItem", "position": 2, "name": {{ site.data.copy.blog.heading | jsonify }}, "item": {{ '/blog/' | absolute_url | jsonify }} },
+          { "@type": "ListItem", "position": 3, "name": {{ page.title | jsonify }}, "item": {{ page_url | jsonify }} }
+          {%- elsif page.url != "/" %},
+          { "@type": "ListItem", "position": 2, "name": {{ page_title | jsonify }}, "item": {{ page_url | jsonify }} }
+          {%- endif %}
+        ]
+      }
+    }
+    {%- if service %},
+    {
+      "@type": "Service",
+      "@id": {{ service.url | append: '#service' | absolute_url | jsonify }},
+      "name": {{ service.heading | jsonify }},
+      "description": {{ service.description | jsonify }},
+      "url": {{ service.url | absolute_url | jsonify }},
+      "serviceType": {{ service.service_type | default: "Counseling" | jsonify }},
+      "provider": { "@id": {{ practice_id | jsonify }} },
+      "areaServed": { "@type": "State", "name": {{ site.data.settings.region | jsonify }} }
+      {%- if service.price %},
+      "offers": {
+        "@type": "Offer",
+        "price": {{ service.price | jsonify }},
+        "priceCurrency": "USD",
+        "description": {{ service.price_label | jsonify }},
+        "url": {{ service.url | absolute_url | jsonify }}
+      }
+      {%- endif %}
+    }
+    {%- endif %}
+    {%- if post %},
+    {
+      "@type": "BlogPosting",
+      "@id": {{ page_url | append: '#article' | jsonify }},
+      "headline": {{ post.title | jsonify }},
+      "description": {{ post.description | default: site.data.settings.description | jsonify }},
+      "url": {{ page_url | jsonify }},
+      "mainEntityOfPage": { "@id": {{ page_url | append: '#webpage' | jsonify }} },
+      "datePublished": {{ post.date | date_to_xmlschema | jsonify }},
+      "dateModified": {{ post.updated | default: post.date | date_to_xmlschema | jsonify }},
+      "inLanguage": {{ site.lang | jsonify }},
+      "image": {{ share_image | jsonify }},
+      "wordCount": {{ post.content | strip_html | number_of_words }},
+      "author": { "@id": {{ practice_id | jsonify }} },
+      "publisher": { "@id": {{ practice_id | jsonify }} },
+      "isPartOf": { "@type": "Blog", "@id": {{ '/blog/#blog' | absolute_url | jsonify }}, "name": {{ site.data.copy.blog.heading | jsonify }}, "url": {{ '/blog/' | absolute_url | jsonify }} }
+    }
+    {%- endif %}
+  ]
+}
+</script>

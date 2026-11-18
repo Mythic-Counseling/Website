@@ -1,0 +1,55 @@
+---
+permalink: /about/
+page_key: about
+body_class: about
+hero_image: laurel-framed-mountain-lake
+schema_type: AboutPage
+---
+{%- assign copy = site.data.copy.about -%}
+{%- assign specialties = site.specialties | sort: "order" -%}
+<section class="page-head page-head--about">
+  <div class="page-head__bg" aria-hidden="true">
+    {% include picture.html name="laurel-framed-mountain-lake" priority="true" decorative="true" class="page-head__bg-img" %}
+  </div>
+  <div class="container page-head__inner page-head__inner--single">
+    <div class="page-head__card prose">
+      <h1>{{ copy.heading }}</h1>
+      {{ copy.body | markdownify }}
+    </div>
+  </div>
+</section>
+
+<section class="section section--parchment" aria-labelledby="specialties-heading">
+  <div class="container">
+    <header class="section-head section-head--with-art">
+      <figure class="section-head__art">
+        {% include picture.html name=copy.specialties_image sizes="200px" %}
+      </figure>
+      <div>
+        <h2 id="specialties-heading">{{ copy.specialties_heading }}</h2>
+      </div>
+    </header>
+
+    <div class="specialties">
+      {%- for sp in specialties %}
+      {%- assign body = sp.content | strip %}
+      {%- assign parts = body | split: "<!--more-->" %}
+      {%- assign intro = parts | first %}
+      {%- assign rest = "" %}{% if parts.size > 1 %}{% assign rest = parts | last | strip %}{% endif %}
+      <article class="specialty{% if body == '' %} specialty--empty{% endif %}" id="{{ sp.slug }}">
+        <span class="specialty__number" aria-hidden="true">{% include numeral.html n=forloop.index %}</span>
+        <h3>{{ sp.title }}</h3>
+        {%- if body != "" %}
+        <div class="specialty__intro">{{ intro | markdownify }}</div>
+        {%- if rest != "" %}
+        <details class="specialty__more">
+          <summary><span class="when-closed">{{ copy.read_more }}</span><span class="when-open">{{ copy.read_less }}</span></summary>
+          <div class="specialty__rest">{{ rest | markdownify }}</div>
+        </details>
+        {%- endif %}
+        {%- endif %}
+      </article>
+      {%- endfor %}
+    </div>
+  </div>
+</section>

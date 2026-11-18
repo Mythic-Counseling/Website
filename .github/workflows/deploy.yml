@@ -29,7 +29,7 @@ jobs:
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y -qq imagemagick pngquant
-          scripts/compress-uploads.sh
+          theme/scripts/compress-uploads.sh
       - uses: actions/configure-pages@v5
       - uses: actions/jekyll-build-pages@v1
         with:

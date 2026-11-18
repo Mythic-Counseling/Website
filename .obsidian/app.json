@@ -1,0 +1,20 @@
+{
+  "useMarkdownLinks": true,
+  "newLinkFormat": "absolute",
+  "attachmentFolderPath": "assets/images/uploads",
+  "newFileLocation": "folder",
+  "newFileFolderPath": "content/_drafts",
+  "alwaysUpdateLinks": true,
+  "propertiesInDocument": "visible",
+  "userIgnoreFilters": [
+    "theme/",
+    "assets/css/",
+    "assets/js/",
+    "assets/icons/",
+    "assets/images/original/",
+    "docs/reference/",
+    "_site/",
+    ".github/",
+    ".jekyll-cache/"
+  ]
+}

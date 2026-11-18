@@ -1,0 +1,46 @@
+{%- comment -%}
+  Booking dialog shared by every page. Iframes load only when the dialog is
+  first opened (data-src). With Google appointment schedules configured it
+  shows one tab per schedule; otherwise the Acuity scheduler.
+{%- endcomment -%}
+{%- assign copy = site.data.copy.booking -%}
+{%- assign google = site.data.settings.booking.google -%}
+{%- assign has_consultation = false -%}{%- if google.consultation and google.consultation != "" %}{% assign has_consultation = true %}{% endif -%}
+{%- assign has_individual = false -%}{%- if google.individual and google.individual != "" %}{% assign has_individual = true %}{% endif -%}
+<dialog class="booking-dialog" id="booking-dialog" aria-labelledby="booking-title">
+  <div class="booking-dialog__header">
+    <div>
+      <h2 id="booking-title" class="booking-dialog__title">{{ copy.heading }}</h2>
+      <p class="booking-dialog__lead">{{ copy.body }}</p>
+    </div>
+    <button class="booking-dialog__close" type="button" data-close-dialog>
+      <span aria-hidden="true">&times;</span><span class="visually-hidden">{{ copy.close }}</span>
+    </button>
+  </div>
+  {%- if has_consultation or has_individual %}
+  {%- assign consultation = site.services | where_exp: "s", "s.url == '/services/free-consultation/'" | first %}
+  {%- assign individual = site.services | where_exp: "s", "s.url == '/services/individual-counseling/'" | first %}
+  <div class="booking" data-tabs>
+    <div class="booking__tabs" role="tablist" aria-label="Appointment type" hidden>
+      {%- if has_consultation %}
+      <button class="booking__tab" type="button" role="tab" id="tab-consultation" aria-controls="consultation">{{ consultation.heading }}</button>
+      {%- endif %}
+      {%- if has_individual %}
+      <button class="booking__tab" type="button" role="tab" id="tab-individual" aria-controls="individual">{{ individual.heading }}</button>
+      {%- endif %}
+    </div>
+    {%- if has_consultation %}
+    <div class="booking__panel" id="consultation" role="tabpanel" aria-labelledby="tab-consultation">
+      <iframe class="booking__frame" data-src="{{ google.consultation }}" title="{{ consultation.heading }}"></iframe>
+    </div>
+    {%- endif %}
+    {%- if has_individual %}
+    <div class="booking__panel" id="individual" role="tabpanel" aria-labelledby="tab-individual">
+      <iframe class="booking__frame" data-src="{{ google.individual }}" title="{{ individual.heading }}"></iframe>
+    </div>
+    {%- endif %}
+  </div>
+  {%- else %}
+  <iframe class="booking__frame" data-src="{{ site.data.settings.booking.acuity_embed_url }}" title="Schedule Appointment" allow="payment"></iframe>
+  {%- endif %}
+</dialog>

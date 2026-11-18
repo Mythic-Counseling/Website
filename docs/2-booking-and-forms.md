@@ -1,6 +1,6 @@
 # 2. Booking and forms with Google Workspace (replacing Acuity)
 
-The site's **Appointments** page and inquiry forms are ready for Google: you create booking calendars and forms in Google, paste the links into `_config.yml`, and the site switches over by itself. Until then the Appointments page keeps showing Acuity, so nothing breaks along the way.
+The site's **Book now** buttons and **Contact** form are ready for Google: you create a booking calendar and a form in Google, paste two or three links into the site's settings, and the site switches over by itself. Until then it keeps showing Acuity, so nothing breaks along the way.
 
 Visitors book and submit directly with Google. The website only embeds those pages and stores nothing.
 
@@ -39,11 +39,9 @@ Make two schedules: **Free Initial 30 Minute Consultation** and **60 Minute Indi
 2. Paste it somewhere temporary. It's a block of code; you need only the part inside `src="…"`, which looks like
    `https://calendar.google.com/calendar/appointments/schedules/AcZssZ…?gv=true`
 
-Acuity also offers 90- and 120-minute individual sessions. The site currently books only the two above (longer sessions are "by request"). To make longer sessions bookable online, create schedules for them and ask for a tab to be added to the Appointments page.
+Acuity also offers 90- and 120-minute individual sessions. The site currently books only the two above (longer sessions are "by request"). To make longer sessions bookable online, create schedules for them and ask for a tab to be added to the booking window.
 
-## 3. The inquiry forms
-
-The site has two: **Contact** (Contact page, button "SEND") and **Begin Your Mythic Journey** (on each service page, button "Submit"). One Google Form can serve both, or make two.
+## 3. The Contact page form
 
 1. In Google Forms on the business account, create a form with these questions, all required:
    - **First Name** (short answer)
@@ -63,7 +61,15 @@ The **Group Counseling Interest Form** and **IPS Core Training Interest Form** b
 
 ## 5. Paste the links into the site
 
-Open `_config.yml` (on github.com: open the file → pencil icon) and fill in:
+**In Pages CMS** (easiest): **Settings (email, booking, forms)** →
+
+- *Free consultation schedule* ← the consultation `src` link
+- *Individual sessions schedule* ← the individual `src` link
+- *Contact page Google Form link* ← the form link
+
+→ **Save**. For new interest forms: **Services** → Group Counseling / Intentional Peer Support → *Interest form link* → **Save**.
+
+**Or by hand** in `content/_data/settings.yml`:
 
 ```yaml
 booking:
@@ -73,16 +79,15 @@ booking:
 
 forms:
   contact: "https://docs.google.com/forms/d/e/…/viewform"
-  journey: "https://docs.google.com/forms/d/e/…/viewform"   # can be the same form
-  ips_training: "…"        # only if you made new interest forms
-  group_counseling: "…"
 ```
 
-Commit the change (and push, if editing on your computer). What changes on the site:
+(and `form_url:` in `content/_services/group-counseling.md` and `intentional-peer-support-training.md`), then commit and push.
 
-- The **Appointments** page shows a tab for each Google schedule. The booking buttons on the home and service pages open the right tab.
-- The Contact page and the "Begin Your Mythic Journey" sections show the Google Form in place of the email fallback.
-- The Acuity scheduler disappears as soon as one Google link is set.
+What changes on the site:
+
+- **Book now** opens a window with a tab for each Google schedule. The **Book now** button on a service page opens on that service's tab.
+- The Contact page shows the Google Form in place of the email fallback.
+- The Acuity scheduler disappears from the site as soon as one Google link is set.
 
 ## 6. Test before cancelling anything
 
@@ -90,7 +95,7 @@ From a personal account, in a private browser window:
 
 1. Book a consultation through the live site. Check that it appears on the business calendar, that both sides get a confirmation email, and that the slot disappears from the booking page.
 2. Add a *Busy* event to the business calendar; check that its time disappears from booking.
-3. Send a message through the Contact page and a service page's form; check that the notification emails arrive.
+3. Send a message through the Contact page; check that the notification email arrives.
 4. Submit each interest form.
 5. Cancel the test booking and delete the test responses.
 
@@ -98,5 +103,5 @@ From a personal account, in a private browser window:
 
 1. In Acuity, **stop new bookings** (block off all future availability, or turn off the scheduling page), but keep the account while existing appointments are still ahead.
 2. Export upcoming appointments (**Reports → Import/Export**) and add any after the switch date to Google Calendar, so they block availability.
-3. Once you no longer want a fallback, you can clear `acuity_url` and `acuity_embed_url` in `_config.yml`. (With a Google link set they are already unused.)
+3. Remove the Acuity links in Settings once you no longer want a fallback: clear *Acuity booking page* and *Acuity embed link*. (With both Google links set they are already unused.)
 4. When the last Acuity appointment has passed, download what you need to keep for your records, then cancel the subscription.

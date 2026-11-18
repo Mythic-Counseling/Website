@@ -1,0 +1,26 @@
+# Practice details, booking and forms. See docs/2-booking-and-forms.md for
+# how to get each link.
+
+email: "evan@mythic-counseling.com"
+region: "Florida"
+tagline: "Holistic, Humanistic Wellness, Tailored to Fit Your Needs"
+# The summary search engines and link previews show for the site as a whole.
+description: "Holistic, humanistic counseling in Florida: a person-centered, non-pathologizing alternative to mental health care. Free 30 minute consultation, individual counseling, group counseling and Intentional Peer Support training."
+
+# Online booking. Every "Book now" button opens the booking dialog.
+# Paste each Google Calendar appointment schedule's embed link: Share →
+# Website embed → Inline booking page, then copy only the src="…" value
+# (https://calendar.google.com/calendar/appointments/schedules/…?gv=true).
+# While both are empty, the dialog shows the Acuity scheduler below instead.
+booking:
+  google:
+    consultation: ""   # Free Initial 30 Minute Consultation
+    individual: ""     # 60 Minute Individual Counseling Sessions
+  acuity_url: "https://mythiccounselingofflorida.as.me/?calendarID=14740761"
+  acuity_embed_url: "https://app.acuityscheduling.com/schedule.php?owner=40782217&calendarID=14740761"
+
+# Google Forms. Paste the form's link (Send → link icon, ends in /viewform).
+# While it is empty, the Contact page form opens the visitor's email app
+# addressed to `email` instead.
+forms:
+  contact: ""

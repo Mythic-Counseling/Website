@@ -23,18 +23,18 @@ Every emblem on the site shares these traits. Keep them in every prompt:
 
 | # | File name | Subject (prompt start) | Replaces the duplicate in | Set in |
 | --- | --- | --- | --- | --- |
-| 1 | `oil-lamp-emblem.png` | "An ancient Greek clay oil lamp with a single steady flame, resting on an open scroll" — reflection and well-being as an art | Home → My Philosophy (currently the profile head) | `_data/copy.yml` → `home.philosophy.image` |
-| 2 | `mountain-path-emblem.png` | "A winding stone path climbing a gentle mountain toward a small classical temple at the summit, a rising sun behind" — the journey of counseling | Services page → approach (currently the tree of life medallion) | `_data/copy.yml` → `approach.image` |
-| 3 | `labyrinth-thread-emblem.png` | "A circular classical labyrinth seen from above, with a single golden thread (Ariadne's thread) tracing a path from the entrance toward the centre" — finding a way through difficult experiences | About → My Specialties (currently the olive column) | `_data/copy.yml` → `about.specialties_image` |
-| 4 | `open-doorway-emblem.png` | "An open classical stone archway with two steps, warm light spilling through, an olive vine growing up one side" — beginning, an invitation | Contact page (currently the stock photo of a surgeon) | `_data/copy.yml` → `contact.image` |
+| 1 | `oil-lamp-emblem.png` | "An ancient Greek clay oil lamp with a single steady flame, resting on an open scroll" — reflection and well-being as an art | Home → My Philosophy (currently the profile head) | `content/_data/copy.yml` → `home.philosophy.image` |
+| 2 | `mountain-path-emblem.png` | "A winding stone path climbing a gentle mountain toward a small classical temple at the summit, a rising sun behind" — the journey of counseling | Services page → approach (currently the tree of life medallion) | `content/_data/copy.yml` → `approach.image` |
+| 3 | `labyrinth-thread-emblem.png` | "A circular classical labyrinth seen from above, with a single golden thread (Ariadne's thread) tracing a path from the entrance toward the centre" — finding a way through difficult experiences | About → My Specialties (currently the olive column) | `content/_data/copy.yml` → `about.specialties_image` |
+| 4 | `open-doorway-emblem.png` | "An open classical stone archway with two steps, warm light spilling through, an olive vine growing up one side" — beginning, an invitation | Contact page (currently the stock photo of a surgeon) | `content/_data/copy.yml` → `contact.image` |
 
 Optional fifth image: `two-cups-emblem.png`, "two simple clay cups side by side on a low table" (a conversation), to replace the stock interior photo behind the closing "Begin Your Mythic Journey" band.
 
 ## Adding an image to the site
 
 1. Save the PNG (1536 × 1024) into `assets/images/original/` using the file name above.
-2. Run `scripts/optimize-images.sh`.
-3. Add an entry to `_data/images.yml`, copying an existing emblem's entry and changing the alt text:
+2. Run `theme/scripts/optimize-images.sh`.
+3. Add an entry to `content/_data/images.yml`, copying an existing emblem's entry and changing the alt text:
 
    ```yaml
    oil-lamp-emblem:
@@ -45,4 +45,4 @@ Optional fifth image: `two-cups-emblem.png`, "two simple clay cups side by side 
      alt: "Ancient oil lamp with a steady flame resting on an open scroll"
    ```
 
-4. Put the key (`oil-lamp-emblem`) in the matching `image:` field in `_data/copy.yml`.
+4. Put the key (`oil-lamp-emblem`) in the matching `image:` field in `content/_data/copy.yml`.

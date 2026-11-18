@@ -11,20 +11,15 @@ Throughout, replace `USERNAME` with the GitHub account name and `mythic-counseli
 - **Tools on your computer:** git (included with macOS: run `git --version`) and the GitHub CLI (`brew install gh`). [GitHub Desktop](https://desktop.github.com) works too if you prefer buttons.
 - **Which domain.** The site is set up for `https://mythic-counseling.com`. If the real domain differs, change `url:` in `_config.yml`.
 
-## 1. Choose which design to publish
+## 1. Merge the redesign into `main`
 
-The repository has two designs on two branches, and only `main` is published:
-
-- `main`: the original design, rebuilt from the Squarespace site.
-- `redesign`: the new design, with the blog, Services page and browser editing.
-
-To publish the original, skip to step 2. To publish the redesign, first bring it into `main`:
+All the work so far is on the `redesign` branch. `main` is what gets published.
 
 ```sh
 cd ~/Downloads/Mythic-counseling
 git status                 # should say "nothing to commit"
 git switch main
-git merge redesign         # a fast-forward: main becomes the redesign
+git merge redesign         # a fast-forward: main catches up with redesign
 ```
 
 ## 2. Create the repository and upload it
@@ -99,7 +94,7 @@ Find where the domain's DNS is managed. If it was bought through Squarespace (or
 ## 7. After the switch
 
 1. **Google Search Console** (search.google.com/search-console): add the domain, then **Sitemaps** → submit `https://mythic-counseling.com/sitemap.xml`. Do the same in Bing Webmaster Tools (it can import from Google).
-2. Old Squarespace addresses already redirect to their new pages.
+2. Old Squarespace addresses (such as `/appointments` and the old service pages) already redirect to their new pages.
 3. **Cancel the Squarespace website plan**, but make sure the **domain** registration stays active and on auto-renew; they are billed separately.
 4. Cancel Acuity only after Google booking works (see [guide 2](2-booking-and-forms.md)).
 5. Set up the editor: [guide 3](3-editing-tools.md).
@@ -109,7 +104,7 @@ Find where the domain's DNS is managed. If it was bought through Squarespace (or
 You never need to repeat the steps above. Any change that reaches `main` is published:
 
 ```sh
-git pull                   # get changes made elsewhere (e.g. Pages CMS) first
+git pull                   # get changes made in Pages CMS first
 # …edit files…
 git add -A
 git commit -m "Describe the change"

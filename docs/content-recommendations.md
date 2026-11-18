@@ -6,10 +6,10 @@ The redesign keeps every sentence of the original site. This list covers gaps vi
 
 | Where | Issue | File |
 | --- | --- | --- |
-| About intro | Stops mid-sentence: "My own mental health journey began much earlier than I" | `_data/copy.yml` → `about.body` |
-| About → Complex/Chronic Illness | Heading with no text (shown as a dashed placeholder card) | `_specialties/complex-chronic-illness.md` |
-| Group counseling | The old home page said "…in order to **thrive** within a neurotypical world"; the group page said "**live**". Both now come from one file, which uses "live". | `_services/group-counseling.md` |
-| Crisis information | With suicidology as a listed specialty, add a short, visible line such as "If you are in crisis, call or text 988 (Suicide & Crisis Lifeline) or go to your nearest emergency room. This site and its forms are not monitored for emergencies." The footer and Contact page are the natural places. | `_data/copy.yml` (ask me to add the slot) |
+| About intro | Stops mid-sentence: "My own mental health journey began much earlier than I" | `content/_data/copy.yml` → `about.body` |
+| About → Complex/Chronic Illness | Heading with no text (shown as a dashed placeholder card) | `content/_specialties/complex-chronic-illness.md` |
+| Group counseling | The old home page said "…in order to **thrive** within a neurotypical world"; the group page said "**live**". Both now come from one file, which uses "live". | `content/_services/group-counseling.md` |
+| Crisis information | With suicidology as a listed specialty, add a short, visible line such as "If you are in crisis, call or text 988 (Suicide & Crisis Lifeline) or go to your nearest emergency room. This site and its forms are not monitored for emergencies." The footer and Contact page are the natural places. | `content/_data/copy.yml` (ask a developer to add the slot) |
 
 ## 2. Trust and credentials (high impact for readers and for Google's E-E-A-T)
 
@@ -39,9 +39,9 @@ The redesign keeps every sentence of the original site. This list covers gaps vi
 
 ## New copy added in the redesign
 
-These short labels are marked `NEW` in `_data/copy.yml`. Keep, rewrite or delete each one:
+These short labels are marked `NEW` in `content/_data/copy.yml`. Keep, rewrite or delete each one:
 
 - Camus quotation on the home page (`home.philosophy.quote`)
 - Services table headings: "Service", "Length", "Investment", "How to begin"
 - "Details" (service card link), "Read more" / "Show less" (specialties)
-- "All Services" (menu, in `_data/navigation.yml`) and "Email" (Contact page card)
+- "All Services" (menu, in `content/_data/navigation.yml`) and "Email" (Contact page card)

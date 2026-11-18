@@ -1,0 +1,20 @@
+{%- comment -%}
+  The site's single call to action. Opens the booking dialog; without
+  JavaScript it links straight to the booking page in a new tab.
+  Params: class (extra classes), label (defaults to copy.booking.button), tab
+  ("consultation" or "individual" to preselect a Google schedule).
+{%- endcomment -%}
+{%- assign google = site.data.settings.booking.google -%}
+{%- assign has_consultation = false -%}{%- if google.consultation and google.consultation != "" %}{% assign has_consultation = true %}{% endif -%}
+{%- assign has_individual = false -%}{%- if google.individual and google.individual != "" %}{% assign has_individual = true %}{% endif -%}
+{%- if include.tab == "individual" and has_individual -%}
+  {%- assign fallback = google.individual -%}
+{%- elsif has_consultation -%}
+  {%- assign fallback = google.consultation -%}
+{%- elsif has_individual -%}
+  {%- assign fallback = google.individual -%}
+{%- else -%}
+  {%- assign fallback = site.data.settings.booking.acuity_url -%}
+{%- endif -%}
+<a class="button {{ include.class }}" href="{{ fallback }}" target="_blank" rel="noopener" data-book{% if include.tab %}="{{ include.tab }}"{% endif %}
+   {%- if include.aria_label %} aria-label="{{ include.aria_label }}"{% endif %}>{{ include.label | default: site.data.copy.booking.button }}</a>

@@ -3,24 +3,25 @@
 # posts or edit Services, Specialties and Page copy in forms; saving commits to
 # the branch and GitHub Pages republishes the site a minute later.
 #
-# Every key in _data/copy.yml is listed under "Page copy" below. When you add a
+# Every key in content/_data/copy.yml is listed under "Page copy" below. When you add a
 # key to that file, add it here too.
 
-# Uploads from the editor are published as-is. Keep photos under ~300 KB
-# (about 1600 px wide, JPG or WebP).
+# Uploaded images are resized and compressed automatically when the site
+# deploys (theme/scripts/compress-uploads.sh). iPhone HEIC photos are not
+# supported by most browsers: export them as JPG first.
 media:
   - name: uploads
     label: Uploads
     input: assets/images/uploads
     output: /assets/images/uploads
     rename: safe
-    categories: [image]
+    extensions: [jpg, jpeg, png, webp, gif]
 
 content:
   - name: posts
     label: Blog posts
     type: collection
-    path: _posts
+    path: content/_posts
     exclude: [.gitkeep]
     filename: "{year}-{month}-{day}-{primary}.md"
     view:
@@ -32,7 +33,7 @@ content:
       - name: date
         label: Publish date
         type: date
-        description: Posts dated in the future appear on the first site update after that date.
+        description: A future date schedules the post; it appears early that morning.
         options: { format: yyyy-MM-dd }
       - name: description
         label: Summary
@@ -59,10 +60,71 @@ content:
         type: rich-text
         options: { format: markdown, media: uploads }
 
+  - name: settings
+    label: Settings (email, booking, forms)
+    type: file
+    path: content/_data/settings.yml
+    fields:
+      - { name: email, label: Practice email, type: string, required: true }
+      - { name: region, label: Service area, type: string }
+      - { name: tagline, type: string }
+      - { name: description, label: Site description for search engines (about 160 characters), type: text }
+      - name: booking
+        type: object
+        fields:
+          - name: google
+            label: Google Calendar booking pages
+            type: object
+            fields:
+              - { name: consultation, label: Free consultation schedule (embed link), type: string }
+              - { name: individual, label: Individual sessions schedule (embed link), type: string }
+          - { name: acuity_url, label: Acuity booking page (used while the Google links are empty), type: string }
+          - { name: acuity_embed_url, label: Acuity embed link, type: string }
+      - name: forms
+        type: object
+        fields:
+          - { name: contact, label: Contact page Google Form link, type: string }
+
+  - name: pages
+    label: Page titles and search descriptions
+    type: file
+    path: content/_data/pages.yml
+    fields:
+      - name: home
+        type: object
+        fields:
+          - { name: title, type: string }
+          - { name: seo_title, label: Browser tab title (optional), type: string }
+          - { name: description, label: Search description (about 160 characters), type: text }
+      - name: services
+        type: object
+        fields:
+          - { name: title, type: string }
+          - { name: seo_title, label: Browser tab title (optional), type: string }
+          - { name: description, label: Search description (about 160 characters), type: text }
+      - name: about
+        type: object
+        fields:
+          - { name: title, type: string }
+          - { name: seo_title, label: Browser tab title (optional), type: string }
+          - { name: description, label: Search description (about 160 characters), type: text }
+      - name: blog
+        type: object
+        fields:
+          - { name: title, type: string }
+          - { name: seo_title, label: Browser tab title (optional), type: string }
+          - { name: description, label: Search description (about 160 characters), type: text }
+      - name: contact
+        type: object
+        fields:
+          - { name: title, type: string }
+          - { name: seo_title, label: Browser tab title (optional), type: string }
+          - { name: description, label: Search description (about 160 characters), type: text }
+
   - name: services
     label: Services
     type: collection
-    path: _services
+    path: content/_services
     view:
       fields: [heading, order]
       primary: heading
@@ -83,7 +145,7 @@ content:
       - { name: booking_tab, label: Booking calendar (consultation / individual), type: string }
       - { name: form_label, label: Interest form button, type: string }
       - { name: form_url, label: Interest form link, type: string }
-      - { name: emblem, label: Emblem image key (see _data/images.yml), type: string }
+      - { name: emblem, label: Emblem image key (see content/_data/images.yml), type: string }
       - { name: service_type, label: Service type for search engines, type: string }
       - { name: note, label: Note under the button (markdown), type: text }
       - name: topics
@@ -98,7 +160,7 @@ content:
   - name: specialties
     label: Specialties (About page)
     type: collection
-    path: _specialties
+    path: content/_specialties
     view:
       fields: [title, order]
       sort: [order]
@@ -110,7 +172,7 @@ content:
   - name: copy
     label: Page copy
     type: file
-    path: _data/copy.yml
+    path: content/_data/copy.yml
     fields:
       - name: home
         label: Home page
