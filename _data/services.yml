@@ -1,0 +1,24 @@
+# Service catalogue used for structured data (JSON-LD) on the home page and
+# each service page. Prices mirror the wording on the pages.
+- id: free-consultation
+  name: Free Initial 30 Minute Consultation
+  url: /services/free-consultation/
+  description: "An introductory one-on-one session to get to know one another. If you decide to work with me, we will develop a personalized wellness roadmap."
+  price: "0"
+  unit: consultation
+- id: individual-counseling
+  name: 60 Minute Individual Counseling Sessions
+  url: /services/individual-counseling/
+  description: "Standard 60-minute individual counseling. Longer sessions are available by request."
+  price: "130"
+  unit: hour
+- id: group-counseling
+  name: 90 Minute Group Counseling Sessions
+  url: /services/group-counseling/
+  description: "Group topics include Celebrating Neurodiversity, Men’s Mental Health, Surviving and Thriving with ADHD and Autism, and Surviving and Thriving with Complex/Chronic Illness."
+  price: "150"
+  unit: participant per group
+- id: intentional-peer-support-training
+  name: Intentional Peer Support Training (Individual and Organizational)
+  url: /services/intentional-peer-support-training/
+  description: "Trainings and certification in Intentional Peer Support are available by request."

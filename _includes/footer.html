@@ -1,0 +1,20 @@
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div class="site-footer__brand">
+      <h2 class="site-footer__title">Mythic Counseling of Florida</h2>
+      <p class="site-footer__email"><a href="mailto:{{ site.email }}">{{ site.email }}</a></p>
+    </div>
+    <nav class="site-footer__nav" aria-label="Footer">
+      <ul>
+        <li><a href="{{ '/' | relative_url }}">Home</a></li>
+        {%- for item in site.data.navigation %}{% for child in item.children %}
+        <li><a href="{{ child.url | relative_url }}">{{ child.title }}</a></li>
+        {%- endfor %}{% endfor %}
+        <li><a href="{{ '/about/' | relative_url }}">About</a></li>
+        <li><a href="{{ '/appointments/' | relative_url }}">Appointments</a></li>
+        <li><a href="{{ '/contact/' | relative_url }}">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+  <p class="site-footer__legal">&copy; {{ site.time | date: "%Y" }} Mythic Counseling of Florida</p>
+</footer>

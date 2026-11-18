@@ -1,0 +1,29 @@
+---
+layout: null
+sitemap: false
+---
+# Mythic Counseling of Florida
+
+> Holistic, Humanistic Wellness, Tailored to Fit Your Needs. A Person-Centered, Non-Pathologizing Alternative to Mental Health, serving clients in Florida.
+
+My approach to counseling brings together evidence-based therapeutic practices with a humanistic and existential understanding of personal growth and well-being. I believe that people are more than the diagnoses they carry or the experiences they have endured.
+
+- Contact email: {{ site.email }}
+- Online booking: {{ site.booking.url }}
+- Service area: {{ site.region }}
+
+## Services
+
+- [Free Initial 30 Minute Consultation]({{ '/services/free-consultation/' | absolute_url }}): An introductory one-on-one session to get to know one another. If you decide to work with me, we will develop a personalized wellness roadmap. Free.
+- [60 Minute Individual Counseling Sessions]({{ '/services/individual-counseling/' | absolute_url }}): Standard 60-minute individual counseling. Longer sessions are available by request. $130 per hour.
+- [90 Minute Group Counseling Sessions]({{ '/services/group-counseling/' | absolute_url }}): $150 per participant per group. Topics include Celebrating Neurodiversity, Men’s Mental Health, Surviving and Thriving with ADHD and Autism, and Surviving and Thriving with Complex/Chronic Illness.
+- [Intentional Peer Support Training (Individual and Organizational)]({{ '/services/intentional-peer-support-training/' | absolute_url }}): Trainings and certification in Intentional Peer Support are available by request, for individuals and for Respite Programs or other mental health organizations.
+
+## About
+
+- [My Personal and Professional Journey]({{ '/about/' | absolute_url }}): Lived experience with mental health challenges, evidence based traditional mental health modalities, and humanistic alternatives to the mainstream system. Specialties: Suicidology; Chronic Depression/Treatment Resistant Depression; Neurodiversity; Complex/Chronic Illness.
+
+## Get in touch
+
+- [Appointments]({{ '/appointments/' | absolute_url }}): Reserve Your Appointment. Secure a time that suits your schedule.
+- [Contact]({{ '/contact/' | absolute_url }}): Share your name, email address, and a little about what brings you to counseling.

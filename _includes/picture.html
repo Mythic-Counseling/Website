@@ -1,0 +1,23 @@
+{%- comment -%}
+  Responsive <picture> with WebP sources and a PNG fallback.
+  Params:
+    name      key in _data/images.yml (required)
+    sizes     sizes attribute (default: 100vw)
+    class     class for the <img>
+    priority  "true" for the above-the-fold image (eager + high fetch priority)
+    decorative "true" to hide from assistive tech (alt="")
+    alt       overrides the catalogue alt text
+{%- endcomment -%}
+{%- assign img = site.data.images[include.name] -%}
+{%- assign base = '/assets/images/' | append: include.name -%}
+{%- capture srcset -%}
+  {%- for w in img.widths -%}{{ base | append: '-' | append: w | append: '.webp' | relative_url }} {{ w }}w{% unless forloop.last %}, {% endunless %}{%- endfor -%}
+{%- endcapture -%}
+{%- if include.decorative == "true" -%}{%- assign alt = "" -%}{%- else -%}{%- assign alt = include.alt | default: img.alt -%}{%- endif -%}
+<picture>
+  <source type="image/webp" srcset="{{ srcset }}" sizes="{{ include.sizes | default: '100vw' }}">
+  <img src="{{ base | append: '-' | append: img.fallback | append: '.png' | relative_url }}"
+       alt="{{ alt }}" width="{{ img.width }}" height="{{ img.height }}"
+       {% if include.class %}class="{{ include.class }}" {% endif -%}
+       {% if include.priority == "true" %}loading="eager" fetchpriority="high"{% else %}loading="lazy"{% endif %} decoding="async">
+</picture>

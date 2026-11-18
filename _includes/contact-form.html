@@ -1,0 +1,34 @@
+{%- comment -%}
+  Name / Email / Message form matching the original Squarespace form fields.
+  Params: id (unique prefix), submit (button label), subject (email subject).
+  Posts to site.form_endpoint when set; otherwise assets/js/main.js turns the
+  submission into a pre-filled email to site.email.
+{%- endcomment -%}
+{%- assign fid = include.id | default: "contact" -%}
+<form class="contact-form" method="post" data-contact-form
+      {% if site.form_endpoint != "" %}action="{{ site.form_endpoint }}"{% else %}action="mailto:{{ site.email }}" enctype="text/plain"{% endif %}
+      data-email="{{ site.email }}" data-subject="{{ include.subject | default: 'Website inquiry' }}">
+  <fieldset class="contact-form__name">
+    <legend>Name <span class="required">(required)</span></legend>
+    <div class="field">
+      <label for="{{ fid }}-first">First Name</label>
+      <input id="{{ fid }}-first" name="first_name" type="text" autocomplete="given-name" required>
+    </div>
+    <div class="field">
+      <label for="{{ fid }}-last">Last Name</label>
+      <input id="{{ fid }}-last" name="last_name" type="text" autocomplete="family-name" required>
+    </div>
+  </fieldset>
+  <div class="field">
+    <label for="{{ fid }}-email">Email <span class="required">(required)</span></label>
+    <input id="{{ fid }}-email" name="email" type="email" autocomplete="email" inputmode="email" required>
+  </div>
+  <div class="field">
+    <label for="{{ fid }}-message">Message <span class="required">(required)</span></label>
+    <textarea id="{{ fid }}-message" name="message" rows="5" required></textarea>
+  </div>
+  <input type="hidden" name="_subject" value="{{ include.subject | default: 'Website inquiry' }}">
+  <p class="contact-form__trap" aria-hidden="true"><label>Leave blank <input type="text" name="_gotcha" tabindex="-1" autocomplete="off"></label></p>
+  <button class="button" type="submit">{{ include.submit | default: "Submit" }}</button>
+  <p class="contact-form__status" role="status" aria-live="polite" hidden>Thank you!</p>
+</form>

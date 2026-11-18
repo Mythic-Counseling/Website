@@ -1,0 +1,74 @@
+# Responsive image catalogue, consumed by _includes/picture.html.
+# Masters live in assets/images/original/; derived files are produced by
+# scripts/optimize-images.sh. `widths` lists the generated WebP widths and
+# `fallback` the width of the PNG served to browsers without WebP support.
+
+misty-mountain-river:
+  width: 1536
+  height: 1024
+  widths: [640, 1024, 1536]
+  fallback: 1024
+  alt: "Sepia illustration of a misty mountain range and river beneath a rising sun"
+
+mythic-sisyphus-emblem:
+  width: 1536
+  height: 1024
+  widths: [640, 1024, 1536]
+  fallback: 1024
+  alt: "Mythic Counseling emblem: Sisyphus pushing a boulder up a mountain, framed by olive branches"
+
+tree-of-life-medallion:
+  width: 1312
+  height: 1199
+  widths: [640, 1024, 1312]
+  fallback: 1024
+  alt: "Vintage sepia medallion of a tree of life with deep, intertwined roots"
+
+olive-cairn-emblem:
+  width: 1536
+  height: 1024
+  widths: [640, 1024, 1536]
+  fallback: 1024
+  alt: "Stacked stone cairn encircled by an olive wreath"
+
+moon-laurel-crest:
+  width: 1536
+  height: 1024
+  widths: [640, 1024, 1536]
+  fallback: 1024
+  alt: "Moon in its phases framed by a laurel wreath"
+
+tree-of-life-profile-emblem:
+  width: 1536
+  height: 1024
+  widths: [640, 1024, 1536]
+  fallback: 1024
+  alt: "Profile of a human head containing a growing tree of life, with an olive branch"
+
+reserve-consultation-background:
+  width: 1376
+  height: 768
+  widths: [640, 1024, 1376]
+  fallback: 1024
+  alt: "Calm, sunlit room with an armchair, arched window and plants"
+
+contact-illustration:
+  width: 896
+  height: 1200
+  widths: [640, 896]
+  fallback: 896
+  alt: "Clinician washing her hands at a sink before an appointment"
+
+laurel-framed-mountain-lake:
+  width: 1536
+  height: 1024
+  widths: [640, 1024, 1536]
+  fallback: 1024
+  alt: "Mountain lake at sunrise framed by a laurel wreath"
+
+olive-vine-column-emblem:
+  width: 1536
+  height: 1024
+  widths: [640, 1024, 1536]
+  fallback: 1024
+  alt: "Classical Ionic column entwined with an olive vine"

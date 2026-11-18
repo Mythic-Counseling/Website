@@ -1,0 +1,19 @@
+# Primary navigation. Items with `children` render as a disclosure menu.
+- title: Home
+  url: /
+- title: Services
+  children:
+    - title: 30 Minute Free Consultation
+      url: /services/free-consultation/
+    - title: 60 Minute Individual Counseling
+      url: /services/individual-counseling/
+    - title: 90 Minute Group Counseling
+      url: /services/group-counseling/
+    - title: Intentional Peer Support Training
+      url: /services/intentional-peer-support-training/
+- title: About
+  url: /about/
+- title: Appointments
+  url: /appointments/
+- title: Contact
+  url: /contact/

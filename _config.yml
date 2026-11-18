@@ -1,0 +1,53 @@
+# Site settings for Mythic Counseling of Florida.
+#
+# Deployment: `url` is the public origin used for canonical links, the sitemap,
+# Open Graph tags and structured data. `baseurl` is the sub-path the site is
+# served from.
+#   - Custom domain (recommended):  url: "https://mythic-counseling.com", baseurl: ""
+#   - GitHub project page:          url: "https://<user>.github.io",      baseurl: "/<repo-name>"
+url: "https://mythic-counseling.com"
+baseurl: ""
+
+title: "Mythic Counseling of Florida"
+tagline: "Holistic, Humanistic Wellness, Tailored to Fit Your Needs"
+description: "Holistic, humanistic counseling in Florida: a person-centered, non-pathologizing alternative to mental health care. Free 30 minute consultation, individual counseling, group counseling and Intentional Peer Support training."
+lang: en-US
+locale: en_US
+
+email: "evan@mythic-counseling.com"
+region: "Florida"
+default_image: /assets/images/og-mythic-counseling.jpg
+
+# Online scheduling (Acuity). Values copied from the original Squarespace embed.
+booking:
+  url: "https://mythiccounselingofflorida.as.me/?calendarID=14740761"
+  embed_url: "https://app.acuityscheduling.com/schedule.php?owner=40782217&calendarID=14740761"
+
+# Contact forms. GitHub Pages cannot process form submissions, so forms post to
+# `form_endpoint` when it is set (e.g. a Formspree, Basin or Getform URL). When
+# it is empty, the form opens the visitor's email app addressed to `email`.
+form_endpoint: ""
+
+# Google Forms used for interest sign-ups.
+forms:
+  ips_training: "https://docs.google.com/forms/d/e/1FAIpQLSfJbXN4H5pAM3Z-CP7NRwNLcC3HfK3nKOdQ9SN5D31nme1ANg/viewform?usp=dialog"
+  group_counseling: "https://docs.google.com/forms/d/e/1FAIpQLSfuu8bHm49I2RhLA8yUZkRlmjL3u26UOo9Fa6mnnK7b1KzI_A/viewform?usp=dialog"
+
+permalink: pretty
+markdown: kramdown
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default
+
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - scripts/
+  - reference/
+  - assets/images/original/
+  - vendor/
+  - .bundle/
