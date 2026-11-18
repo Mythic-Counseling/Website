@@ -1,0 +1,11 @@
+{%- comment -%}
+  A post's `image`: either a key from _data/images.yml (the site's emblems,
+  served as responsive WebP) or an uploaded file path such as
+  /assets/images/uploads/photo.jpg. Params: post, sizes, priority.
+{%- endcomment -%}
+{%- assign img = include.post.image -%}
+{%- if img contains "/" -%}
+<img src="{{ img | relative_url }}" alt="{{ include.post.image_alt }}"{% if include.priority == "true" %} fetchpriority="high"{% else %} loading="lazy"{% endif %} decoding="async">
+{%- elsif site.data.images[img] -%}
+{% include picture.html name=img sizes=include.sizes priority=include.priority alt=include.post.image_alt %}
+{%- endif -%}

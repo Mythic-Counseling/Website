@@ -84,7 +84,7 @@ contact:
   email_label: "Email"   # NEW
 
 # Numbering style for the specialty and approach cards: roman, greek or runes.
-numerals: greek
+numerals: roman
 
 # The booking dialog opened by every "Book now" button.
 booking:
@@ -100,3 +100,14 @@ closing:
 
 service_page:
   others_heading: "Other Services Offered"
+
+# NEW — the blog list (/blog/) and every post. Posts live in _posts/.
+blog:
+  heading: "Blog"
+  intro: ""   # (markdown) optional line under the heading
+  empty: "New writing is on its way."
+  read_more: "Read"
+  reading_time: "min read"
+  back: "Blog"
+  newer: "Newer"
+  older: "Older"

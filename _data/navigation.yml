@@ -1,10 +1,14 @@
 # Primary navigation. "Services" links to the Services page; its menu (hover
 # on desktop, arrow button on mobile) lists every file in _services/ (sorted by
-# `order`), so new services appear automatically.
+# `order`), so new services appear automatically. An item with
+# `requires: posts` stays hidden until the first blog post is published.
 - title: Services
   url: /services/
   menu: services
 - title: About
   url: /about/
+- title: Blog
+  url: /blog/
+  requires: posts
 - title: Contact
   url: /contact/

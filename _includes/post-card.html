@@ -1,0 +1,16 @@
+{%- comment -%} Card for one blog post on /blog/. Param: post. {%- endcomment -%}
+{%- assign p = include.post -%}
+{%- assign summary = p.description | default: p.excerpt | strip_html | strip | truncatewords: 40 -%}
+<article class="post-card{% if p.image %} post-card--image{% endif %}">
+  {%- if p.image %}
+  <a class="post-card__media" href="{{ p.url | relative_url }}" tabindex="-1" aria-hidden="true">
+    {% include post-image.html post=p sizes="(min-width: 900px) 200px, 30vw" %}
+  </a>
+  {%- endif %}
+  <div class="post-card__body">
+    {% include post-meta.html post=p %}
+    <h2 class="post-card__title"><a href="{{ p.url | relative_url }}">{{ p.title }}</a></h2>
+    <p class="post-card__text">{{ summary }}</p>
+    <p class="post-card__more"><a class="link-arrow" href="{{ p.url | relative_url }}">{{ site.data.copy.blog.read_more }}<span class="visually-hidden">: {{ p.title }}</span></a></p>
+  </div>
+</article>

@@ -1,12 +1,64 @@
-# Pages CMS (https://pagescms.org) — optional browser-based editor for the copy.
-# Sign in at app.pagescms.org with GitHub, open this repository, and edit
-# Services, Specialties and Page copy in a form; saving commits to the branch.
+# Pages CMS (https://pagescms.org) — browser-based editor for the site.
+# Sign in at app.pagescms.org with GitHub, open this repository, and write blog
+# posts or edit Services, Specialties and Page copy in forms; saving commits to
+# the branch and GitHub Pages republishes the site a minute later.
+#
+# Every key in _data/copy.yml is listed under "Page copy" below. When you add a
+# key to that file, add it here too.
 
+# Uploads from the editor are published as-is. Keep photos under ~300 KB
+# (about 1600 px wide, JPG or WebP).
 media:
-  input: assets/images/original
-  output: /assets/images/original
+  - name: uploads
+    label: Uploads
+    input: assets/images/uploads
+    output: /assets/images/uploads
+    rename: safe
+    categories: [image]
 
 content:
+  - name: posts
+    label: Blog posts
+    type: collection
+    path: _posts
+    exclude: [.gitkeep]
+    filename: "{year}-{month}-{day}-{primary}.md"
+    view:
+      fields: [title, date, published]
+      primary: title
+      default: { sort: date, order: desc }
+    fields:
+      - { name: title, label: Title, type: string, required: true }
+      - name: date
+        label: Publish date
+        type: date
+        description: Posts dated in the future appear on the first site update after that date.
+        options: { format: yyyy-MM-dd }
+      - name: description
+        label: Summary
+        type: text
+        required: true
+        description: One or two sentences (about 160 characters) for the blog page, search results and link previews.
+      - name: image
+        label: Image (optional)
+        type: image
+        options: { media: uploads }
+      - { name: image_alt, label: Image description for screen readers, type: string }
+      - name: published
+        label: Published
+        type: boolean
+        default: true
+        description: Turn off to keep the post as a draft.
+      - name: updated
+        label: Last revised (optional)
+        type: date
+        default: ""
+        options: { format: yyyy-MM-dd }
+      - name: body
+        label: Post
+        type: rich-text
+        options: { format: markdown, media: uploads }
+
   - name: services
     label: Services
     type: collection
@@ -23,6 +75,7 @@ content:
       - { name: duration, label: Length, type: string }
       - { name: price_label, label: Price as shown, type: string }
       - { name: price, label: Price number for search engines, type: string }
+      - { name: price_unit, label: Price unit (hour / session), type: string }
       - name: action
         label: How to begin
         type: select
@@ -31,6 +84,7 @@ content:
       - { name: form_label, label: Interest form button, type: string }
       - { name: form_url, label: Interest form link, type: string }
       - { name: emblem, label: Emblem image key (see _data/images.yml), type: string }
+      - { name: service_type, label: Service type for search engines, type: string }
       - { name: note, label: Note under the button (markdown), type: text }
       - name: topics
         label: Topics
@@ -80,6 +134,7 @@ content:
             type: object
             fields:
               - { name: heading, type: string }
+              - { name: image, label: Image key, type: string }
               - { name: body, type: text }
               - { name: button, type: string }
           - name: reserve
@@ -93,6 +148,7 @@ content:
         type: object
         fields:
           - { name: heading, type: string }
+          - { name: image, label: Image key, type: string }
           - { name: body, label: Body (markdown), type: text }
       - name: services_page
         label: Services page
@@ -114,6 +170,7 @@ content:
           - { name: heading, type: string }
           - { name: body, label: Body (markdown), type: text }
           - { name: specialties_heading, type: string }
+          - { name: specialties_image, label: Specialties image key, type: string }
           - { name: read_more, type: string }
           - { name: read_less, type: string }
       - name: contact
@@ -121,8 +178,10 @@ content:
         type: object
         fields:
           - { name: heading, type: string }
+          - { name: image, label: Image key, type: string }
           - { name: body, label: Body (markdown), type: text }
           - { name: submit, label: Button, type: string }
+          - { name: email_label, label: Email card label, type: string }
       - name: numerals
         label: Card numbering
         type: select
@@ -146,3 +205,15 @@ content:
         type: object
         fields:
           - { name: others_heading, type: string }
+      - name: blog
+        label: Blog page
+        type: object
+        fields:
+          - { name: heading, type: string }
+          - { name: intro, label: Intro (markdown, optional), type: text }
+          - { name: empty, label: Shown while there are no posts, type: string }
+          - { name: read_more, label: Card link, type: string }
+          - { name: reading_time, label: "Reading time label (after the number)", type: string }
+          - { name: back, label: Link back to the blog, type: string }
+          - { name: newer, type: string }
+          - { name: older, type: string }

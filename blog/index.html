@@ -1,0 +1,31 @@
+---
+title: Blog
+description: "Writing from Mythic Counseling of Florida on humanistic counseling, meaning, neurodiversity, depression and the work of being human."
+body_class: blog
+schema_type: CollectionPage
+noindex_when_empty: true
+---
+{%- assign copy = site.data.copy.blog -%}
+<section class="page-head page-head--plain">
+  <div class="container">
+    <h1>{{ copy.heading }}</h1>
+    {% include divider.html %}
+    {%- if copy.intro != "" %}
+    <div class="lead blog-intro">{{ copy.intro | markdownify }}</div>
+    {%- endif %}
+  </div>
+</section>
+
+<section class="section section--tight" aria-label="{{ copy.heading }}">
+  <div class="container">
+    {%- if site.posts.size > 0 %}
+    <div class="post-list">
+      {%- for p in site.posts %}
+      {% include post-card.html post=p %}
+      {%- endfor %}
+    </div>
+    {%- else %}
+    <p class="lead blog-empty">{{ copy.empty }}</p>
+    {%- endif %}
+  </div>
+</section>

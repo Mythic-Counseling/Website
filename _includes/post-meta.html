@@ -1,0 +1,8 @@
+{%- comment -%} Date and reading time for a post. Param: post. {%- endcomment -%}
+{%- assign words = include.post.content | strip_html | number_of_words -%}
+{%- assign minutes = words | divided_by: 200 | at_least: 1 -%}
+<p class="post-meta">
+  <time datetime="{{ include.post.date | date_to_xmlschema }}">{{ include.post.date | date: "%B %-d, %Y" }}</time>
+  <span aria-hidden="true">·</span>
+  <span>{{ minutes }} {{ site.data.copy.blog.reading_time }}</span>
+</p>

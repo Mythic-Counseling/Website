@@ -8,6 +8,7 @@ All wording lives in Markdown/YAML files, so you never need to touch the HTML te
 
 | What | Where |
 | --- | --- |
+| A blog post | `_posts/YYYY-MM-DD-title.md` (see below) |
 | A service (title, length, price, how to begin, body text, group topics) | `_services/<name>.md` — one file per service; a new file becomes a new page at `/services/<name>/` and appears in the menu, cards, table, footer and structured data automatically |
 | A specialty on the About page | `_specialties/<name>.md` |
 | Everything else: home page, Services page, About intro, Contact, booking dialog, closing band | `_data/copy.yml` |
@@ -17,7 +18,17 @@ All wording lives in Markdown/YAML files, so you never need to touch the HTML te
 
 In service and specialty files, the text **above a `<!--more-->` line** is the short summary shown on cards (and before "Read more"); the rest appears on the full page or when expanded.
 
-**Editing in the browser (optional):** `.pages.yml` configures [Pages CMS](https://pagescms.org). Sign in at app.pagescms.org with GitHub, open this repository, and edit Services, Specialties and Page copy in forms. Each save is a commit.
+**Editing in the browser (recommended):** `.pages.yml` configures [Pages CMS](https://pagescms.org), a free editor that works on top of this GitHub repository. Sign in at app.pagescms.org with GitHub, open this repository, and edit Blog posts, Services, Specialties and Page copy in forms. Each save is a commit, and GitHub Pages republishes the site about a minute later. For quick fixes you can also press `.` on the repository page on github.com to open a web editor.
+
+## Writing a blog post
+
+**In Pages CMS:** Blog posts → Add an entry. Fill in the title, summary and post (the editor has buttons for headings, bold, lists, quotes, links and images), then save. Turn **Published** off to save a draft.
+
+**By hand:** copy `_drafts/example-post.md` (it shows every formatting option) into `_posts/` as `YYYY-MM-DD-short-title.md`. The date is the publish date; the rest of the name becomes the address, `/blog/short-title/`.
+
+Each post gets a page with reading time and newer/older links, a card on `/blog/`, an entry in the RSS feed (`/feed.xml`), the sitemap and `llms.txt`, and `BlogPosting` structured data. The **Blog** menu link and the `/blog/` page appear in search only once the first post is published. Blog labels ("Read", "min read"…) are under `blog:` in `_data/copy.yml`.
+
+Images: uploads go to `assets/images/uploads/` and are published as-is, so keep photos around 1600 px wide and under ~300 KB. For a post's top image you can also use one of the site's emblems by typing its key from `_data/images.yml` (for example `image: olive-cairn-emblem`).
 
 Content ideas and gaps to fill: [`docs/content-recommendations.md`](docs/content-recommendations.md). New artwork prompts and where each image goes: [`docs/image-prompts.md`](docs/image-prompts.md).
 
@@ -26,7 +37,8 @@ Content ideas and gaps to fill: [`docs/content-recommendations.md`](docs/content
 | Path | Purpose |
 | --- | --- |
 | `index.html`, `services/index.html`, `about/`, `contact/`, `404.html` | Page templates (copy comes from the files above) |
-| `_layouts/service.html` | Template for every service page |
+| `_layouts/service.html`, `_layouts/post.html` | Templates for every service page and blog post |
+| `blog/index.html`, `feed.xml` | Blog list and RSS/Atom feed |
 | `_includes/` | Header (with reading-progress boulder), footer, booking dialog, cards, forms, SEO head and JSON-LD |
 | `assets/css/main.css` | All styles; colours and fonts are tokens at the top |
 | `assets/js/main.js` | Menu, booking dialog, tabs, contact-form fallback, reading progress |

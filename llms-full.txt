@@ -51,3 +51,15 @@ URL: {{ s.url | absolute_url }}
 
 {{ sp.content | replace: "<!--more-->", "" | strip }}
 {% endfor %}
+{%- if site.posts.size > 0 %}
+
+## {{ copy.blog.heading }}
+{% for p in site.posts %}
+### {{ p.title }}
+
+URL: {{ p.url | absolute_url }}
+Published: {{ p.date | date: "%Y-%m-%d" }}
+
+{{ p.content | strip_html | strip }}
+{% endfor %}
+{%- endif %}

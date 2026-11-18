@@ -42,6 +42,8 @@ permalink: pretty
 markdown: kramdown
 
 # Page copy lives in Markdown/YAML so it can be edited without touching HTML:
+#   _posts/*.md        one file per blog post, named YYYY-MM-DD-title.md
+#                      (becomes /blog/<title>/); drafts go in _drafts/
 #   _services/*.md     one file per service (becomes /services/<file-name>/)
 #   _specialties/*.md  one file per specialty on the About page
 #   _data/copy.yml     everything else (home, services hub, about, contact…)
@@ -67,6 +69,13 @@ defaults:
       layout: service
       body_class: service
       hero_image: misty-mountain-river
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+      body_class: post
+      permalink: /blog/:title/
 
 exclude:
   - .pages.yml
