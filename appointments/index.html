@@ -20,11 +20,46 @@ schema_type: WebPage
 
 <section class="section section--light" aria-label="Online scheduling">
   <div class="container container--narrow">
-    <div class="scheduler">
-      <iframe class="scheduler__frame" src="{{ site.booking.embed_url }}" title="Schedule Appointment"
-              width="100%" height="800" loading="lazy" allow="payment"></iframe>
-      <noscript><p><a href="{{ site.booking.url }}">{{ site.booking.url }}</a></p></noscript>
+  {%- assign google = site.booking.google %}
+  {%- if google.consultation != "" or google.individual != "" %}
+    {%- comment -%}
+      One Google Calendar appointment schedule per service. Without JS both
+      panels are shown; main.js turns them into tabs and honours #consultation
+      / #individual in the URL.
+    {%- endcomment -%}
+    <div class="booking" data-tabs>
+      <div class="booking__tabs" role="tablist" aria-label="Appointment type" hidden>
+        {%- if google.consultation != "" %}
+        <button class="booking__tab" type="button" role="tab" id="tab-consultation" aria-controls="consultation">Free Initial 30 Minute Consultation</button>
+        {%- endif %}
+        {%- if google.individual != "" %}
+        <button class="booking__tab" type="button" role="tab" id="tab-individual" aria-controls="individual">60 Minute Individual Counseling Sessions</button>
+        {%- endif %}
+      </div>
+      {%- if google.consultation != "" %}
+      <div class="booking__panel" id="consultation" role="tabpanel" aria-labelledby="tab-consultation">
+        <h2 class="booking__heading">Free Initial 30 Minute Consultation</h2>
+        <div class="scheduler">
+          <iframe class="scheduler__frame" src="{{ google.consultation }}" title="Book a Free Initial 30 Minute Consultation" loading="lazy"></iframe>
+        </div>
+      </div>
+      {%- endif %}
+      {%- if google.individual != "" %}
+      <div class="booking__panel" id="individual" role="tabpanel" aria-labelledby="tab-individual">
+        <h2 class="booking__heading">60 Minute Individual Counseling Sessions</h2>
+        <div class="scheduler">
+          <iframe class="scheduler__frame" src="{{ google.individual }}" title="Book 60 Minute Individual Counseling Sessions" loading="lazy"></iframe>
+        </div>
+      </div>
+      {%- endif %}
     </div>
+  {%- else %}
+    <div class="scheduler">
+      <iframe class="scheduler__frame" src="{{ site.booking.acuity_embed_url }}" title="Schedule Appointment"
+              width="100%" height="800" loading="lazy" allow="payment"></iframe>
+      <noscript><p><a href="{{ site.booking.acuity_url }}">{{ site.booking.acuity_url }}</a></p></noscript>
+    </div>
+    <script src="https://embed.acuityscheduling.com/js/embed.js" defer></script>
+  {%- endif %}
   </div>
 </section>
-<script src="https://embed.acuityscheduling.com/js/embed.js" defer></script>

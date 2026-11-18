@@ -33,9 +33,9 @@ JEKYLL_NO_BUNDLER_REQUIRE=true jekyll serve
    - project page: `url: "https://<user>.github.io"`, `baseurl: "/<repo-name>"`.
 4. Submit `https://<your-domain>/sitemap.xml` in Google Search Console and Bing Webmaster Tools.
 
-## Forms
+## Booking and forms (Google Workspace)
 
-GitHub Pages cannot receive form posts. With `form_endpoint` empty in `_config.yml`, forms open the visitor's email app addressed to `evan@mythic-counseling.com`. To receive submissions directly, create a form with a provider (Formspree, Basin, etc. — choose one with appropriate privacy terms for counseling inquiries) and paste its endpoint URL into `form_endpoint`.
+Booking uses Google Calendar appointment schedules, and the inquiry forms use Google Forms, both on the practice's Google Workspace account. Paste the links into `booking.google` and `forms` in `_config.yml`. Until those are set, the Appointments page shows the original Acuity scheduler and forms open the visitor's email app. Full setup steps, including the HIPAA BAA: [`docs/google-workspace-setup.md`](docs/google-workspace-setup.md).
 
 ## Images
 

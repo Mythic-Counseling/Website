@@ -52,8 +52,8 @@
     if (!e.target.closest(".site-nav__item--has-menu")) closeSubmenus();
   });
 
-  // Contact forms: POST to the configured endpoint, or fall back to a
-  // pre-filled email when no endpoint is configured (action="mailto:…").
+  // Contact forms without a Google Form configured: turn the submission into a
+  // pre-filled email so nothing is stored by a third party.
   document.querySelectorAll("[data-contact-form]").forEach(function (form) {
     var status = form.querySelector(".contact-form__status");
 
@@ -63,33 +63,54 @@
 
       var data = new FormData(form);
       var name = (data.get("first_name") + " " + data.get("last_name")).trim();
-      var action = form.getAttribute("action") || "";
-
-      if (action.indexOf("mailto:") === 0) {
-        var body = "Name: " + name + "\nEmail: " + data.get("email") + "\n\n" + data.get("message");
-        window.location.href = "mailto:" + form.dataset.email +
-          "?subject=" + encodeURIComponent(form.dataset.subject) +
-          "&body=" + encodeURIComponent(body);
-        status.hidden = false;
-        return;
-      }
-
-      var button = form.querySelector('button[type="submit"]');
-      button.disabled = true;
-      fetch(action, { method: "POST", body: data, headers: { Accept: "application/json" } })
-        .then(function (res) {
-          if (!res.ok) throw new Error(res.statusText);
-          form.reset();
-          status.textContent = "Thank you!";
-        })
-        .catch(function () {
-          status.innerHTML = 'Sorry, something went wrong. Please email <a href="mailto:' +
-            form.dataset.email + '">' + form.dataset.email + "</a>.";
-        })
-        .then(function () {
-          status.hidden = false;
-          button.disabled = false;
-        });
+      var body = "Name: " + name + "\nEmail: " + data.get("email") + "\n\n" + data.get("message");
+      window.location.href = "mailto:" + form.dataset.email +
+        "?subject=" + encodeURIComponent(form.dataset.subject) +
+        "&body=" + encodeURIComponent(body);
+      status.hidden = false;
     });
+  });
+
+  // Appointment type tabs on /appointments/. #consultation or #individual in
+  // the URL selects the matching booking calendar.
+  document.querySelectorAll("[data-tabs]").forEach(function (root) {
+    var tablist = root.querySelector('[role="tablist"]');
+    var tabs = Array.prototype.slice.call(root.querySelectorAll('[role="tab"]'));
+    var panels = root.querySelectorAll('[role="tabpanel"]');
+    if (tabs.length < 2) return;
+
+    function select(tab, focus) {
+      tabs.forEach(function (t) {
+        var selected = t === tab;
+        t.setAttribute("aria-selected", String(selected));
+        t.tabIndex = selected ? 0 : -1;
+        document.getElementById(t.getAttribute("aria-controls")).hidden = !selected;
+      });
+      if (focus) tab.focus();
+    }
+
+    tablist.hidden = false;
+    root.classList.add("is-tabbed");
+    panels.forEach(function (panel) { panel.tabIndex = 0; });
+
+    tabs.forEach(function (tab, i) {
+      tab.addEventListener("click", function () {
+        select(tab);
+        history.replaceState(null, "", "#" + tab.getAttribute("aria-controls"));
+      });
+      tab.addEventListener("keydown", function (e) {
+        var next = e.key === "ArrowRight" ? i + 1 : e.key === "ArrowLeft" ? i - 1 : null;
+        if (next === null) return;
+        e.preventDefault();
+        select(tabs[(next + tabs.length) % tabs.length], true);
+      });
+    });
+
+    var initial = tabs.filter(function (t) {
+      return "#" + t.getAttribute("aria-controls") === location.hash;
+    })[0];
+    select(initial || tabs[0]);
+    // The browser jumps to the panel itself; show the tabs above it instead.
+    if (initial) requestAnimationFrame(function () { root.scrollIntoView(); });
   });
 })();

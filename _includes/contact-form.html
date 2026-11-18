@@ -1,12 +1,21 @@
 {%- comment -%}
-  Name / Email / Message form matching the original Squarespace form fields.
-  Params: id (unique prefix), submit (button label), subject (email subject).
-  Posts to site.form_endpoint when set; otherwise assets/js/main.js turns the
-  submission into a pre-filled email to site.email.
+  Contact form. When `google_form` (a Google Forms "viewform" link) is given,
+  the Google Form is embedded so responses stay in Google Workspace. Otherwise
+  a Name / Email / Message form matching the original Squarespace fields is
+  shown, and assets/js/main.js turns a submission into a pre-filled email to
+  site.email.
+  Params: id (unique prefix), submit (button label), subject (email subject),
+          google_form (optional Google Forms link).
 {%- endcomment -%}
 {%- assign fid = include.id | default: "contact" -%}
+{%- if include.google_form and include.google_form != "" -%}
+{%- assign embed_src = include.google_form | split: "?" | first | append: "?embedded=true" -%}
+<div class="google-form">
+  <iframe class="google-form__frame" src="{{ embed_src }}" title="{{ include.subject | default: 'Contact form' }}" loading="lazy"></iframe>
+</div>
+{%- else -%}
 <form class="contact-form" method="post" data-contact-form
-      {% if site.form_endpoint != "" %}action="{{ site.form_endpoint }}"{% else %}action="mailto:{{ site.email }}" enctype="text/plain"{% endif %}
+      action="mailto:{{ site.email }}" enctype="text/plain"
       data-email="{{ site.email }}" data-subject="{{ include.subject | default: 'Website inquiry' }}">
   <fieldset class="contact-form__name">
     <legend>Name <span class="required">(required)</span></legend>
@@ -27,8 +36,8 @@
     <label for="{{ fid }}-message">Message <span class="required">(required)</span></label>
     <textarea id="{{ fid }}-message" name="message" rows="5" required></textarea>
   </div>
-  <input type="hidden" name="_subject" value="{{ include.subject | default: 'Website inquiry' }}">
   <p class="contact-form__trap" aria-hidden="true"><label>Leave blank <input type="text" name="_gotcha" tabindex="-1" autocomplete="off"></label></p>
   <button class="button" type="submit">{{ include.submit | default: "Submit" }}</button>
   <p class="contact-form__status" role="status" aria-live="polite" hidden>Thank you!</p>
 </form>
+{%- endif -%}

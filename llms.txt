@@ -9,7 +9,7 @@ sitemap: false
 My approach to counseling brings together evidence-based therapeutic practices with a humanistic and existential understanding of personal growth and well-being. I believe that people are more than the diagnoses they carry or the experiences they have endured.
 
 - Contact email: {{ site.email }}
-- Online booking: {{ site.booking.url }}
+- Online booking: {{ '/appointments/' | absolute_url }}
 - Service area: {{ site.region }}
 
 ## Services

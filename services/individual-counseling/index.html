@@ -10,7 +10,7 @@ service_type: Individual counseling
 {% capture body %}
 <p>Standard 60-minute individual counseling. Longer sessions are available by request.</p>
 <p class="price">$130 per hour.</p>
-<p><a class="button" href="{{ site.booking.url }}" target="_blank" rel="noopener" aria-label="Book 60 Minute Individual Counseling Sessions (opens in a new tab)">Book</a></p>
+<p><a class="button" href="{{ '/appointments/#individual' | relative_url }}" aria-label="Book 60 Minute Individual Counseling Sessions">Book</a></p>
 {% endcapture %}
 {% include service-hero.html content=body %}
 {% include approach.html %}

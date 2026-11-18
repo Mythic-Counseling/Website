@@ -36,7 +36,7 @@
       ],
       "potentialAction": {
         "@type": "ReserveAction",
-        "target": {{ site.booking.url | jsonify }},
+        "target": {{ '/appointments/' | absolute_url | jsonify }},
         "name": "Book an appointment"
       },
       "hasOfferCatalog": {

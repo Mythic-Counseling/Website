@@ -18,18 +18,27 @@ email: "evan@mythic-counseling.com"
 region: "Florida"
 default_image: /assets/images/og-mythic-counseling.jpg
 
-# Online scheduling (Acuity). Values copied from the original Squarespace embed.
+# Online scheduling. Every "Book" button links to /appointments/.
+# Google Calendar appointment schedules: paste the URL from each schedule's
+# Share → Website embed → Inline booking page code (the src="…" value, which
+# looks like https://calendar.google.com/calendar/appointments/schedules/…?gv=true).
+# See docs/google-workspace-setup.md. While both are empty, the Appointments
+# page falls back to the Acuity scheduler below.
 booking:
-  url: "https://mythiccounselingofflorida.as.me/?calendarID=14740761"
-  embed_url: "https://app.acuityscheduling.com/schedule.php?owner=40782217&calendarID=14740761"
+  google:
+    consultation: ""   # Free Initial 30 Minute Consultation
+    individual: ""     # 60 Minute Individual Counseling Sessions
+  acuity_url: "https://mythiccounselingofflorida.as.me/?calendarID=14740761"
+  acuity_embed_url: "https://app.acuityscheduling.com/schedule.php?owner=40782217&calendarID=14740761"
 
-# Contact forms. GitHub Pages cannot process form submissions, so forms post to
-# `form_endpoint` when it is set (e.g. a Formspree, Basin or Getform URL). When
-# it is empty, the form opens the visitor's email app addressed to `email`.
-form_endpoint: ""
-
-# Google Forms used for interest sign-ups.
+# Google Forms. Paste each form's "viewform" link (Send → link icon).
+# `contact` replaces the Contact page form and `journey` the "Begin Your Mythic
+# Journey" form on the service pages (they can be the same form). While a link
+# is empty, that form falls back to opening the visitor's email app addressed
+# to `email`.
 forms:
+  contact: ""
+  journey: ""
   ips_training: "https://docs.google.com/forms/d/e/1FAIpQLSfJbXN4H5pAM3Z-CP7NRwNLcC3HfK3nKOdQ9SN5D31nme1ANg/viewform?usp=dialog"
   group_counseling: "https://docs.google.com/forms/d/e/1FAIpQLSfuu8bHm49I2RhLA8yUZkRlmjL3u26UOo9Fa6mnnK7b1KzI_A/viewform?usp=dialog"
 
@@ -44,6 +53,7 @@ defaults:
 
 exclude:
   - README.md
+  - docs/
   - Gemfile
   - Gemfile.lock
   - scripts/
