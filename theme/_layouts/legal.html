@@ -1,0 +1,22 @@
+---
+layout: default
+---
+{%- comment -%}
+  Layout for the legal pages in content/_legal/ (privacy policy, terms,
+  disclaimers). Front matter: title, description, order, updated (a date).
+{%- endcomment -%}
+<section class="page-head page-head--plain">
+  <div class="container">
+    <h1>{{ page.title }}</h1>
+    {% include divider.html %}
+    {%- if page.updated %}
+    <p class="legal__updated">{{ site.data.copy.legal.updated }} <time datetime="{{ page.updated | date: '%Y-%m-%d' }}">{{ page.updated | date: "%B %-d, %Y" }}</time></p>
+    {%- endif %}
+  </div>
+</section>
+
+<section class="section section--tight">
+  <div class="container container--narrow prose legal">
+    {{ content }}
+  </div>
+</section>

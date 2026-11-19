@@ -34,7 +34,9 @@ How the site is put together, for changing the design or behaviour. For editing 
 - Service and specialty bodies are split on a `<!--more-->` line (summary above, rest below), done in Liquid rather than with Jekyll excerpts.
 - Empty settings may arrive as `""` or `null` from the CMS, so test with `x and x != ""`. Liquid's `blank` doesn't work in plain Jekyll.
 - A post's `image` is either a key in `content/_data/images.yml` or a path such as `/assets/images/uploads/x.jpg`. `post.html` also rewrites the relative `src="assets/…"` paths that Obsidian writes.
-- The Blog menu item (`requires: posts`) and `/blog/` indexing (`noindex_when_empty`) switch on with the first post.
+- The Blog menu item (`requires: posts`) and `/blog/` indexing (`noindex_when_empty`) switch on with the first post. The newsletter signup, `/newsletter/` (`noindex_unless_newsletter`) and its footer link switch on when `settings.newsletter.action` is set.
+- **Consent:** no third-party request is made on page load (fonts are self-hosted in `assets/fonts/`). Google iframes use `data-consent-src` (forms) or `data-src` (booking dialog) and load only after consent. `main.js` keeps the choice in `localStorage` (`mc-consent`), shows `cookie-notice.html` until answered, and swaps `consent-gate.html` prompts for the iframes. Any new third-party embed should follow the same pattern.
+- Includes share Liquid variables with the page that includes them, so includes used inside page content use prefixed names (`gate_copy`, `nl_copy`), not `copy`.
 
 ## Artwork
 

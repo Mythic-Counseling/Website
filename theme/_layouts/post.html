@@ -40,6 +40,9 @@ layout: default
     {%- endif %}
     {{ body }}
   </div>
+  <div class="container container--narrow">
+    {% include newsletter-signup.html id="newsletter-post" compact="true" %}
+  </div>
   {%- if page.previous or page.next %}
   <nav class="container container--narrow post-nav" aria-label="More posts">
     {%- if page.next %}

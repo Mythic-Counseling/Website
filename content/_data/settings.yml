@@ -24,3 +24,12 @@ booking:
 # addressed to `email` instead.
 forms:
   contact: ""
+
+# Email newsletter. From your newsletter service's embedded signup form, copy
+# the form's action="…" URL and the name="…" of its email field; add any
+# hidden inputs it includes. See docs/4-newsletter.md. While `action` is
+# empty, the signup forms and the Newsletter link stay hidden.
+newsletter:
+  action: ""
+  email_field: "email"
+  hidden_fields: []   # e.g. - { name: "tag", value: "website" }

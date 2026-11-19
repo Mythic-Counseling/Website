@@ -53,6 +53,55 @@
     if (!e.target.closest(".site-nav__item--has-menu")) closeSubmenus();
   });
 
+  // Consent for Google's booking calendar and forms. The site sets no cookies
+  // of its own; the visitor's choice is kept in localStorage, the notice asks
+  // until it is answered, and "Cookie settings" in the footer reopens it.
+  var CONSENT_KEY = "mc-consent";
+  var consentListeners = [];
+  var notice = document.querySelector("[data-cookie-notice]");
+
+  function getConsent() {
+    try { return localStorage.getItem(CONSENT_KEY); } catch (e) { return null; }
+  }
+  function consentGranted() { return getConsent() === "granted"; }
+
+  function applyConsent() {
+    var granted = consentGranted();
+    document.querySelectorAll("[data-consent-gate]").forEach(function (gate) { gate.hidden = granted; });
+    if (granted) {
+      document.querySelectorAll("iframe[data-consent-src]").forEach(function (frame) {
+        frame.src = frame.getAttribute("data-consent-src");
+        frame.removeAttribute("data-consent-src");
+        frame.hidden = false;
+      });
+    }
+    consentListeners.forEach(function (fn) { fn(granted); });
+  }
+
+  function setConsent(value) {
+    try { localStorage.setItem(CONSENT_KEY, value); } catch (e) { /* private mode: applies to this page only */ }
+    if (notice) notice.hidden = true;
+    applyConsent();
+    if (value === "granted" && !consentGranted()) {
+      // Storage unavailable: still honour the choice on this page.
+      document.querySelectorAll("[data-consent-gate]").forEach(function (gate) { gate.hidden = true; });
+      document.querySelectorAll("iframe[data-consent-src]").forEach(function (frame) {
+        frame.src = frame.getAttribute("data-consent-src");
+        frame.hidden = false;
+      });
+      consentListeners.forEach(function (fn) { fn(true); });
+    }
+  }
+
+  document.addEventListener("click", function (e) {
+    var choice = e.target.closest("[data-consent]");
+    if (choice) setConsent(choice.getAttribute("data-consent"));
+    if (e.target.closest("[data-cookie-settings]") && notice) {
+      notice.hidden = false;
+      notice.querySelector("button").focus();
+    }
+  });
+
   // Contact forms without a Google Form configured: turn the submission into a
   // pre-filled email so nothing is stored by a third party.
   document.querySelectorAll("[data-contact-form]").forEach(function (form) {
@@ -230,11 +279,20 @@
   if (dialog && typeof dialog.showModal === "function") {
     var opener = null;
 
-    var openBooking = function (tab) {
+    var loadFrames = function () {
       dialog.querySelectorAll("iframe[data-src]").forEach(function (frame) {
         frame.src = frame.getAttribute("data-src");
         frame.removeAttribute("data-src");
       });
+    };
+    // Until Google content is allowed, the dialog shows only the consent prompt.
+    consentListeners.push(function (granted) {
+      dialog.classList.toggle("is-gated", !granted);
+      if (granted && dialog.open) loadFrames();
+    });
+
+    var openBooking = function (tab) {
+      if (consentGranted()) loadFrames();
       if (tab) selectTab(tab);
       setNavOpen(false);
       dialog.showModal();
@@ -279,4 +337,7 @@
     window.addEventListener("resize", update);
     update();
   }
+
+  applyConsent();
+  if (notice && getConsent() === null) notice.hidden = false;
 })();

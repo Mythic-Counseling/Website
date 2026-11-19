@@ -9,7 +9,19 @@ The redesign keeps every sentence of the original site. This list covers gaps vi
 | About intro | Stops mid-sentence: "My own mental health journey began much earlier than I" | `content/_data/copy.yml` → `about.body` |
 | About → Complex/Chronic Illness | Heading with no text (shown as a dashed placeholder card) | `content/_specialties/complex-chronic-illness.md` |
 | Group counseling | The old home page said "…in order to **thrive** within a neurotypical world"; the group page said "**live**". Both now come from one file, which uses "live". | `content/_services/group-counseling.md` |
-| Crisis information | With suicidology as a listed specialty, add a short, visible line such as "If you are in crisis, call or text 988 (Suicide & Crisis Lifeline) or go to your nearest emergency room. This site and its forms are not monitored for emergencies." The footer and Contact page are the natural places. | `content/_data/copy.yml` (ask a developer to add the slot) |
+| Crisis information | Done: a 988/911 line is now in the footer on every page (`footer.crisis` in `content/_data/copy.yml`). Consider adding it to the Contact page too. | `content/_data/copy.yml` |
+
+## Legal pages
+
+The Privacy Policy, Terms and Conditions and Disclaimers (`content/_legal/`) are original drafts. They follow the structure of the Storycraft Counseling pages, are written for this site's actual setup, and fill gaps those pages leave for a clinical practice (crisis line, no counselor–client relationship, HIPAA separation, telehealth location, cookie consent). Before launch:
+
+- [ ] Have an attorney review all three (and update `updated:` in each file).
+- [ ] Confirm the licensure wording in Disclaimers ("physically located in Florida at the time of each session").
+- [ ] Confirm the retention periods in the Privacy Policy (two years for non-client inquiries).
+- [ ] Name the newsletter service in the Privacy Policy once chosen ([guide 4](4-newsletter.md)).
+- [ ] Remove "Acuity Scheduling" from the Privacy Policy once Acuity is retired.
+- [ ] Add the legal business name (for example "Mythic Counseling of Florida, LLC") if there is one.
+- [ ] Make sure the clinical Notice of Privacy Practices exists; the Privacy Policy refers to it.
 
 ## 2. Trust and credentials (high impact for readers and for Google's E-E-A-T)
 

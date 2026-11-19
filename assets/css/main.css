@@ -5,6 +5,14 @@
    everything else. Colour: warm ink on parchment with a single clay accent
    (links, buttons, small labels). Change the tokens below to restyle the site. */
 
+/* Fonts, served from assets/fonts/ (SIL Open Font License; see the OFL files
+   there). Variable weights; Latin plus Greek for the Greek numeral option. */
+@font-face { font-family: "EB Garamond"; font-style: normal; font-weight: 400 800; font-display: swap; src: url("../fonts/eb-garamond-latin-wght-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "EB Garamond"; font-style: italic; font-weight: 400 800; font-display: swap; src: url("../fonts/eb-garamond-latin-wght-italic.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "EB Garamond"; font-style: normal; font-weight: 400 800; font-display: swap; src: url("../fonts/eb-garamond-greek-wght-normal.woff2") format("woff2"); unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF; }
+@font-face { font-family: "Source Sans 3"; font-style: normal; font-weight: 200 900; font-display: swap; src: url("../fonts/source-sans-3-latin-wght-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Source Sans 3"; font-style: italic; font-weight: 200 900; font-display: swap; src: url("../fonts/source-sans-3-latin-wght-italic.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+
 :root {
   --ink: #2a2119;
   --ink-muted: #5e4d3b;
@@ -578,6 +586,52 @@ main:focus { outline: none; }
 .post-nav__link span { display: block; font: 600 0.8rem/1.4 var(--font-body); letter-spacing: 0.06em; text-transform: uppercase; color: var(--clay); margin-bottom: 0.2rem; }
 .post-nav__link--older { text-align: right; }
 
+/* Legal pages, cookie notice, consent prompts, newsletter ------------------ */
+
+.legal__updated { margin: 0.75rem 0 0; font-size: 0.92rem; color: var(--ink-muted); }
+.legal h2 { font-size: clamp(1.45rem, 1vw + 1.1rem, 1.8rem); margin-top: 1.8em; }
+.legal h2:first-child { margin-top: 0; }
+.legal ul { padding-left: 1.3em; }
+.legal li { margin-bottom: 0.35em; }
+
+.cookie-notice {
+  position: fixed; z-index: 60; left: 50%; bottom: max(1rem, env(safe-area-inset-bottom));
+  transform: translateX(-50%); width: min(100% - 2rem, 720px);
+  display: grid; gap: 0.75rem 1.25rem; align-items: center;
+  padding: 1rem 1.25rem; background: var(--paper); color: var(--ink);
+  border: 1px solid var(--sand); border-radius: var(--radius-stone); box-shadow: var(--shadow);
+  font-size: 0.95rem; animation: settle-in 0.4s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.cookie-notice[hidden] { display: none; }
+.cookie-notice__text { margin: 0; }
+.cookie-notice__actions { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+@media (min-width: 700px) { .cookie-notice { grid-template-columns: 1fr auto; } }
+
+.consent-gate {
+  margin: 1.25rem; padding: 1.5rem; text-align: center;
+  background: var(--parchment); border: 1px dashed var(--sand); border-radius: var(--radius-stone);
+}
+.consent-gate[hidden], .google-form__frame[hidden] { display: none; }
+.google-form .consent-gate { margin: 0; }
+.consent-gate__actions { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin-top: 0.75rem; }
+.booking-dialog.is-gated > :not(.booking-dialog__header):not(.consent-gate) { display: none; }
+
+.newsletter {
+  margin-block: clamp(1.5rem, 4vw, 2.5rem); padding: clamp(1.4rem, 4vw, 2.25rem);
+  text-align: center; background: var(--parchment);
+  border: 1px solid var(--sand); border-radius: var(--radius-stone);
+}
+.newsletter__mark { width: 40px; height: 40px; margin: 0 auto 0.5rem; }
+.newsletter__heading { font-size: clamp(1.5rem, 1.2vw + 1.1rem, 2rem); margin-bottom: 0.4rem; }
+.newsletter__offer { font-size: 1.05em; margin-bottom: 0.5rem; }
+.newsletter__body { color: var(--ink-muted); max-width: 52ch; margin: 0 auto 1rem; }
+.newsletter__form { display: flex; flex-wrap: wrap; gap: 0.6rem; justify-content: center; max-width: 520px; margin-inline: auto; }
+.newsletter__form input {
+  flex: 1 1 240px; min-height: 48px; padding: 0.6rem 1.1rem; font: inherit;
+  background: #fffdf8; border: 1px solid rgba(42, 33, 25, 0.3); border-radius: 999px;
+}
+.newsletter__consent { margin: 0.75rem auto 0; font-size: 0.85rem; color: var(--ink-muted); max-width: 52ch; }
+
 /* Wavy edges ----------------------------------------------------------------
    Every band after the first rises a little into the one above it, and its top
    edge is cut into a gentle wave (alternating two shapes), so no two sections
@@ -686,11 +740,21 @@ main > *:nth-child(odd) + *, .site-footer {
 .site-footer__nav ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.25rem 1.75rem; }
 .site-footer__nav a { display: inline-block; padding: 0.35rem 0; text-decoration: none; }
 .site-footer__nav a:hover { text-decoration: underline; }
-.site-footer__legal {
-  width: min(100% - 2 * var(--gutter), 1180px); margin: 2rem auto 0; padding-top: 1.25rem;
-  border-top: 1px solid rgba(243, 232, 211, 0.18); font-size: 0.9rem; color: rgba(243, 232, 211, 0.6);
-  margin-top: 1.5rem;
+.site-footer__crisis {
+  width: min(100% - 2 * var(--gutter), 1180px); margin: 1.5rem auto 0;
+  font-size: 0.92rem; color: rgba(243, 232, 211, 0.75);
 }
+.site-footer__crisis strong { color: var(--on-night); }
+.site-footer__legal {
+  width: min(100% - 2 * var(--gutter), 1180px); margin: 1.25rem auto 0; padding-top: 1.1rem;
+  border-top: 1px solid rgba(243, 232, 211, 0.18); font-size: 0.9rem; color: rgba(243, 232, 211, 0.6);
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem 1.5rem;
+}
+.site-footer__legal p { margin: 0; }
+.site-footer__legal ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.25rem 1.25rem; }
+.site-footer__legal a, .site-footer__cookies { color: rgba(243, 232, 211, 0.75); text-decoration: none; }
+.site-footer__legal a:hover, .site-footer__cookies:hover { color: #fff; text-decoration: underline; }
+.site-footer__cookies { font: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
 @media (min-width: 760px) {
   .site-footer__inner { grid-template-columns: 1fr auto; align-items: center; }
 }
@@ -736,7 +800,7 @@ html:active-view-transition-type(page)::view-transition-new(root) { animation: p
 }
 @media print {
   .reveal { opacity: 1 !important; transform: none !important; }
-  .site-header, .site-footer__nav, .hero__bg, .page-head__bg, .closing, .booking-dialog, .contact-form { display: none !important; }
+  .site-header, .site-footer__nav, .hero__bg, .page-head__bg, .closing, .booking-dialog, .contact-form, .cookie-notice, .newsletter { display: none !important; }
   body { background: #fff; color: #000; }
   details > *:not(summary) { display: block !important; }
 }

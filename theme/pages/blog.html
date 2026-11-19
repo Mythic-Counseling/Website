@@ -27,5 +27,6 @@ noindex_when_empty: true
     {%- else %}
     <p class="lead blog-empty">{{ copy.empty }}</p>
     {%- endif %}
+    {% include newsletter-signup.html id="newsletter-blog" %}
   </div>
 </section>

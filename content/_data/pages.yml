@@ -29,3 +29,7 @@ blog:
 contact:
   title: "Contact"
   description: "Share your name, email, and what brings you to counseling, and I'll reach out to schedule a brief introductory phone call."
+
+newsletter:
+  title: "Newsletter"
+  description: "Occasional letters from Mythic Counseling of Florida when new writing is published."

@@ -1,0 +1,28 @@
+{%- comment -%}
+  Email newsletter signup. Posts straight to the newsletter service set in
+  content/_data/settings.yml (nothing is stored on this site); renders nothing
+  until `newsletter.action` is set. Param: id (unique prefix), compact ("true"
+  hides the offer text, for the end of blog posts).
+{%- endcomment -%}
+{%- assign n = site.data.settings.newsletter -%}
+{%- if n.action and n.action != "" -%}
+{%- assign nl_copy = site.data.copy.newsletter -%}
+{%- assign fid = include.id | default: "newsletter" -%}
+<aside class="newsletter" aria-labelledby="{{ fid }}-heading">
+  <img class="newsletter__mark" src="{{ '/assets/images/boulder-96.webp' | relative_url }}" alt="" width="40" height="40" loading="lazy">
+  <h2 class="newsletter__heading" id="{{ fid }}-heading">{{ nl_copy.heading }}</h2>
+  {%- if nl_copy.offer and nl_copy.offer != "" and include.compact != "true" %}
+  <div class="newsletter__offer">{{ nl_copy.offer | markdownify }}</div>
+  {%- endif %}
+  <p class="newsletter__body">{{ nl_copy.body }}</p>
+  <form class="newsletter__form" action="{{ n.action }}" method="post" target="_blank">
+    <label class="visually-hidden" for="{{ fid }}-email">{{ nl_copy.email_label }}</label>
+    <input id="{{ fid }}-email" type="email" name="{{ n.email_field | default: 'email' }}" autocomplete="email" inputmode="email" placeholder="{{ nl_copy.email_label }}" required>
+    {%- for f in n.hidden_fields %}
+    <input type="hidden" name="{{ f.name }}" value="{{ f.value }}">
+    {%- endfor %}
+    <button class="button" type="submit">{{ nl_copy.button }}</button>
+  </form>
+  <p class="newsletter__consent">{{ nl_copy.consent }} <a href="{{ '/privacy-policy/' | relative_url }}">{{ site.data.copy.cookies.policy_link }}</a></p>
+</aside>
+{%- endif -%}

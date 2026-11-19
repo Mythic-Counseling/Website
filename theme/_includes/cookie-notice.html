@@ -1,0 +1,13 @@
+{%- comment -%}
+  Cookie notice. Hidden until main.js finds no saved choice; "Cookie settings"
+  in the footer reopens it. The choice only controls Google's booking calendar
+  and forms ([data-consent-src] iframes); the site sets no cookies of its own.
+{%- endcomment -%}
+{%- assign notice_copy = site.data.copy.cookies -%}
+<div class="cookie-notice" role="region" aria-label="{{ notice_copy.settings }}" data-cookie-notice hidden>
+  <p class="cookie-notice__text">{{ notice_copy.notice }} <a href="{{ '/privacy-policy/' | relative_url }}#cookies-and-similar-technologies">{{ notice_copy.policy_link }}</a></p>
+  <div class="cookie-notice__actions">
+    <button class="button button--small" type="button" data-consent="granted">{{ notice_copy.accept }}</button>
+    <button class="button button--small button--ghost" type="button" data-consent="denied">{{ notice_copy.decline }}</button>
+  </div>
+</div>

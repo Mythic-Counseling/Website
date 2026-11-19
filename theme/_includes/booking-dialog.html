@@ -1,12 +1,15 @@
 {%- comment -%}
   Booking dialog shared by every page. Iframes load only when the dialog is
-  first opened (data-src). With Google appointment schedules configured it
-  shows one tab per schedule; otherwise the Acuity scheduler.
+  first opened (data-src), and only once the visitor has allowed third-party
+  content; until then a consent prompt offers to load it or open the booking
+  page in a new tab. With Google appointment schedules configured it shows one
+  tab per schedule; otherwise the Acuity scheduler.
 {%- endcomment -%}
 {%- assign copy = site.data.copy.booking -%}
 {%- assign google = site.data.settings.booking.google -%}
 {%- assign has_consultation = false -%}{%- if google.consultation and google.consultation != "" %}{% assign has_consultation = true %}{% endif -%}
 {%- assign has_individual = false -%}{%- if google.individual and google.individual != "" %}{% assign has_individual = true %}{% endif -%}
+{%- if has_consultation %}{% assign booking_page = google.consultation %}{% elsif has_individual %}{% assign booking_page = google.individual %}{% else %}{% assign booking_page = site.data.settings.booking.acuity_url %}{% endif -%}
 <dialog class="booking-dialog" id="booking-dialog" aria-labelledby="booking-title">
   <div class="booking-dialog__header">
     <div>
@@ -17,6 +20,7 @@
       <span aria-hidden="true">&times;</span><span class="visually-hidden">{{ copy.close }}</span>
     </button>
   </div>
+  {% include consent-gate.html href=booking_page %}
   {%- if has_consultation or has_individual %}
   {%- assign consultation = site.services | where_exp: "s", "s.url == '/services/free-consultation/'" | first %}
   {%- assign individual = site.services | where_exp: "s", "s.url == '/services/individual-counseling/'" | first %}

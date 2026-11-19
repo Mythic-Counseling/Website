@@ -1,0 +1,23 @@
+---
+permalink: /newsletter/
+page_key: newsletter
+body_class: newsletter-page
+noindex_unless_newsletter: true
+---
+{%- comment -%} Landing page for the newsletter and its free offer. Wording: `newsletter` in content/_data/copy.yml. {%- endcomment -%}
+{%- assign n = site.data.settings.newsletter -%}
+<section class="page-head page-head--plain">
+  <div class="container">
+    <h1>{{ site.data.pages.newsletter.title }}</h1>
+    {% include divider.html %}
+  </div>
+</section>
+<section class="section section--tight">
+  <div class="container container--narrow">
+    {%- if n.action and n.action != "" %}
+    {% include newsletter-signup.html id="newsletter-page" %}
+    {%- else %}
+    <p class="lead blog-empty">{{ site.data.copy.blog.empty }}</p>
+    {%- endif %}
+  </div>
+</section>

@@ -12,8 +12,9 @@ content/                  ← EDIT: everything you write
   _drafts/                  unpublished posts (never appear on the site)
   _services/                one file per service (page, card, menu, prices)
   _specialties/             one file per specialty on the About page
-  _data/copy.yml            all other page wording (home, about, contact…)
-  _data/settings.yml        email, booking calendars, form links
+  _legal/                   Privacy Policy, Terms and Conditions, Disclaimers
+  _data/copy.yml            all other page wording (home, about, contact, cookie notice…)
+  _data/settings.yml        email, booking calendars, form links, newsletter service
   _data/pages.yml           page titles and search descriptions
   _data/navigation.yml      the menu
   _data/images.yml          image descriptions (alt text)
@@ -66,5 +67,8 @@ Each post automatically gets its own page, a card on `/blog/`, a place in the RS
 1. [Put the site on GitHub and your domain](docs/1-put-the-site-on-github.md) — one-time setup
 2. [Booking and forms with Google Workspace](docs/2-booking-and-forms.md) — replacing Acuity
 3. [Editing tools: Pages CMS, Obsidian, VS Code](docs/3-editing-tools.md)
+4. [Newsletter and free offer](docs/4-newsletter.md): connecting a newsletter service, the offer, and emails for new posts
+
+**Privacy:** the site sets no cookies of its own, has no analytics, and serves its own fonts. Google's booking calendar and forms load only after a visitor allows them (cookie notice, or the prompt in their place). The legal pages are drafts: see the checklist in [content recommendations](docs/content-recommendations.md#legal-pages).
 
 Also: [content ideas and gaps](docs/content-recommendations.md), [prompts for new artwork](docs/image-prompts.md), and [developer notes](docs/developer-notes.md) for changing the design.

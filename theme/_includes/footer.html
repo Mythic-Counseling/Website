@@ -1,3 +1,5 @@
+{%- assign legal = site.legal | sort: "order" -%}
+{%- assign newsletter = site.data.settings.newsletter -%}
 <footer class="site-footer">
   <div class="site-footer__inner">
     <div class="site-footer__brand">
@@ -11,8 +13,20 @@
         {%- if item.requires == "posts" and site.posts.size == 0 %}{% continue %}{% endif %}
         <li><a href="{{ item.url | relative_url }}">{{ item.title }}</a></li>
         {%- endfor %}
+        {%- if newsletter.action and newsletter.action != "" %}
+        <li><a href="{{ '/newsletter/' | relative_url }}">{{ site.data.copy.newsletter.footer_link }}</a></li>
+        {%- endif %}
       </ul>
     </nav>
   </div>
-  <p class="site-footer__legal">&copy; {{ site.time | date: "%Y" }} {{ site.title }}</p>
+  <div class="site-footer__crisis">{{ site.data.copy.footer.crisis | markdownify }}</div>
+  <div class="site-footer__legal">
+    <p>&copy; {{ site.time | date: "%Y" }} {{ site.title }}</p>
+    <ul>
+      {%- for doc in legal %}
+      <li><a href="{{ doc.url | relative_url }}">{{ doc.title }}</a></li>
+      {%- endfor %}
+      <li><button class="site-footer__cookies" type="button" data-cookie-settings>{{ site.data.copy.cookies.settings }}</button></li>
+    </ul>
+  </div>
 </footer>

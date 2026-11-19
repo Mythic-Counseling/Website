@@ -1,0 +1,12 @@
+{%- comment -%}
+  Shown in place of a Google iframe until the visitor allows Google content.
+  Param: href (the same page to open in a new tab instead).
+{%- endcomment -%}
+{%- assign gate_copy = site.data.copy.cookies -%}
+<div class="consent-gate" data-consent-gate>
+  <p>{{ gate_copy.embed_prompt }}</p>
+  <p class="consent-gate__actions">
+    <button class="button button--small" type="button" data-consent="granted">{{ gate_copy.embed_load }}</button>
+    <a class="button button--small button--ghost" href="{{ include.href }}" target="_blank" rel="noopener">{{ gate_copy.embed_open }}<span class="visually-hidden"> (opens in a new tab)</span></a>
+  </p>
+</div>

@@ -18,6 +18,8 @@
 {%- endif -%}
 {%- assign robots = page.robots | default: 'index, follow, max-image-preview:large, max-snippet:-1' -%}
 {%- if page.noindex_when_empty and site.posts.size == 0 %}{% assign robots = "noindex" %}{% endif -%}
+{%- assign newsletter_action = site.data.settings.newsletter.action | default: "" -%}
+{%- if page.noindex_unless_newsletter and newsletter_action == "" %}{% assign robots = "noindex" %}{% endif -%}
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script>document.documentElement.className = "js";</script>
@@ -60,9 +62,9 @@
 <link rel="alternate" type="application/atom+xml" title="{{ site.title }} — {{ site.data.copy.blog.heading }}" href="{{ '/feed.xml' | absolute_url }}">
 {%- endif %}
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..700;1,400..600&family=Source+Sans+3:ital,wght@0,400..700;1,400&display=swap">
+{%- comment -%} Fonts are served from this site (assets/fonts/), so no visitor data goes to Google on page load. {%- endcomment %}
+<link rel="preload" href="{{ '/assets/fonts/source-sans-3-latin-wght-normal.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{{ '/assets/fonts/eb-garamond-latin-wght-normal.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}?v={{ site.time | date: '%s' }}">
 {%- if page.hero_image %}
 {%- assign hero = site.data.images[page.hero_image] %}

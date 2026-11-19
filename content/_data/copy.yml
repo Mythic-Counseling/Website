@@ -69,7 +69,7 @@ about:
   body: |  # (markdown)
     I bring a unique blend of deep lived experience with mental health challenges, evidence based traditional mental health modalities, and humanistic alternatives to the mainstream system.
 
-    My own mental health journey began much earlier than I
+    My own mental health journey began **much earlier than** I
   specialties_heading: "My Specialties"
   specialties_image: olive-vine-column-emblem
   read_more: "Read more"    # NEW
@@ -111,3 +111,34 @@ blog:
   back: "Blog"
   newer: "Newer"
   older: "Older"
+
+# NEW — cookie notice (bottom of the page until answered) and the prompts shown
+# before Google's booking calendar or form loads.
+cookies:
+  notice: "This site uses no tracking or advertising cookies. Our booking calendar and forms are provided by Google, which sets its own cookies, so they load only if you allow it."
+  accept: "Allow Google content"
+  decline: "Not now"
+  policy_link: "Privacy Policy"
+  settings: "Cookie settings"
+  embed_prompt: "This is provided by Google, which sets cookies when it loads."
+  embed_load: "Load it here"
+  embed_open: "Open in a new tab"
+
+# NEW — email newsletter signup (blog page, end of each post, /newsletter/).
+# Shown only once a newsletter service is connected in settings.yml.
+newsletter:
+  heading: "Get new writing by email"
+  body: "An occasional letter when something new is published. No spam, and you can unsubscribe at any time."
+  # (markdown) The free offer, once it's ready, e.g. "Subscribe and receive …".
+  # Shown above the form when filled in.
+  offer: ""
+  email_label: "Email address"
+  button: "Subscribe"
+  consent: "By subscribing you agree to receive these emails. Unsubscribe from any email."
+  footer_link: "Newsletter"
+
+# NEW — legal pages and footer.
+legal:
+  updated: "Last updated"
+footer:
+  crisis: "In crisis? Call or text **988** (Suicide & Crisis Lifeline) or call **911**. This site and its inbox are not monitored for emergencies."

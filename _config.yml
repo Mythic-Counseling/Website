@@ -42,6 +42,9 @@ collections:
     permalink: /services/:name/
   specialties:
     output: false
+  legal:
+    output: true
+    permalink: /:name/
 
 defaults:
   - scope:
@@ -55,6 +58,12 @@ defaults:
       layout: service
       body_class: service
       hero_image: misty-mountain-river
+  - scope:
+      path: ""
+      type: legal
+    values:
+      layout: legal
+      body_class: legal
   - scope:
       path: ""
       type: posts

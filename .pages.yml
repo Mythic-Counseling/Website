@@ -84,6 +84,19 @@ content:
         type: object
         fields:
           - { name: contact, label: Contact page Google Form link, type: string }
+      - name: newsletter
+        label: Newsletter service (see docs/4-newsletter.md)
+        type: object
+        fields:
+          - { name: action, label: "Signup form action URL (empty hides all signup forms)", type: string }
+          - { name: email_field, label: Name of the email field, type: string }
+          - name: hidden_fields
+            label: Hidden fields the service requires
+            type: object
+            list: true
+            fields:
+              - { name: name, type: string }
+              - { name: value, type: string }
 
   - name: pages
     label: Page titles and search descriptions
@@ -115,6 +128,12 @@ content:
           - { name: seo_title, label: Browser tab title (optional), type: string }
           - { name: description, label: Search description (about 160 characters), type: text }
       - name: contact
+        type: object
+        fields:
+          - { name: title, type: string }
+          - { name: seo_title, label: Browser tab title (optional), type: string }
+          - { name: description, label: Search description (about 160 characters), type: text }
+      - name: newsletter
         type: object
         fields:
           - { name: title, type: string }
@@ -168,6 +187,20 @@ content:
       - { name: title, label: Title, type: string, required: true }
       - { name: order, label: Order, type: number }
       - { name: body, label: "Text (markdown; text above a <!--more--> line shows before “Read more”)", type: text }
+
+  - name: legal
+    label: Legal pages
+    type: collection
+    path: content/_legal
+    view:
+      fields: [title, updated]
+      sort: [order]
+    fields:
+      - { name: title, type: string, required: true }
+      - { name: description, label: Search description, type: text }
+      - { name: order, label: Order in the footer, type: number }
+      - { name: updated, label: Last updated, type: date, options: { format: yyyy-MM-dd } }
+      - { name: body, label: Text, type: rich-text, options: { format: markdown } }
 
   - name: copy
     label: Page copy
@@ -279,3 +312,35 @@ content:
           - { name: back, label: Link back to the blog, type: string }
           - { name: newer, type: string }
           - { name: older, type: string }
+      - name: cookies
+        label: Cookie notice
+        type: object
+        fields:
+          - { name: notice, type: text }
+          - { name: accept, label: Allow button, type: string }
+          - { name: decline, label: Decline button, type: string }
+          - { name: policy_link, label: Privacy policy link text, type: string }
+          - { name: settings, label: Footer "Cookie settings" link, type: string }
+          - { name: embed_prompt, label: Prompt before Google calendar/form loads, type: string }
+          - { name: embed_load, label: Load button, type: string }
+          - { name: embed_open, label: Open-in-new-tab link, type: string }
+      - name: newsletter
+        label: Newsletter signup
+        type: object
+        fields:
+          - { name: heading, type: string }
+          - { name: body, type: text }
+          - { name: offer, label: "Free offer (markdown; leave empty until ready)", type: text }
+          - { name: email_label, type: string }
+          - { name: button, type: string }
+          - { name: consent, label: Consent line under the form, type: text }
+          - { name: footer_link, label: Footer link text, type: string }
+      - name: legal
+        label: Legal pages
+        type: object
+        fields:
+          - { name: updated, label: '"Last updated" label', type: string }
+      - name: footer
+        type: object
+        fields:
+          - { name: crisis, label: "Crisis line (markdown)", type: text }
