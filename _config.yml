@@ -8,7 +8,7 @@
 #   - Custom domain (recommended):  url: "https://mythic-counseling.com", baseurl: ""
 #   - GitHub project page:          url: "https://<user>.github.io",      baseurl: "/<repo-name>"
 # Currently: the GitHub Pages preview. When the domain is pointed at GitHub
-# (docs/1-publishing-and-domain.md, "Connect the domain"), switch back to:
+# (docs/1-put-the-site-on-github.md, step 6), switch back to:
 #   url: "https://mythic-counseling.com"
 #   baseurl: ""
 url: "https://mythic-counseling.github.io"
@@ -74,7 +74,6 @@ defaults:
 
 exclude:
   - .pages.yml
-  - dev.cmd
   - README.md
   - docs/
   - Gemfile

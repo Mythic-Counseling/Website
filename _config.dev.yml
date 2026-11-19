@@ -1,5 +1,0 @@
-# Local preview only (dev.cmd and the VS Code "Preview site" task load it after
-# _config.yml): serves the site at http://localhost:4000 instead of the GitHub
-# Pages sub-folder. Not used by GitHub.
-url: "http://localhost:4000"
-baseurl: ""

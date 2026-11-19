@@ -5,7 +5,6 @@ How the site is put together, for changing the design or behaviour. For editing 
 ## Stack
 
 - **Jekyll**, built by GitHub's `actions/jekyll-build-pages` (Jekyll 3.10, safe mode, no custom plugins). It also builds with Jekyll 4 locally.
-- **Hosting:** GitHub Pages for [Mythic-Counseling/Website](https://github.com/Mythic-Counseling/Website), currently at `https://mythic-counseling.github.io/Website/` (hence `baseurl: "/Website"`). Pages' source should be **GitHub Actions**; while it is still "Deploy from a branch", GitHub's built-in build runs alongside the workflow below and skips its extra steps.
 - **Deploy:** `.github/workflows/deploy.yml` runs on every push to `main`, daily at 10:00 UTC (so future-dated posts appear), and on demand. It compresses `assets/images/uploads/` with `theme/scripts/compress-uploads.sh` (ImageMagick + pngquant: max 1600 px, EXIF stripped, same file names) on the runner's copy only, then builds and publishes. The originals stay in git. GitHub pauses scheduled workflows after 60 days without commits; any push re-enables them.
 - **Editor:** `.pages.yml` (Pages CMS). Every key in `content/_data/copy.yml`, `settings.yml` and `pages.yml`, and every front-matter key used in `content/_services/`, is declared there. Add new keys to it too, so a CMS save can't drop them.
 - **Obsidian:** `.obsidian/app.json` and `templates.json` are committed; per-user workspace files are ignored.
@@ -14,27 +13,24 @@ How the site is put together, for changing the design or behaviour. For editing 
 
 | Path | Purpose |
 | --- | --- |
-| `_config.dev.yml` | Local preview overrides (`url` localhost, empty `baseurl`), loaded after `_config.yml` by `dev.cmd` and the VS Code task |
-| `.vscode/tasks.json`, `dev.cmd` | **Preview site** (live reload, drafts; runs when the folder opens) and **Check site builds**; `dev.cmd` opens the folder in VS Code on Windows |
 | `_config.yml` | `url`/`baseurl`, timezone, and the folder mapping: `collections_dir: content`, `data_dir: content/_data`, `layouts_dir: theme/_layouts`, `includes_dir: theme/_includes` |
-| `content/` | Collections (`_posts`, `_drafts`, `_services`, `_specialties`, `_legal`) and data. `_templates/` holds the Obsidian post template and is not built |
-| `content/_data/settings.yml` | Practice details, booking, form and newsletter links (`site.data.settings.*`) |
+| `content/` | Collections (`_posts`, `_drafts`, `_services`, `_specialties`) and data. `_templates/` holds the Obsidian post template and is not built |
+| `content/_data/settings.yml` | Practice details, booking and form links (`site.data.settings.*`) |
 | `content/_data/pages.yml` | Title, `seo_title` and description for each main page, looked up by the page's `page_key` in `theme/_includes/head.html` |
-| `theme/pages/` | Home, Services, About, Contact, Blog, Newsletter and 404 templates (each sets its `permalink`) |
-| `theme/_layouts/` | `default`, `service`, `post`, `legal`, `redirect` |
-| `theme/_includes/` | Header (with the reading-progress boulder), footer, booking dialog, cookie notice and consent prompts, newsletter signup, cards, picture, SEO head and JSON-LD |
-| `assets/fonts/` | Self-hosted EB Garamond and Source Sans 3 (variable WOFF2, SIL OFL) |
+| `theme/pages/` | Home, Services, About, Contact, Blog and 404 templates (each sets its `permalink`) |
+| `theme/_layouts/` | `default`, `service`, `post`, `redirect` |
+| `theme/_includes/` | Header (with the reading-progress boulder), footer, booking dialog, cards, picture, SEO head and JSON-LD |
 | `theme/seo/` | `sitemap.xml`, `robots.txt`, `llms.txt`, `llms-full.txt`, `feed.xml`, `site.webmanifest`, all generated from content |
 | `theme/redirects/` | Old Squarespace URLs and `/appointments/` → new pages |
 | `theme/scripts/` | `optimize-images.sh` (artwork → responsive WebP/PNG), `compress-uploads.sh`, `extract-logo-art.py` |
 | `assets/css/main.css` | All styles. Colours and fonts are tokens at the top; breakpoints at 700, 900 and 1100 px |
-| `assets/js/main.js` | Menu, consent, booking dialog and tabs, contact-form fallback, accordions, specialty animation, scroll reveal, reading progress |
+| `assets/js/main.js` | Menu, booking dialog and tabs, contact-form fallback, specialty animation, reading progress |
 | `assets/images/original/` | Master artwork (not deployed) |
 | `docs/reference/squarespace-export/` | The original saved Squarespace pages, for checking wording |
 
 ## Conventions
 
-- Templates contain no copy: all wording comes from `content/`. Wording that wasn't on the original Squarespace site is marked `NEW` in `copy.yml`.
+- Templates contain no copy: all wording comes from `content/`. Labels added during the redesign are marked `NEW` in `copy.yml`.
 - Service and specialty bodies are split on a `<!--more-->` line (summary above, rest below), done in Liquid rather than with Jekyll excerpts.
 - Empty settings may arrive as `""` or `null` from the CMS, so test with `x and x != ""`. Liquid's `blank` doesn't work in plain Jekyll.
 - A post's `image` is either a key in `content/_data/images.yml` or a path such as `/assets/images/uploads/x.jpg`. `post.html` also rewrites the relative `src="assets/…"` paths that Obsidian writes.
@@ -48,10 +44,8 @@ Add a PNG to `assets/images/original/`, run `theme/scripts/optimize-images.sh` (
 
 ## Local preview and checks
 
-Run the VS Code task **Preview site**, or `dev.cmd` on Windows. By hand:
-
 ```sh
-JEKYLL_NO_BUNDLER_REQUIRE=true jekyll serve --livereload --drafts --config _config.yml,_config.dev.yml
+JEKYLL_NO_BUNDLER_REQUIRE=true jekyll serve --livereload --drafts
 ```
 
-(`JEKYLL_NO_BUNDLER_REQUIRE` skips the `Gemfile`, which pins the full `github-pages` gem set; use `bundle install && bundle exec jekyll serve` instead if you have it installed.) Wording can be compared with the original site in `docs/reference/squarespace-export/`. Before changing templates, check a build with **Check site builds** or `jekyll build`; GitHub builds with Jekyll 3.10 in safe mode, so avoid Jekyll 4-only features.
+The `Gemfile` pins the `github-pages` gem set for anyone who prefers `bundle exec jekyll serve`.
