@@ -3,7 +3,8 @@
   (content/_data/settings.yml → forms.contact):
 
   1. A pre-filled Google Forms link whose answers are FIRST, LAST, EMAIL and
-     MESSAGE (see docs/2-booking-and-forms.md): the site's own form is shown
+     MESSAGE, plus SOURCE if the form has the optional "How did you hear about
+     me?" question (see docs/2-booking-and-forms.md): the site's own form is shown
      and sends each submission straight into that Google Form, so responses
      land in Google Workspace and Google emails a notification. Nothing loads
      from Google until the visitor presses Send.
@@ -19,14 +20,14 @@
 {%- assign gf = include.google_form | default: "" -%}
 {%- assign form_copy = site.data.copy.contact -%}
 {%- assign mode = "email" -%}
-{%- assign f_first = nil -%}{%- assign f_last = nil -%}{%- assign f_email = nil -%}{%- assign f_message = nil -%}
+{%- assign f_first = nil -%}{%- assign f_last = nil -%}{%- assign f_email = nil -%}{%- assign f_message = nil -%}{%- assign f_source = nil -%}
 {%- if gf contains "entry." -%}
   {%- assign gf_action = gf | split: "?" | first | replace: "/viewform", "/formResponse" -%}
   {%- assign gf_pairs = gf | split: "?" | last | split: "&" -%}
   {%- for pair in gf_pairs -%}
     {%- assign kv = pair | split: "=" -%}
     {%- assign answer = kv[1] | url_decode | strip | upcase -%}
-    {%- if answer == "FIRST" %}{% assign f_first = kv[0] %}{% elsif answer == "LAST" %}{% assign f_last = kv[0] %}{% elsif answer == "EMAIL" %}{% assign f_email = kv[0] %}{% elsif answer == "MESSAGE" %}{% assign f_message = kv[0] %}{% endif -%}
+    {%- if answer == "FIRST" %}{% assign f_first = kv[0] %}{% elsif answer == "LAST" %}{% assign f_last = kv[0] %}{% elsif answer == "EMAIL" %}{% assign f_email = kv[0] %}{% elsif answer == "MESSAGE" %}{% assign f_message = kv[0] %}{% elsif answer == "SOURCE" %}{% assign f_source = kv[0] %}{% endif -%}
   {%- endfor -%}
   {%- if f_first and f_last and f_email and f_message %}{% assign mode = "google" %}{% else %}{% assign mode = "embed" %}{% endif -%}
 {%- elsif gf != "" -%}
@@ -43,7 +44,7 @@
 {%- if mode == "google" -%}
 <form class="contact-form" method="post" action="{{ gf_action }}" target="_blank" data-google-form>
 {%- else -%}
-{%- assign f_first = "first_name" -%}{%- assign f_last = "last_name" -%}{%- assign f_email = "email" -%}{%- assign f_message = "message" -%}
+{%- assign f_first = "first_name" -%}{%- assign f_last = "last_name" -%}{%- assign f_email = "email" -%}{%- assign f_message = "message" -%}{%- assign f_source = "source" -%}
 <form class="contact-form" method="post" data-contact-form
       action="mailto:{{ site.data.settings.email }}" enctype="text/plain"
       data-email="{{ site.data.settings.email }}" data-subject="{{ include.subject | default: 'Website inquiry' }}">
@@ -67,6 +68,17 @@
     <label for="{{ fid }}-message">Message <span class="required">(required)</span></label>
     <textarea id="{{ fid }}-message" name="{{ f_message }}" data-field="message" rows="5" required></textarea>
   </div>
+  {%- if f_source and form_copy.source_options.size > 0 %}
+  <div class="field">
+    <label for="{{ fid }}-source">{{ form_copy.source_label }}</label>
+    <select id="{{ fid }}-source" name="{{ f_source }}" data-field="source">
+      <option value="">{{ form_copy.source_placeholder }}</option>
+      {%- for option in form_copy.source_options %}
+      <option>{{ option }}</option>
+      {%- endfor %}
+    </select>
+  </div>
+  {%- endif %}
   <p class="contact-form__trap" aria-hidden="true"><label>Leave blank <input type="text" tabindex="-1" autocomplete="off"></label></p>
   <button class="button" type="submit">{{ include.submit | default: "Submit" }}</button>
   <p class="contact-form__status" role="status" aria-live="polite" tabindex="-1" data-form-sent hidden>{{ form_copy.sent }}</p>

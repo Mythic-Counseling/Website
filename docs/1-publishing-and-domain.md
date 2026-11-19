@@ -37,25 +37,35 @@ Right now GitHub publishes the site **twice** after every change: once with its 
 
 ## Connect the domain
 
-When you're ready to move mythic-counseling.com from Squarespace to this site. The old site stays up until step 3.
+Moving mythic-counseling.com from Squarespace to this site takes about half an hour of work, plus up to an hour of waiting for the security certificate. Do it at a quiet time: the site may show a certificate warning for part of that hour.
+
+The domain's DNS (its public address book) is managed in **Cloudflare**: [dash.cloudflare.com](https://dash.cloudflare.com) → **mythic-counseling.com** → **DNS → Records**. [Guide 6](6-email-and-dns.md) explains what the records are.
 
 ### 1. Protect the domain on GitHub
 
 This stops anyone else pointing your domain at their GitHub site.
 
 1. Signed in as Mythic-Counseling: profile picture → **Settings** → **Pages** (the account's settings, not the repository's) → **Add a domain** → `mythic-counseling.com`.
-2. GitHub shows a **TXT record**. Add it at your DNS provider (next step), wait a few minutes, then click **Verify**.
+2. GitHub shows a **TXT record**. In Cloudflare: **Add record** → type **TXT**, with the name and content GitHub shows → **Save**. Wait a few minutes, then click **Verify** on GitHub.
 
-### 2. Change the DNS records
+### 2. Tell GitHub and the site about the domain
 
-Find where the domain's DNS is managed. If it was bought through Squarespace (or Google Domains, which moved to Squarespace), it's at **Squarespace → Domains → mythic-counseling.com → DNS**.
+1. Repository **Settings → Pages → Custom domain** → `mythic-counseling.com` → **Save**. The DNS check fails for now; that's expected. (The github.io address starts redirecting to the domain, which still shows the Squarespace site until step 3.)
+2. In `_config.yml`, change the address the site expects, then commit and push:
 
-1. **Screenshot every existing record first.**
-2. **Don't touch the email records:** anything of type **MX**, and **TXT** records containing `spf`, `google-site-verification` or `DKIM`. Changing those breaks the practice's email.
-3. Delete the records that point the website at Squarespace (in Squarespace's DNS, the **Squarespace Defaults** preset: the `@` A records and the `www` CNAME).
-4. Add:
+   ```yaml
+   url: "https://mythic-counseling.com"
+   baseurl: ""
+   ```
 
-   | Type | Host | Value |
+### 3. Change the DNS records
+
+1. **Screenshot the whole records list first.**
+2. **Don't touch the email records:** the **MX** record (`smtp.google.com`), and the **TXT** records for `@` (`v=spf1 …`), `google._domainkey` and `_dmarc`, if present. They make the practice's Google Workspace email work.
+3. Delete only the **website** records: the **A** and **AAAA** records named `mythic-counseling.com` (or `@`), and the record named `www` (usually a CNAME to `ext-squarespace.com`).
+4. **Add record** for each of these, with **Proxy status: DNS only** (grey cloud), so GitHub can see its own addresses and issue the HTTPS certificate:
+
+   | Type | Name | Content |
    | --- | --- | --- |
    | A | @ | 185.199.108.153 |
    | A | @ | 185.199.109.153 |
@@ -67,23 +77,16 @@ Find where the domain's DNS is managed. If it was bought through Squarespace (or
    | AAAA | @ | 2606:50c0:8003::153 |
    | CNAME | www | mythic-counseling.github.io |
 
-### 3. Switch the site over
+### 4. Turn on HTTPS and check
 
-1. In `_config.yml`, change the address the site expects, then commit and push:
+1. Back in repository **Settings → Pages**, the DNS check passes within a few minutes. When the certificate is ready (up to an hour), tick **Enforce HTTPS**. If it's greyed out, wait and reload.
+2. Visit `https://mythic-counseling.com` and `https://www.mythic-counseling.com`. If you still see the old site, your computer is remembering the old address: try a phone on mobile data.
+3. Send yourself an email at the practice address from another account, to confirm email is untouched.
 
-   ```yaml
-   url: "https://mythic-counseling.com"
-   baseurl: ""
-   ```
+### 5. Afterwards
 
-2. Repository **Settings → Pages → Custom domain** → `mythic-counseling.com` → **Save**. The DNS check can take from minutes to a few hours.
-3. When it passes, tick **Enforce HTTPS** (if it's greyed out, wait up to an hour and reload).
-4. Visit `https://mythic-counseling.com` and `https://www.mythic-counseling.com`. If you still see the old site, your computer is remembering the old address: try a phone on mobile data.
-
-### 4. Afterwards
-
-1. **Google Search Console** (search.google.com/search-console): add the domain, then **Sitemaps** → submit `https://mythic-counseling.com/sitemap.xml`. Bing Webmaster Tools can import it from Google.
+1. **Search engines:** follow [guide 5](5-getting-found.md), starting with Google Search Console and the sitemap.
 2. Old Squarespace addresses (such as `/appointments` and the old service pages) already redirect to their new pages.
-3. **Cancel the Squarespace website plan**, but keep the **domain** registration active and on auto-renew; they're billed separately.
+3. **Cancel the Squarespace website plan.** First check where the domain is **registered** (Cloudflare: **Domain Registration**; otherwise probably Squarespace Domains) and make sure that registration stays active and on auto-renew. Website and domain are billed separately.
 4. If a newsletter service is connected, change its RSS feed to `https://mythic-counseling.com/feed.xml` ([guide 4](4-newsletter.md)).
 5. Cancel Acuity only once Google booking works ([guide 2](2-booking-and-forms.md)).

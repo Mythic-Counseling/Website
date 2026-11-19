@@ -20,7 +20,7 @@ booking:
   acuity_embed_url: "https://app.acuityscheduling.com/schedule.php?owner=40782217&calendarID=14740761"
 
 # Contact form. Paste the Google Form's *pre-filled* link, made with the
-# answers FIRST, LAST, EMAIL and MESSAGE (docs/2-booking-and-forms.md, step 3):
+# answers FIRST, LAST, EMAIL, MESSAGE and SOURCE (docs/2-booking-and-forms.md, step 3):
 # the site's own form then sends each message into that Google Form, and Google
 # emails you. A plain form link embeds Google's form instead. While it is
 # empty, the form opens the visitor's email app addressed to `email`.
@@ -35,3 +35,10 @@ newsletter:
   action: ""
   email_field: "email"
   hidden_fields: []   # e.g. - { name: "tag", value: "website" }
+
+# Visitor counts with Cloudflare Web Analytics: no cookies, no personal data.
+# In Cloudflare: Analytics & Logs → Web Analytics → Add a site → copy the
+# token from the snippet (data-cf-beacon='{"token": "…"}'). See
+# docs/5-getting-found.md. Empty = no analytics.
+analytics:
+  cloudflare_token: ""

@@ -73,4 +73,9 @@
       imagesizes="100vw">
 {%- endif %}
 <script defer src="{{ '/assets/js/main.js' | relative_url }}?v={{ site.time | date: '%s' }}"></script>
+{%- assign cf_token = site.data.settings.analytics.cloudflare_token | default: "" | strip %}
+{%- if cf_token != "" and jekyll.environment == "production" %}
+{%- comment -%} Cloudflare Web Analytics: cookieless visit counts (see the Privacy Policy). {%- endcomment %}
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "{{ cf_token }}"}'></script>
+{%- endif %}
 {% include structured-data.html %}

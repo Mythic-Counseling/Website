@@ -45,11 +45,12 @@ Acuity also offers 90- and 120-minute individual sessions. The site currently bo
 
 The Contact page keeps its own form, in the site's design. Behind the scenes, each message goes into a Google Form on your Workspace account, so you get an email for every message and a record in Google, covered by the BAA. Visitors never see Google's page.
 
-1. In Google Forms on the business account, create a form with exactly these four questions, all **required**, and no others:
-   - **First Name** (short answer)
-   - **Last Name** (short answer)
-   - **Email** (short answer)
-   - **Message** (paragraph)
+1. In Google Forms on the business account, create a form with exactly these questions, and no others:
+   - **First Name** (short answer, required)
+   - **Last Name** (short answer, required)
+   - **Email** (short answer, required)
+   - **Message** (paragraph, required)
+   - **How did you hear about me?** (short answer, **not** required). The site shows it as a drop-down; its choices are edited in Pages CMS (**Page copy → Contact page**), and the chosen text arrives here. Leave this question out if you don't want it, and the site hides it too.
 2. **Settings**:
    - **Responses → Collect email addresses**: **Do not collect**. The Email question covers it; any other setting stops the site's form from working.
    - **Responses → Requires sign in**: leave **Restrict to users in your organization** turned **off**.
@@ -57,9 +58,9 @@ The Contact page keeps its own form, in the site's design. Behind the scenes, ea
 4. Optional: **Responses → Link to Sheets** to keep a spreadsheet of inquiries (also covered by the BAA).
 5. Get the **pre-filled link**, which tells the site where each answer goes:
    1. ⋮ (top right) → **Get pre-filled link**.
-   2. Type exactly these answers, one per question: **FIRST**, **LAST**, **EMAIL** (just the word, not an email address) and **MESSAGE**.
+   2. Type exactly these answers, one per question: **FIRST**, **LAST**, **EMAIL** (just the word, not an email address), **MESSAGE** and **SOURCE**.
    3. **Get link** → **Copy link**. It looks like
-      `https://docs.google.com/forms/d/e/…/viewform?usp=pp_url&entry.123…=FIRST&entry.456…=LAST&entry.789…=EMAIL&entry.012…=MESSAGE`
+      `https://docs.google.com/forms/d/e/…/viewform?usp=pp_url&entry.123…=FIRST&entry.456…=LAST&entry.789…=EMAIL&entry.012…=MESSAGE&entry.345…=SOURCE`
 
 If you paste the form's ordinary link instead (Send → 🔗), the site shows Google's own form embedded in the page. That works too, but visitors must allow Google content first, and it looks like Google rather than the site.
 
@@ -86,7 +87,7 @@ booking:
     individual: "https://calendar.google.com/calendar/appointments/schedules/…?gv=true"
 
 forms:
-  contact: "https://docs.google.com/forms/d/e/…/viewform?usp=pp_url&entry.…=FIRST&entry.…=LAST&entry.…=EMAIL&entry.…=MESSAGE"
+  contact: "https://docs.google.com/forms/d/e/…/viewform?usp=pp_url&entry.…=FIRST&entry.…=LAST&entry.…=EMAIL&entry.…=MESSAGE&entry.…=SOURCE"
 ```
 
 (and `form_url:` in `content/_services/group-counseling.md` and `intentional-peer-support-training.md`), then commit and push.

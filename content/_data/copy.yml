@@ -85,6 +85,19 @@ contact:
   # Shown after the form is sent (the original site said "Thank you!").
   sent: "Thank you! Your message has been sent, and I'll be in touch soon."   # NEW
   error: "Sorry, your message couldn't be sent. Please email me instead:"   # NEW
+  # NEW — optional "How did you hear about me?" question on the contact form.
+  # Edit, add or remove choices freely; they arrive in the Google Form as text.
+  source_label: "How did you hear about me?"
+  source_placeholder: "Choose one (optional)"
+  source_options:
+    - "Google or another search engine"
+    - "Psychology Today or another directory"
+    - "A friend or family member"
+    - "A doctor or another provider"
+    - "Social media"
+    - "The blog or newsletter"
+    - "Intentional Peer Support community"
+    - "Other"
 
 # Numbering style for the specialty and approach cards: roman, greek or runes.
 numerals: roman

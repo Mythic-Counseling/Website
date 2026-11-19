@@ -26,7 +26,8 @@ The list holds only email addresses, not health information, so a HIPAA BAA isn'
 1. Create the account using the practice email.
 2. **Sender details:** U.S. law (CAN-SPAM) requires a valid **postal address** in every newsletter footer. A P.O. box or virtual mailbox works if you'd rather not publish an office address.
 3. Turn on **double opt-in**.
-4. Create a **signup form** of the "embedded" or "HTML" type with just an email field.
+4. **Domain authentication:** the service will show DNS records (usually DKIM, sometimes SPF) so newsletters are sent as @mythic-counseling.com. Add them in Cloudflare exactly as shown, and add the DMARC record from [guide 6](6-email-and-dns.md#email-security-records-txt) if you haven't yet.
+5. Create a **signup form** of the "embedded" or "HTML" type with just an email field.
 
 ## 3. Connect it to the site
 

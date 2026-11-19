@@ -86,7 +86,15 @@ content:
           - name: contact
             label: Contact page Google Form link
             type: string
-            description: The pre-filled link with the answers FIRST, LAST, EMAIL and MESSAGE (docs/2-booking-and-forms.md, step 3).
+            description: The pre-filled link with the answers FIRST, LAST, EMAIL, MESSAGE and SOURCE (docs/2-booking-and-forms.md, step 3).
+      - name: analytics
+        label: Visitor analytics
+        type: object
+        fields:
+          - name: cloudflare_token
+            label: Cloudflare Web Analytics token
+            type: string
+            description: From Cloudflare → Web Analytics → your site → the snippet's "token" value (docs/5-getting-found.md). Empty turns analytics off.
       - name: newsletter
         label: Newsletter service (see docs/4-newsletter.md)
         type: object
@@ -282,6 +290,9 @@ content:
           - { name: email_label, label: Email card label, type: string }
           - { name: sent, label: Message after sending, type: string }
           - { name: error, label: Message if sending fails, type: string }
+          - { name: source_label, label: '"How did you hear about me?" question', type: string }
+          - { name: source_placeholder, label: Its first (empty) choice, type: string }
+          - { name: source_options, label: Its choices, type: string, list: true }
       - name: numerals
         label: Card numbering
         type: select

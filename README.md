@@ -67,7 +67,7 @@ Each post automatically gets its own page, a card on `/blog/`, a place in the RS
 
 ## Privacy
 
-The site sets no cookies of its own, has no analytics, and serves its own fonts. Google's booking calendar and forms load only after a visitor allows them (the cookie notice, or the prompt shown in their place). The legal pages are drafts awaiting review: see the [checklist](docs/content-recommendations.md#legal-pages).
+The site sets no cookies of its own, has no advertising trackers, serves its own fonts, and counts visits with cookieless Cloudflare Web Analytics once a token is set. Google's booking calendar and forms load only after a visitor allows them (the cookie notice, or the prompt shown in their place). The legal pages are drafts awaiting review: see the [checklist](docs/content-recommendations.md#legal-pages).
 
 ## Guides
 
@@ -75,5 +75,7 @@ The site sets no cookies of its own, has no analytics, and serves its own fonts.
 2. [Booking and forms with Google Workspace](docs/2-booking-and-forms.md): replacing Acuity
 3. [Editing tools: Pages CMS, Obsidian, VS Code](docs/3-editing-tools.md), including the live preview
 4. [Newsletter and free offer](docs/4-newsletter.md)
+5. [Getting found](docs/5-getting-found.md): Google Business Profile, Search Console, directories, visitor analytics, and Google Ads done carefully
+6. [How email and DNS work](docs/6-email-and-dns.md): what the domain's records do, and the one email record to add
 
 Also: [content ideas, gaps and the legal checklist](docs/content-recommendations.md), [prompts for new artwork](docs/image-prompts.md), and [developer notes](docs/developer-notes.md) for changing the design.

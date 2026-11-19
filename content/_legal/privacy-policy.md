@@ -14,9 +14,9 @@ This website is operated by Mythic Counseling of Florida ("we", "us"). For any q
 
 ## What we collect, and why
 
-**When you browse.** This site has no analytics, advertising or social-media trackers, and its fonts and images are served from the site itself. Like every web host, our host, GitHub Pages (GitHub, Inc.), receives technical information such as your IP address, browser type and the page requested, to deliver the site and keep it secure. We don't receive or use this information to identify you.
+**When you browse.** This site has no advertising or social-media trackers, and its fonts and images are served from the site itself. Like every web host, our host, GitHub Pages (GitHub, Inc.), receives technical information such as your IP address, browser type and the page requested, to deliver the site and keep it secure. We also count visits with **Cloudflare Web Analytics**, which uses no cookies, doesn't track you across sites or over time, and gives us only totals: how many visits each page gets, which site referred them, and broad device and country information. We don't receive or use any of this to identify you.
 
-**When you contact us.** The contact form asks for your name, email address and a message. It is provided by Google Forms on our Google Workspace account; if the form isn't available, it opens your own email program instead. We use this information only to reply and, if you wish, to arrange an introductory call.
+**When you contact us.** The contact form asks for your name, email address and a message, and optionally how you heard about us. It is provided by Google Forms on our Google Workspace account; if the form isn't available, it opens your own email program instead. We use this information only to reply and, if you wish, to arrange an introductory call.
 
 **When you book an appointment.** Online booking is provided by Google Calendar appointment schedules (and, while we transition, Acuity Scheduling). It collects your name, email address and the time you choose, which we use to schedule and confirm the appointment.
 
@@ -36,11 +36,11 @@ The contact form sends what you type to Google Forms only when you press Send, w
 
 - **Consent:** the newsletter, and loading Google's booking calendar and forms. You can withdraw consent at any time.
 - **Steps before entering into a contract:** booking and confirming an appointment.
-- **Legitimate interests:** replying to inquiries and keeping the website secure.
+- **Legitimate interests:** replying to inquiries, keeping the website secure, and counting visits in aggregate to improve the site.
 
 ## Who processes your information
 
-We don't sell or rent personal information, and we don't share it for advertising. It is processed on our behalf only by the service providers named above: Google (Workspace, Forms and Calendar), GitHub (hosting), Acuity Scheduling (booking, during the transition) and our newsletter service. We may also disclose information if the law requires it.
+We don't sell or rent personal information, and we don't share it for advertising. It is processed on our behalf only by the service providers named above: Google (Workspace, Forms and Calendar), GitHub (hosting), Cloudflare (domain services and visit counts), Acuity Scheduling (booking, during the transition) and our newsletter service. We may also disclose information if the law requires it.
 
 These providers are based in, or process data in, the United States. Where information about visitors in the EU, EEA or UK is transferred there, we rely on the safeguards those providers offer, such as the EU–U.S. Data Privacy Framework or Standard Contractual Clauses.
 

@@ -146,6 +146,7 @@
       var data = new FormData(form);
       var name = (data.get("first_name") + " " + data.get("last_name")).trim();
       var body = "Name: " + name + "\nEmail: " + data.get("email") + "\n\n" + data.get("message");
+      if (data.get("source")) body += "\n\nHow they heard about me: " + data.get("source");
       window.location.href = "mailto:" + form.dataset.email +
         "?subject=" + encodeURIComponent(form.dataset.subject) +
         "&body=" + encodeURIComponent(body);
