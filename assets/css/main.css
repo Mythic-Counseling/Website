@@ -24,8 +24,17 @@
 
   --gutter: clamp(1rem, 4vw, 2rem);
   --section: clamp(2.75rem, 6vw, 5rem);
-  --radius: 14px;
-  --radius-sm: 10px;
+  --radius: 28px;
+  --radius-sm: 18px;
+  /* Cards and panels: slightly uneven corners, like a worn stone. */
+  --radius-stone: 34px 26px 38px 24px / 28px 36px 24px 34px;
+  --radius-stone-sm: 22px 16px 24px 15px / 17px 23px 15px 21px;
+
+  /* Section edges: each band's top edge is a gentle wave (see "Wavy edges"). */
+  --wave: clamp(14px, 2.6vw, 34px);
+  --wave-a: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 40' preserveAspectRatio='none'%3E%3Cpath d='M0 22C160 6 330 34 530 20S870 3 1050 17 1330 37 1440 15V40H0Z'/%3E%3C/svg%3E");
+  --wave-b: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 40' preserveAspectRatio='none'%3E%3Cpath d='M0 13C210 35 390 3 610 19S950 37 1150 15 1390 8 1440 25V40H0Z'/%3E%3C/svg%3E");
+  --wave-under: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 40' preserveAspectRatio='none'%3E%3Cpath d='M0 0H1440V20C1300 36 1120 6 900 21S520 38 330 18 90 9 0 24Z'/%3E%3C/svg%3E");
   --header-h: 68px;
 }
 
@@ -213,7 +222,7 @@ main:focus { outline: none; }
   .site-nav__submenu {
     position: absolute; top: calc(100% + 0.6rem); left: 50%;
     min-width: 300px; padding: 0.5rem;
-    background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow);
+    background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius-stone-sm); box-shadow: var(--shadow);
     opacity: 0; visibility: hidden; transform: translate(-50%, -6px);
     transition: opacity 0.18s, transform 0.18s, visibility 0s linear 0.18s;
   }
@@ -286,7 +295,7 @@ main:focus { outline: none; }
 
 .service-card {
   display: flex; flex-direction: column; overflow: hidden;
-  background: #fffdf8; border: 1px solid var(--line); border-radius: var(--radius);
+  background: #fffdf8; border: 1px solid var(--line); border-radius: var(--radius-stone);
   box-shadow: var(--shadow-sm); transition: transform 0.25s, box-shadow 0.25s;
 }
 .service-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
@@ -302,7 +311,7 @@ main:focus { outline: none; }
 /* Philosophy, journey & approach ----------------------------------------- */
 
 .philosophy { display: grid; gap: clamp(1.5rem, 4vw, 3rem); align-items: start; }
-.philosophy__media img, .journey__media img, .approach__media img { border-radius: var(--radius); box-shadow: var(--shadow-sm); }
+.philosophy__media img, .journey__media img, .approach__media img { border-radius: var(--radius-stone); box-shadow: var(--shadow-sm); }
 .philosophy__text p, .approach__text p { margin-bottom: 1em; }
 @media (min-width: 700px) {
   .philosophy { grid-template-columns: minmax(200px, 0.7fr) 1.6fr; }
@@ -315,7 +324,7 @@ main:focus { outline: none; }
 
 .pull-quote {
   margin: 1.75rem 0 0; padding: 1.25rem 1.5rem 1.25rem 3.5rem; position: relative;
-  border-left: 3px solid var(--clay); background: rgba(251, 247, 239, 0.7); border-radius: 0 var(--radius) var(--radius) 0;
+  border-left: 3px solid var(--clay); background: rgba(251, 247, 239, 0.7); border-radius: 0 var(--radius) var(--radius-sm) 0;
 }
 .pull-quote::before {
   content: "“"; position: absolute; left: 0.9rem; top: 0.1rem;
@@ -344,10 +353,10 @@ main:focus { outline: none; }
 
 /* Closing call-to-action band ---------------------------------------------- */
 
-.closing { position: relative; isolation: isolate; overflow: hidden; padding-block: clamp(3rem, 7vw, 5rem); color: var(--on-night); text-align: center; }
-.closing__bg { position: absolute; inset: 0; z-index: -1; }
+.closing { position: relative; isolation: isolate; padding-block: clamp(3rem, 7vw, 5rem); color: var(--on-night); text-align: center; }
+.closing__bg { position: absolute; inset: calc(-1 * var(--wave)) 0 0; z-index: -1; overflow: hidden; }
 .closing__bg picture, .closing__bg-img { width: 100%; height: 100%; }
-.closing__bg-img { object-fit: cover; }
+.closing__bg-img { object-fit: cover; object-position: center 58%; }
 .closing__bg::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(35, 27, 20, 0.78), rgba(35, 27, 20, 0.88)); }
 .closing__inner { max-width: 760px; }
 .closing__art { width: min(300px, 70%); margin: 0 auto 1.25rem; opacity: 0.95; filter: sepia(0.2) brightness(1.15); }
@@ -363,9 +372,9 @@ main:focus { outline: none; }
 .page-head__inner { display: grid; gap: clamp(1.5rem, 4vw, 3rem); align-items: center; }
 .page-head__actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.25rem; }
 .page-head__emblem { max-width: 420px; width: 100%; margin-inline: auto; }
-.page-head__emblem img { border-radius: var(--radius); filter: drop-shadow(0 12px 22px rgba(42, 33, 25, 0.18)); }
+.page-head__emblem img { border-radius: var(--radius-stone); filter: drop-shadow(0 12px 22px rgba(42, 33, 25, 0.18)); }
 .page-head__card {
-  background: rgba(251, 247, 239, 0.92); border: 1px solid var(--line); border-radius: var(--radius);
+  background: rgba(251, 247, 239, 0.92); border: 1px solid var(--line); border-radius: var(--radius-stone);
   box-shadow: var(--shadow); padding: clamp(1.4rem, 4vw, 2.5rem); margin-inline: auto;
 }
 .page-head__card h1 { font-size: clamp(2rem, 2.5vw + 1.2rem, 3rem); }
@@ -395,7 +404,7 @@ main:focus { outline: none; }
 .approach-band__cols { display: grid; gap: 1rem; }
 .approach-band__col {
   position: relative; padding: 1.25rem 1.35rem 1.35rem;
-  background: rgba(251, 247, 239, 0.75); border: 1px solid var(--sand); border-radius: var(--radius);
+  background: rgba(251, 247, 239, 0.75); border: 1px solid var(--sand); border-radius: var(--radius-stone);
   font-size: 0.98rem;
 }
 .approach-band__numeral { display: block; font: 500 1.5rem/1 var(--font-display); color: var(--clay); margin-bottom: 0.6rem; }
@@ -417,7 +426,7 @@ main:focus { outline: none; }
 
 /* Disclosure / accordion --------------------------------------------------- */
 
-.disclosure { border: 1px solid var(--line); border-radius: var(--radius-sm); background: #fffdf8; }
+.disclosure { border: 1px solid var(--line); border-radius: var(--radius-stone-sm); background: #fffdf8; }
 .disclosure > summary {
   display: flex; align-items: center; justify-content: space-between; gap: 1rem;
   min-height: 52px; padding: 0.75rem 1.1rem; cursor: pointer; list-style: none;
@@ -435,7 +444,7 @@ main:focus { outline: none; }
 
 /* Services hub: at-a-glance table ----------------------------------------- */
 
-.table-wrap { border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: #fffdf8; box-shadow: var(--shadow-sm); }
+.table-wrap { border: 1px solid var(--line); border-radius: var(--radius-stone); overflow: hidden; background: #fffdf8; box-shadow: var(--shadow-sm); }
 .glance { width: 100%; border-collapse: collapse; }
 @media (min-width: 1100px) {
   .glance { table-layout: fixed; }
@@ -472,7 +481,7 @@ main:focus { outline: none; }
 
 .section-head--with-art { display: grid; gap: 1rem; justify-items: center; }
 .section-head__art { width: 180px; }
-.section-head__art img { border-radius: var(--radius); box-shadow: var(--shadow-sm); }
+.section-head__art img { border-radius: var(--radius-stone); box-shadow: var(--shadow-sm); }
 @media (min-width: 900px) {
   .section-head--with-art { grid-template-columns: 200px 1fr; text-align: left; justify-items: start; align-items: center; gap: 2rem; }
   .section-head--with-art .section-head__art { width: 200px; }
@@ -481,7 +490,7 @@ main:focus { outline: none; }
 @media (min-width: 900px) { .specialties { grid-template-columns: repeat(2, 1fr); } }
 .specialty {
   position: relative; padding: clamp(1.4rem, 3vw, 2rem);
-  background: #fffdf8; border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow-sm);
+  background: #fffdf8; border: 1px solid var(--line); border-radius: var(--radius-stone); box-shadow: var(--shadow-sm);
 }
 .specialty__number { display: block; font: 500 2.4rem/1 var(--font-display); color: var(--sand); margin-bottom: 0.5rem; }
 .specialty h3 { margin-bottom: 0.75rem; }
@@ -528,7 +537,7 @@ main:focus { outline: none; }
 @media (min-width: 900px) { .post-list { grid-template-columns: repeat(2, 1fr); } }
 .post-card {
   display: grid; gap: 1rem; padding: 1.25rem 1.35rem 1.35rem;
-  background: #fffdf8; border: 1px solid var(--line); border-radius: var(--radius);
+  background: #fffdf8; border: 1px solid var(--line); border-radius: var(--radius-stone);
   box-shadow: var(--shadow-sm); transition: transform 0.25s, box-shadow 0.25s;
 }
 .post-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
@@ -546,7 +555,7 @@ main:focus { outline: none; }
 .post__head h1 { font-size: clamp(2.1rem, 2.6vw + 1.2rem, 3.2rem); margin-bottom: 0.6rem; }
 .post__lead { margin: 0.75rem 0 0; }
 .post__image { margin-top: clamp(1.5rem, 4vw, 2.5rem); }
-.post__image img { width: auto; max-height: min(420px, 60vw); margin-inline: auto; border-radius: var(--radius); box-shadow: var(--shadow-sm); }
+.post__image img { width: auto; max-height: min(420px, 60vw); margin-inline: auto; border-radius: var(--radius-stone); box-shadow: var(--shadow-sm); }
 .post__body { max-width: none; padding-block: clamp(1.75rem, 4vw, 2.75rem); font-size: 1.06em; }
 .post__body h2 { font-size: clamp(1.6rem, 1.4vw + 1.1rem, 2.1rem); margin-top: 1.6em; }
 .post__body h3 { margin-top: 1.4em; }
@@ -562,20 +571,45 @@ main:focus { outline: none; }
 .post-nav { display: grid; gap: 0.75rem; padding-bottom: clamp(2rem, 5vw, 3rem); }
 @media (min-width: 700px) { .post-nav { grid-template-columns: 1fr 1fr; } .post-nav__link--older:only-child { grid-column: 2; } }
 .post-nav__link {
-  display: block; padding: 0.9rem 1.1rem; border: 1px solid var(--line); border-radius: var(--radius-sm);
+  display: block; padding: 0.9rem 1.1rem; border: 1px solid var(--line); border-radius: var(--radius-stone-sm);
   background: #fffdf8; text-decoration: none; color: var(--ink); font: 500 1.15rem/1.3 var(--font-display);
 }
 .post-nav__link:hover { border-color: var(--clay); color: var(--clay-deep); }
 .post-nav__link span { display: block; font: 600 0.8rem/1.4 var(--font-body); letter-spacing: 0.06em; text-transform: uppercase; color: var(--clay); margin-bottom: 0.2rem; }
 .post-nav__link--older { text-align: right; }
 
+/* Wavy edges ----------------------------------------------------------------
+   Every band after the first rises a little into the one above it, and its top
+   edge is cut into a gentle wave (alternating two shapes), so no two sections
+   meet on a straight line. The transparent top border adds back the height the
+   negative margin takes away, so spacing is unchanged. */
+
+main > * { background-color: var(--paper); }
+main > * + *, .site-footer {
+  position: relative;
+  margin-top: calc(-1 * var(--wave));
+  border-top: var(--wave) solid transparent;
+  -webkit-mask: var(--wave-a) top / 100% var(--wave) no-repeat, linear-gradient(#000 0 0) bottom / 100% calc(100% - var(--wave) + 1px) no-repeat;
+  mask: var(--wave-a) top / 100% var(--wave) no-repeat, linear-gradient(#000 0 0) bottom / 100% calc(100% - var(--wave) + 1px) no-repeat;
+}
+main > *:nth-child(odd) + *, .site-footer {
+  -webkit-mask-image: var(--wave-b), linear-gradient(#000 0 0);
+  mask-image: var(--wave-b), linear-gradient(#000 0 0);
+}
+/* Bands inside one element (the blog post header) get a wavy bottom instead. */
+.post__head {
+  -webkit-mask: linear-gradient(#000 0 0) top / 100% calc(100% - var(--wave) + 1px) no-repeat, var(--wave-under) bottom / 100% var(--wave) no-repeat;
+  mask: linear-gradient(#000 0 0) top / 100% calc(100% - var(--wave) + 1px) no-repeat, var(--wave-under) bottom / 100% var(--wave) no-repeat;
+  padding-bottom: calc(clamp(1.5rem, 4vw, 2.5rem) + var(--wave));
+}
+
 /* Contact ------------------------------------------------------------------ */
 
 .contact { display: grid; gap: clamp(2rem, 5vw, 3.5rem); align-items: start; }
 @media (min-width: 900px) { .contact { grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.8fr); } .contact__aside { position: sticky; top: calc(var(--header-h) + 1.5rem); } }
-.contact__media img { border-radius: var(--radius); box-shadow: var(--shadow-sm); }
+.contact__media img { border-radius: var(--radius-stone); box-shadow: var(--shadow-sm); }
 @media (max-width: 899px) { .contact__media { display: none; } }
-.contact__card { margin-top: 1rem; padding: 1.25rem; border-radius: var(--radius); background: var(--parchment); border: 1px solid var(--sand); }
+.contact__card { margin-top: 1rem; padding: 1.25rem; border-radius: var(--radius-stone); background: var(--parchment); border: 1px solid var(--sand); }
 .contact__card a:not(.button) { overflow-wrap: anywhere; font-weight: 600; }
 .contact__card .button { margin-top: 0.75rem; }
 
@@ -607,7 +641,7 @@ main:focus { outline: none; }
 
 .booking-dialog {
   width: min(100vw - 2rem, 980px); max-height: calc(100dvh - 2rem); padding: 0;
-  border: 0; border-radius: var(--radius); background: var(--paper); color: var(--ink);
+  border: 0; border-radius: var(--radius-stone); background: var(--paper); color: var(--ink);
   box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35); overflow: hidden;
 }
 .booking-dialog[open] { display: flex; flex-direction: column; }
@@ -663,11 +697,45 @@ main:focus { outline: none; }
 
 /* Motion & print ----------------------------------------------------------- */
 
+/* Page-to-page: the page fades and drifts up while the header stays put
+   (browsers without cross-document view transitions simply load the page). */
+@view-transition { navigation: auto; types: page; }
+html { background: var(--paper); }
+.site-header { view-transition-name: site-header; }
+@keyframes page-out { to { opacity: 0; transform: translateY(-14px); } }
+@keyframes page-in { from { opacity: 0; transform: translateY(18px); } }
+html:active-view-transition-type(page)::view-transition-old(root) { animation: page-out 0.3s ease-in both; }
+html:active-view-transition-type(page)::view-transition-new(root) { animation: page-in 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) 0.1s both; }
+
+/* Scroll reveal: main.js adds .reveal to sections' contents and .is-visible as
+   each comes into view, then removes both so hover effects work as before. */
+.reveal {
+  opacity: 0; transform: translateY(22px);
+  transition: opacity 0.7s ease, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition-delay: var(--reveal-delay, 0s);
+}
+.reveal.is-visible { opacity: 1; transform: none; }
+
+/* Accordions: main.js animates the panel's height; the arrow turns at once. */
+.disclosure.is-closing > summary::after { transform: rotate(45deg) translateY(-25%); }
+.disclosure { transition: border-color 0.3s, box-shadow 0.3s; }
+.disclosure[open]:not(.is-closing) { border-color: var(--sand); box-shadow: var(--shadow-sm); }
+
+/* Mobile menu and booking dialog fade and settle in. */
+@keyframes settle-in { from { opacity: 0; transform: translateY(-8px); } }
+@keyframes dialog-in { from { opacity: 0; transform: translateY(16px) scale(0.98); } }
+@keyframes fade-in { from { opacity: 0; } }
+@media (max-width: 899px) { .js .site-nav.is-open { animation: settle-in 0.28s cubic-bezier(0.2, 0.7, 0.2, 1); } }
+.booking-dialog[open] { animation: dialog-in 0.35s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.booking-dialog[open]::backdrop { animation: fade-in 0.35s ease; }
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition: none !important; animation: none !important; }
   .ascent__boulder { transform: none; }
+  @view-transition { navigation: none; }
 }
 @media print {
+  .reveal { opacity: 1 !important; transform: none !important; }
   .site-header, .site-footer__nav, .hero__bg, .page-head__bg, .closing, .booking-dialog, .contact-form { display: none !important; }
   body { background: #fff; color: #000; }
   details > *:not(summary) { display: block !important; }

@@ -109,16 +109,88 @@
     });
   });
 
-  // Group topics: one panel open at a time. Browsers that support
-  // <details name> already do this; this covers the rest.
-  document.querySelectorAll("details[name]").forEach(function (details) {
-    details.addEventListener("toggle", function () {
-      if (!details.open) return;
-      document.querySelectorAll('details[name="' + details.getAttribute("name") + '"]').forEach(function (other) {
-        if (other !== details) other.open = false;
-      });
+  // Accordions (.disclosure): panels glide open and closed. Panels sharing a
+  // name (the group topics) stay one-open-at-a-time; the name is removed so the
+  // browser doesn't snap the others shut before they can animate.
+  var groups = {};
+  document.querySelectorAll("details.disclosure").forEach(function (details) {
+    var name = details.getAttribute("name");
+    if (name) {
+      (groups[name] = groups[name] || []).push(details);
+      details.removeAttribute("name");
+      details.dataset.group = name;
+    }
+  });
+
+  function setPanel(details, open) {
+    var body = details.querySelector(".disclosure__body");
+    if (details.open === open && !details.classList.contains("is-closing")) return;
+    if (reduceMotion.matches || !body || !body.animate) { details.open = open; return; }
+
+    if (details._anim) details._anim.cancel();
+    if (open) {
+      details.classList.remove("is-closing");
+      details.open = true;
+      details._anim = body.animate(
+        [{ height: "0px", opacity: 0, overflow: "hidden" }, { height: body.offsetHeight + "px", opacity: 1, overflow: "hidden" }],
+        { duration: 380, easing: "cubic-bezier(.2,.7,.2,1)" });
+      details._anim.onfinish = function () { details._anim = null; };
+    } else {
+      details.classList.add("is-closing");
+      details._anim = body.animate(
+        [{ height: body.offsetHeight + "px", opacity: 1, overflow: "hidden" }, { height: "0px", opacity: 0, overflow: "hidden" }],
+        { duration: 280, easing: "ease-in" });
+      details._anim.onfinish = function () {
+        details.open = false;
+        details.classList.remove("is-closing");
+        details._anim = null;
+      };
+    }
+  }
+
+  document.querySelectorAll("details.disclosure > summary").forEach(function (summary) {
+    var details = summary.parentElement;
+    summary.addEventListener("click", function (e) {
+      e.preventDefault();
+      var opening = !details.open || details.classList.contains("is-closing");
+      setPanel(details, opening);
+      if (opening && details.dataset.group) {
+        groups[details.dataset.group].forEach(function (other) {
+          if (other !== details && other.open) setPanel(other, false);
+        });
+      }
     });
   });
+
+  // Scroll reveal: content fades up as it comes into view, items in a row one
+  // after another.
+  if (!reduceMotion.matches && "IntersectionObserver" in window) {
+    var revealSelector = [
+      ".section-head", ".section-title", ".philosophy > *", ".journey > *", ".approach > *",
+      ".service-grid > *", ".approach-band__cols > *", ".topics > *", ".specialties > *",
+      ".table-wrap", ".post-list > *", ".post__body > *", ".post-nav", ".contact > *",
+      ".closing__inner > *", ".site-footer__inner > *"
+    ].join(", ");
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var el = entry.target;
+        observer.unobserve(el);
+        el.classList.add("is-visible");
+        setTimeout(function () {
+          el.classList.remove("reveal", "is-visible");
+          el.style.removeProperty("--reveal-delay");
+        }, 1100 + (parseFloat(el.style.getPropertyValue("--reveal-delay")) || 0) * 1000);
+      });
+    }, { rootMargin: "0px 0px -8% 0px" });
+
+    document.querySelectorAll(revealSelector).forEach(function (el) {
+      var siblings = el.parentElement ? Array.prototype.indexOf.call(el.parentElement.children, el) : 0;
+      el.classList.add("reveal");
+      if (siblings > 0) el.style.setProperty("--reveal-delay", Math.min(siblings, 4) * 0.09 + "s");
+      observer.observe(el);
+    });
+  }
 
   // Booking dialog tabs (one per Google appointment schedule).
   var selectTab = function () {};
