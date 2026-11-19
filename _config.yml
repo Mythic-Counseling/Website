@@ -74,6 +74,7 @@ defaults:
 
 exclude:
   - .pages.yml
+  - preview.cmd
   - README.md
   - docs/
   - Gemfile

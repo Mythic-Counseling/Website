@@ -68,6 +68,8 @@ Obsidian on a phone can't easily push to GitHub; on a phone, use Pages CMS.
 
 ## VS Code (optional, for previewing and bigger changes)
 
+**On Windows, the simplest preview is `preview.cmd`:** double-click it in the site's folder (or type `preview` in Command Prompt from that folder). It opens http://localhost:4000 in your browser, shows drafts, and refreshes whenever a file is saved, whichever editor you use. The first run installs Ruby and Jekyll with Windows' installer (about 10 minutes; approve any prompts); after that it starts in seconds. Close its window to stop it. The steps below are only needed on a Mac, or to run the preview by hand.
+
 **One-time setup**
 
 1. Install [VS Code](https://code.visualstudio.com), then **File → Open Folder** → the repository folder (clone it as in the Obsidian steps if you haven't).

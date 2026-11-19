@@ -44,6 +44,8 @@ Two conventions inside `content/`:
 
 You don't need VS Code to run the site. Details and setup for each: [docs/3-editing-tools.md](docs/3-editing-tools.md).
 
+**Preview on Windows:** double-click **`preview.cmd`** in the site's folder. It opens http://localhost:4000 and refreshes as you save files. The first run installs Ruby and Jekyll by itself (about 10 minutes).
+
 ## Publishing changes
 
 Every change that reaches the `main` branch on GitHub is published automatically, usually within two minutes:
