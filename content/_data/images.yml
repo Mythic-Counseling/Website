@@ -18,9 +18,9 @@ mythic-sisyphus-emblem:
   alt: "Mythic Counseling emblem: Sisyphus pushing a boulder up a mountain, framed by olive branches"
 
 tree-of-life-medallion:
-  width: 1312
-  height: 1199
-  widths: [640, 1024, 1312]
+  width: 1248
+  height: 1248
+  widths: [640, 1024, 1248]
   fallback: 1024
   alt: "Vintage sepia medallion of a tree of life with deep, intertwined roots"
 

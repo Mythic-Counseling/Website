@@ -26,8 +26,19 @@ layout: default
   </figure>
   {%- endif %}
   <div class="container container--narrow prose post__body">
-    {%- comment -%} Editors such as Obsidian write image paths without the leading slash. {%- endcomment %}
-    {{ content | replace: 'src="assets/', 'src="/assets/' | replace: 'src="../assets/', 'src="/assets/' }}
+    {%- comment -%}
+      Editors such as Obsidian write image paths without the leading slash, and
+      links like /services/… need the baseurl when the site lives in a sub-folder.
+    {%- endcomment %}
+    {%- assign body = content | replace: 'src="assets/', 'src="/assets/' | replace: 'src="../assets/', 'src="/assets/' %}
+    {%- if site.baseurl != "" %}
+    {%- assign base_href = 'href="' | append: site.baseurl | append: '/' %}
+    {%- assign base_src = 'src="' | append: site.baseurl | append: '/' %}
+    {%- assign body = body | replace: 'href="/', base_href | replace: 'src="/', base_src %}
+    {%- assign base_double = site.baseurl | append: '//' %}
+    {%- assign body = body | replace: base_double, '//' %}
+    {%- endif %}
+    {{ body }}
   </div>
   {%- if page.previous or page.next %}
   <nav class="container container--narrow post-nav" aria-label="More posts">

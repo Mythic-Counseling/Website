@@ -36,7 +36,8 @@ rm "$OUT/og-mythic-counseling.png"
 
 ICONS="$ROOT/assets/icons"
 mkdir -p "$ICONS"
-sips --cropToHeightWidth 1199 1199 "$SRC/tree-of-life-medallion.png" --out "$ICONS/icon-master.png" >/dev/null
+side="$(sips -g pixelWidth -g pixelHeight "$SRC/tree-of-life-medallion.png" | awk '/pixel/ {print $2}' | sort -n | head -1)"
+sips --cropToHeightWidth "$side" "$side" "$SRC/tree-of-life-medallion.png" --out "$ICONS/icon-master.png" >/dev/null
 for s in 32 180 192 512; do
   sips -z "$s" "$s" "$ICONS/icon-master.png" --out "$ICONS/icon-$s.png" >/dev/null
 done
