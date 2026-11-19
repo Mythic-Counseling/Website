@@ -7,8 +7,12 @@
 # served from.
 #   - Custom domain (recommended):  url: "https://mythic-counseling.com", baseurl: ""
 #   - GitHub project page:          url: "https://<user>.github.io",      baseurl: "/<repo-name>"
-url: "https://mythic-counseling.com"
-baseurl: ""
+# Currently: the GitHub Pages preview. When the domain is pointed at GitHub
+# (docs/1-put-the-site-on-github.md, step 6), switch back to:
+#   url: "https://mythic-counseling.com"
+#   baseurl: ""
+url: "https://mythic-counseling.github.io"
+baseurl: "/Website"
 
 title: "Mythic Counseling of Florida"
 lang: en-US
