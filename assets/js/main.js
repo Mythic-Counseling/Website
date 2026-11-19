@@ -102,14 +102,46 @@
     }
   });
 
-  // Contact forms without a Google Form configured: turn the submission into a
-  // pre-filled email so nothing is stored by a third party.
-  document.querySelectorAll("[data-contact-form]").forEach(function (form) {
-    var status = form.querySelector(".contact-form__status");
+  // Contact form sending into a Google Form (a pre-filled link is set in
+  // settings.yml): post the answers to Google in the background, without
+  // cookies, and show the thank-you message here. Google's reply can't be
+  // read across sites, so only a network failure counts as an error.
+  document.querySelectorAll("[data-google-form]").forEach(function (form) {
+    var sent = form.querySelector("[data-form-sent]");
+    var failed = form.querySelector("[data-form-error]");
+    var button = form.querySelector('button[type="submit"]');
 
     form.addEventListener("submit", function (e) {
       e.preventDefault();
-      if (form.querySelector('[name="_gotcha"]').value) return;
+      if (form.querySelector(".contact-form__trap input").value) return;
+      button.disabled = true;
+      sent.hidden = true;
+      failed.hidden = true;
+      fetch(form.action, {
+        method: "POST",
+        mode: "no-cors",
+        credentials: "omit",
+        body: new URLSearchParams(new FormData(form))
+      }).then(function () {
+        form.reset();
+        sent.hidden = false;
+        sent.focus();
+      }).catch(function () {
+        failed.hidden = false;
+      }).then(function () {
+        button.disabled = false;
+      });
+    });
+  });
+
+  // Contact forms without a Google Form configured: turn the submission into a
+  // pre-filled email so nothing is stored by a third party.
+  document.querySelectorAll("[data-contact-form]").forEach(function (form) {
+    var status = form.querySelector("[data-form-sent]");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      if (form.querySelector(".contact-form__trap input").value) return;
 
       var data = new FormData(form);
       var name = (data.get("first_name") + " " + data.get("last_name")).trim();

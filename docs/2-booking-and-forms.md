@@ -43,17 +43,25 @@ Acuity also offers 90- and 120-minute individual sessions. The site currently bo
 
 ## 3. The Contact page form
 
-1. In Google Forms on the business account, create a form with these questions, all required:
+The Contact page keeps its own form, in the site's design. Behind the scenes, each message goes into a Google Form on your Workspace account, so you get an email for every message and a record in Google, covered by the BAA. Visitors never see Google's page.
+
+1. In Google Forms on the business account, create a form with exactly these four questions, all **required**, and no others:
    - **First Name** (short answer)
    - **Last Name** (short answer)
-   - **Email** (short answer → ⋮ → Response validation → Text → Email)
+   - **Email** (short answer)
    - **Message** (paragraph)
 2. **Settings**:
-   - **Responses → Collect email addresses**: *Do not collect* (the Email question covers it).
-   - **Presentation → Confirmation message**: `Thank you!`
-3. **Responses** tab → ⋮ → **Get email notifications for new responses**.
+   - **Responses → Collect email addresses**: **Do not collect**. The Email question covers it; any other setting stops the site's form from working.
+   - **Responses → Requires sign in**: leave **Restrict to users in your organization** turned **off**.
+3. **Responses** tab → ⋮ → **Get email notifications for new responses**. This is what sends each message to your business inbox.
 4. Optional: **Responses → Link to Sheets** to keep a spreadsheet of inquiries (also covered by the BAA).
-5. **Send** → link icon 🔗 → **Copy**. It looks like `https://docs.google.com/forms/d/e/…/viewform`.
+5. Get the **pre-filled link**, which tells the site where each answer goes:
+   1. ⋮ (top right) → **Get pre-filled link**.
+   2. Type exactly these answers, one per question: **FIRST**, **LAST**, **EMAIL** (just the word, not an email address) and **MESSAGE**.
+   3. **Get link** → **Copy link**. It looks like
+      `https://docs.google.com/forms/d/e/…/viewform?usp=pp_url&entry.123…=FIRST&entry.456…=LAST&entry.789…=EMAIL&entry.012…=MESSAGE`
+
+If you paste the form's ordinary link instead (Send → 🔗), the site shows Google's own form embedded in the page. That works too, but visitors must allow Google content first, and it looks like Google rather than the site.
 
 ## 4. Interest forms (Group Counseling, IPS training)
 
@@ -65,7 +73,7 @@ The **Group Counseling Interest Form** and **IPS Core Training Interest Form** b
 
 - *Free consultation schedule* ← the consultation `src` link
 - *Individual sessions schedule* ← the individual `src` link
-- *Contact page Google Form link* ← the form link
+- *Contact page Google Form link* ← the **pre-filled** link from step 3.5
 
 → **Save**. For new interest forms: **Services** → Group Counseling / Intentional Peer Support → *Interest form link* → **Save**.
 
@@ -78,7 +86,7 @@ booking:
     individual: "https://calendar.google.com/calendar/appointments/schedules/…?gv=true"
 
 forms:
-  contact: "https://docs.google.com/forms/d/e/…/viewform"
+  contact: "https://docs.google.com/forms/d/e/…/viewform?usp=pp_url&entry.…=FIRST&entry.…=LAST&entry.…=EMAIL&entry.…=MESSAGE"
 ```
 
 (and `form_url:` in `content/_services/group-counseling.md` and `intentional-peer-support-training.md`), then commit and push.
@@ -86,7 +94,7 @@ forms:
 What changes on the site:
 
 - **Book now** opens a window with a tab for each Google schedule. The **Book now** button on a service page opens on that service's tab.
-- The Contact page shows the Google Form in place of the email fallback.
+- The Contact page form sends messages straight to your Google Form, and you get an email for each one. Until a link is set, it opens the visitor's own email app instead.
 - The Acuity scheduler disappears from the site as soon as one Google link is set.
 
 ## 6. Test before cancelling anything
@@ -95,7 +103,7 @@ From a personal account, in a private browser window:
 
 1. Book a consultation through the live site. Check that it appears on the business calendar, that both sides get a confirmation email, and that the slot disappears from the booking page.
 2. Add a *Busy* event to the business calendar; check that its time disappears from booking.
-3. Send a message through the Contact page; check that the notification email arrives.
+3. Send a message through the Contact page. Check that you see the thank-you message, that the response appears in the Google Form's **Responses** tab, and that the notification email arrives. If the thank-you shows but no response arrives, recheck step 3.2 and that the four answers in the pre-filled link were typed exactly.
 4. Submit each interest form.
 5. Cancel the test booking and delete the test responses.
 

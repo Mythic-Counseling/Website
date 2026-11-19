@@ -30,7 +30,7 @@ Please don't include details about your health, symptoms or history in website f
 
 This site sets no cookies of its own. It stores one small item in your browser's local storage: your answer to the cookie notice, so we don't ask again. This is strictly necessary and contains nothing about you.
 
-The booking calendar and the contact form are provided by Google. When they load, Google may set cookies and process your IP address under [Google's Privacy Policy](https://policies.google.com/privacy). For that reason they load only after you agree, either in the cookie notice or when you open them. You can change your choice at any time with **Cookie settings** at the bottom of every page, and you can always book or reach the form in a separate tab, or email us, instead.
+The contact form sends what you type to Google Forms only when you press Send, without cookies. The booking calendar is provided by Google too, and when it loads, Google may set cookies and process your IP address under [Google's Privacy Policy](https://policies.google.com/privacy). For that reason it (and any Google form shown embedded in a page) loads only after you agree, either in the cookie notice or when you open it. You can change your choice at any time with **Cookie settings** at the bottom of every page, and you can always book or reach the form in a separate tab, or email us, instead.
 
 ## Legal bases (for visitors in the EU, EEA and UK)
 

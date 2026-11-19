@@ -1,45 +1,77 @@
 {%- comment -%}
-  Contact form. When `google_form` (a Google Forms "viewform" link) is given,
-  the Google Form is embedded so responses stay in Google Workspace; it loads
-  once the visitor allows Google content (see cookie-notice.html). Otherwise
-  a Name / Email / Message form matching the original Squarespace fields is
-  shown, and assets/js/main.js turns a submission into a pre-filled email to
-  site.data.settings.email.
+  Contact form, in one of three modes depending on `google_form`
+  (content/_data/settings.yml → forms.contact):
+
+  1. A pre-filled Google Forms link whose answers are FIRST, LAST, EMAIL and
+     MESSAGE (see docs/2-booking-and-forms.md): the site's own form is shown
+     and sends each submission straight into that Google Form, so responses
+     land in Google Workspace and Google emails a notification. Nothing loads
+     from Google until the visitor presses Send.
+  2. Any other Google Forms link: the Google Form is embedded, loading once
+     the visitor allows Google content (see cookie-notice.html).
+  3. No link: the form opens the visitor's email app, addressed to
+     site.data.settings.email (assets/js/main.js).
+
   Params: id (unique prefix), submit (button label), subject (email subject),
           google_form (optional Google Forms link).
 {%- endcomment -%}
 {%- assign fid = include.id | default: "contact" -%}
-{%- if include.google_form and include.google_form != "" -%}
-{%- assign embed_src = include.google_form | split: "?" | first | append: "?embedded=true" -%}
+{%- assign gf = include.google_form | default: "" -%}
+{%- assign form_copy = site.data.copy.contact -%}
+{%- assign mode = "email" -%}
+{%- assign f_first = nil -%}{%- assign f_last = nil -%}{%- assign f_email = nil -%}{%- assign f_message = nil -%}
+{%- if gf contains "entry." -%}
+  {%- assign gf_action = gf | split: "?" | first | replace: "/viewform", "/formResponse" -%}
+  {%- assign gf_pairs = gf | split: "?" | last | split: "&" -%}
+  {%- for pair in gf_pairs -%}
+    {%- assign kv = pair | split: "=" -%}
+    {%- assign answer = kv[1] | url_decode | strip | upcase -%}
+    {%- if answer == "FIRST" %}{% assign f_first = kv[0] %}{% elsif answer == "LAST" %}{% assign f_last = kv[0] %}{% elsif answer == "EMAIL" %}{% assign f_email = kv[0] %}{% elsif answer == "MESSAGE" %}{% assign f_message = kv[0] %}{% endif -%}
+  {%- endfor -%}
+  {%- if f_first and f_last and f_email and f_message %}{% assign mode = "google" %}{% else %}{% assign mode = "embed" %}{% endif -%}
+{%- elsif gf != "" -%}
+  {%- assign mode = "embed" -%}
+{%- endif -%}
+
+{%- if mode == "embed" -%}
+{%- assign embed_src = gf | split: "?" | first | append: "?embedded=true" -%}
 <div class="google-form">
-  {% include consent-gate.html href=include.google_form %}
+  {% include consent-gate.html href=gf %}
   <iframe class="google-form__frame" data-consent-src="{{ embed_src }}" title="{{ include.subject | default: 'Contact form' }}" hidden></iframe>
 </div>
 {%- else -%}
+{%- if mode == "google" -%}
+<form class="contact-form" method="post" action="{{ gf_action }}" target="_blank" data-google-form>
+{%- else -%}
+{%- assign f_first = "first_name" -%}{%- assign f_last = "last_name" -%}{%- assign f_email = "email" -%}{%- assign f_message = "message" -%}
 <form class="contact-form" method="post" data-contact-form
       action="mailto:{{ site.data.settings.email }}" enctype="text/plain"
       data-email="{{ site.data.settings.email }}" data-subject="{{ include.subject | default: 'Website inquiry' }}">
+{%- endif %}
   <fieldset class="contact-form__name">
     <legend>Name <span class="required">(required)</span></legend>
     <div class="field">
       <label for="{{ fid }}-first">First Name</label>
-      <input id="{{ fid }}-first" name="first_name" type="text" autocomplete="given-name" required>
+      <input id="{{ fid }}-first" name="{{ f_first }}" data-field="first" type="text" autocomplete="given-name" required>
     </div>
     <div class="field">
       <label for="{{ fid }}-last">Last Name</label>
-      <input id="{{ fid }}-last" name="last_name" type="text" autocomplete="family-name" required>
+      <input id="{{ fid }}-last" name="{{ f_last }}" data-field="last" type="text" autocomplete="family-name" required>
     </div>
   </fieldset>
   <div class="field">
     <label for="{{ fid }}-email">Email <span class="required">(required)</span></label>
-    <input id="{{ fid }}-email" name="email" type="email" autocomplete="email" inputmode="email" required>
+    <input id="{{ fid }}-email" name="{{ f_email }}" data-field="email" type="email" autocomplete="email" inputmode="email" required>
   </div>
   <div class="field">
     <label for="{{ fid }}-message">Message <span class="required">(required)</span></label>
-    <textarea id="{{ fid }}-message" name="message" rows="5" required></textarea>
+    <textarea id="{{ fid }}-message" name="{{ f_message }}" data-field="message" rows="5" required></textarea>
   </div>
-  <p class="contact-form__trap" aria-hidden="true"><label>Leave blank <input type="text" name="_gotcha" tabindex="-1" autocomplete="off"></label></p>
+  <p class="contact-form__trap" aria-hidden="true"><label>Leave blank <input type="text" tabindex="-1" autocomplete="off"></label></p>
   <button class="button" type="submit">{{ include.submit | default: "Submit" }}</button>
-  <p class="contact-form__status" role="status" aria-live="polite" hidden>Thank you!</p>
+  <p class="contact-form__status" role="status" aria-live="polite" tabindex="-1" data-form-sent hidden>{{ form_copy.sent }}</p>
+  {%- if mode == "google" %}
+  <p class="contact-form__status contact-form__status--error" role="alert" data-form-error hidden>{{ form_copy.error }} <a href="mailto:{{ site.data.settings.email }}">{{ site.data.settings.email }}</a></p>
+  {%- endif %}
 </form>
 {%- endif -%}

@@ -684,6 +684,8 @@ main > *:nth-child(odd) + *, .site-footer {
 .contact-form .button { justify-self: start; }
 .contact-form__trap { position: absolute; left: -9999px; }
 .contact-form__status { font-weight: 600; color: var(--clay-deep); }
+.contact-form__status--error { color: #8a2a1c; }
+.contact-form .button:disabled { opacity: 0.6; cursor: progress; }
 @media (min-width: 600px) {
   .contact-form__name { grid-template-columns: 1fr 1fr; }
   .contact-form__name legend { grid-column: 1 / -1; }

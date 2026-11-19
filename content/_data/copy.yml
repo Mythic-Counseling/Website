@@ -82,6 +82,9 @@ contact:
     Whether you are new to counseling or looking to continue on a journey you’ve already started, making a meaningful connection with a new counselor can feel like a big undertaking. Share your name, email address, and a little about what brings you to counseling or what you'd like to explore, and I'll reach out soon to schedule a brief introductory phone call so we can connect, get to know one another, and talk about how I may be able to support you on whatever step of this journey you find yourself on.
   submit: "SEND"
   email_label: "Email"   # NEW
+  # Shown after the form is sent (the original site said "Thank you!").
+  sent: "Thank you! Your message has been sent, and I'll be in touch soon."   # NEW
+  error: "Sorry, your message couldn't be sent. Please email me instead:"   # NEW
 
 # Numbering style for the specialty and approach cards: roman, greek or runes.
 numerals: roman

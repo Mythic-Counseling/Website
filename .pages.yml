@@ -83,7 +83,10 @@ content:
       - name: forms
         type: object
         fields:
-          - { name: contact, label: Contact page Google Form link, type: string }
+          - name: contact
+            label: Contact page Google Form link
+            type: string
+            description: The pre-filled link with the answers FIRST, LAST, EMAIL and MESSAGE (docs/2-booking-and-forms.md, step 3).
       - name: newsletter
         label: Newsletter service (see docs/4-newsletter.md)
         type: object
@@ -277,6 +280,8 @@ content:
           - { name: body, label: Body (markdown), type: text }
           - { name: submit, label: Button, type: string }
           - { name: email_label, label: Email card label, type: string }
+          - { name: sent, label: Message after sending, type: string }
+          - { name: error, label: Message if sending fails, type: string }
       - name: numerals
         label: Card numbering
         type: select

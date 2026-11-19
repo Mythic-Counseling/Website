@@ -19,9 +19,11 @@ booking:
   acuity_url: "https://mythiccounselingofflorida.as.me/?calendarID=14740761"
   acuity_embed_url: "https://app.acuityscheduling.com/schedule.php?owner=40782217&calendarID=14740761"
 
-# Google Forms. Paste the form's link (Send → link icon, ends in /viewform).
-# While it is empty, the Contact page form opens the visitor's email app
-# addressed to `email` instead.
+# Contact form. Paste the Google Form's *pre-filled* link, made with the
+# answers FIRST, LAST, EMAIL and MESSAGE (docs/2-booking-and-forms.md, step 3):
+# the site's own form then sends each message into that Google Form, and Google
+# emails you. A plain form link embeds Google's form instead. While it is
+# empty, the form opens the visitor's email app addressed to `email`.
 forms:
   contact: ""
 
