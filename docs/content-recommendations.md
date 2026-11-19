@@ -1,6 +1,6 @@
 # Content recommendations
 
-The redesign keeps every sentence of the original site. This list covers gaps visitors will notice, and places where more writing would help readers and search engines. It is ordered by impact.
+The site keeps every sentence of the original Squarespace site. This list covers gaps visitors will notice, and places where more writing would help readers and search engines. It is ordered by impact.
 
 ## 1. Fix before launch
 
@@ -49,11 +49,13 @@ The Privacy Policy, Terms and Conditions and Disclaimers (`content/_legal/`) are
 - **Privacy notice:** what happens to contact-form and booking data, and the Google Workspace BAA.
 - **Testimonials:** most counseling ethics codes discourage soliciting testimonials from current clients, so check your code before adding any.
 
-## New copy added in the redesign
+## New copy (not on the original Squarespace site)
 
 These short labels are marked `NEW` in `content/_data/copy.yml`. Keep, rewrite or delete each one:
 
 - Camus quotation on the home page (`home.philosophy.quote`)
 - Services table headings: "Service", "Length", "Investment", "How to begin"
 - "Details" (service card link), "Read more" / "Show less" (specialties)
-- "All Services" (menu, in `content/_data/navigation.yml`) and "Email" (Contact page card)
+- "Email" (Contact page card)
+- Cookie notice and consent prompts (`cookies`), newsletter signup (`newsletter`), footer crisis line (`footer.crisis`)
+- The three legal pages in `content/_legal/` (see the checklist above)
